@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OAuth2 (server) for Mezzio and PSR-7 applications.">  
+    <link rel="canonical" href="https://docs.mezzio.dev/v1/authorization-server/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Authorization server - mezzio-authentication-oauth2 - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="mezzio">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">mezzio-authentication-oauth2</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../usage/" class="subnavigation__link">Usage</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item subnavigation__list-item--active">
+                                <a href="./" class="subnavigation__link">Authorization server</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../authenticated-user/" class="subnavigation__link">Authenticated user</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Grant</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../grant/client_credentials/" class="subnavigation__link">Client credentials</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../grant/password/" class="subnavigation__link">Password</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../grant/auth_code/" class="subnavigation__link">Authorization code</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../grant/implicit/" class="subnavigation__link">Implicit</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../grant/refresh_token/" class="subnavigation__link">Refresh token</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Mezzio
+
+                    
+                        <small class="header__subtitle">mezzio-authentication-oauth2</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/mezzio/mezzio-authentication-oauth2/" class="header__link header__link--github" title="Go to repository of mezzio-authentication-oauth2">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#add-the-token-endpoint" class="toc__link">Add the token endpoint</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#add-the-authorization-endpoint" class="toc__link">Add the authorization endpoint</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">mezzio-authentication-oauth2</a></li>
+
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Authorization server</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+
+    <h1 id="implement-an-authorization-server">Implement an authorization server</h1>
+<p>This library provides the basics for implementing an authorization server
+for your application.</p>
+<p>Since there are authorization flows that require user interaction,
+<strong>your application is expected to provide the middleware to handle this</strong>.</p>
+<h2 id="add-the-token-endpoint">Add the token endpoint</h2>
+<p>Adding the token endpoint involves routing to the provided
+<code>Mezzio\Authentication\OAuth2\TokenEndpointHandler</code>.</p>
+<p>This endpoint <strong>MUST</strong> accept <code>POST</code> requests.</p>
+<p>For example:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Mezzio\Authentication\OAuth2;</span>
+
+<span class=x>$app-&gt;post(&#39;/oauth2/token&#39;, OAuth2\TokenEndpointHandler::class);</span>
+</pre></div></p>
+<h2 id="add-the-authorization-endpoint">Add the authorization endpoint</h2>
+<p>The authorization endpoint is the URL to which the client redirects
+to obtain an access token or authorization code.</p>
+<p>This endpoint <strong>MUST</strong> accept <code>GET</code> requests and should:</p>
+<ul>
+<li>
+<p>Validate the request (especially for a valid client id and redirect url).</p>
+</li>
+<li>
+<p>Make sure the user is authenticated (for example, by showing a login
+  prompt if needed).</p>
+</li>
+<li>
+<p>Optionally, request the user's consent to grant access to the client.</p>
+</li>
+<li>
+<p>Redirect to a specified url of the client with success or error information.</p>
+</li>
+</ul>
+<p>The first and the last items are provided by this library.</p>
+<p>For example, to add the authorization endpoint, you can declare a middleware
+pipeline for the route as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Mezzio\Authentication\OAuth2;</span>
+<span class=x>use Mezzio\Session\SessionMiddleware;</span>
+
+<span class=x>$app-&gt;route(&#39;/oauth2/authorize&#39;, [</span>
+<span class=x>    SessionMiddleware::class,</span>
+
+<span class=x>    OAuth2\AuthorizationMiddleware::class,</span>
+
+<span class=x>    // The following middleware is provided by your application (see below):</span>
+<span class=x>    App\OAuthAuthorizationMiddleware::class,</span>
+
+<span class=x>    OAuth2\AuthorizationHandler::class</span>
+<span class=x>], [&#39;GET&#39;, &#39;POST&#39;]);</span>
+</pre></div></p>
+<p>In your <code>App\OAuthAuthorizationMiddleware</code>, you'll have access to the
+<code>League\OAuth2\Server\RequestTypes\AuthorizationRequest</code> via the PSR-7 request.
+Your middleware should populate the <code>AuthorizationRequest</code>'s user entity via its
+<code>setUser()</code> method, and the user's consent decision via the
+<code>setAuthorizationApproved()</code>method.</p>
+<p>As an example:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>namespace App;</span>
+
+<span class=x>use Psr\Http\Server\MiddlewareInterface;</span>
+<span class=x>use Psr\Http\Message\ServerRequestInterface;</span>
+<span class=x>use Psr\Http\Server\RequestHandlerInterface;</span>
+<span class=x>use Psr\Http\Message\ResponseInterface;</span>
+<span class=x>use League\OAuth2\Server\RequestTypes\AuthorizationRequest;</span>
+<span class=x>use Mezzio\Authentication\UserInterface;</span>
+
+<span class=x>class OAuthAuthorizationMiddleware implements MiddlewareInterface</span>
+<span class=x>{</span>
+<span class=x>    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface</span>
+<span class=x>    {</span>
+<span class=x>        // Assume a middleware handled the authentication check and</span>
+<span class=x>        // populates the user object, which also implements the</span>
+<span class=x>        // OAuth2 UserEntityInterface</span>
+<span class=x>        $user = $request-&gt;getAttribute(UserInterface::class);</span>
+
+<span class=x>        // Assume the SessionMiddleware handles and populates a session</span>
+<span class=x>        // container</span>
+<span class=x>        $session = $request-&gt;getAttribute(&#39;session&#39;);</span>
+
+<span class=x>        // This is populated by the previous middleware:</span>
+<span class=x>        /** @var AuthorizationRequest $authRequest */</span>
+<span class=x>        $authRequest = $request-&gt;getAttribute(AuthorizationRequest::class);</span>
+
+<span class=x>        // The user is authenticated:</span>
+<span class=x>        if ($user) {</span>
+<span class=x>            $authRequest-&gt;setUser($user);</span>
+
+<span class=x>            // This assumes all clients are trusted, but you could</span>
+<span class=x>            // handle consent here, or within the next middleware</span>
+<span class=x>            // as needed.</span>
+<span class=x>            $authRequest-&gt;setAuthorizationApproved(true);</span>
+
+<span class=x>            return $handler-&gt;handle($request);</span>
+<span class=x>        }</span>
+
+<span class=x>        // The user is not authenticated, show login form ...</span>
+
+<span class=x>        // Store the auth request state</span>
+<span class=x>        // NOTE: Do not attempt to serialize or store the authorization</span>
+<span class=x>        // request object. Store the query parameters instead and redirect</span>
+<span class=x>        // with these to this endpoint again to replay the request.</span>
+<span class=x>        $session[&#39;oauth2_request_params&#39;] = $request-&gt;getQueryParams();</span>
+
+<span class=x>        return new RedirectResponse(&#39;/oauth2/login&#39;);</span>
+<span class=x>    }</span>
+<span class=x>}</span>
+</pre></div></p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../usage/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../authenticated-user/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/mezzio/mezzio-authentication-oauth2/edit/master/docs/book/v1/authorization-server.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">mezzio-authentication-oauth2</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../usage/" class="subnavigation__link">Usage</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item subnavigation__list-item--active">
+                                <a href="./" class="subnavigation__link">Authorization server</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../authenticated-user/" class="subnavigation__link">Authenticated user</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Grant</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../grant/client_credentials/" class="subnavigation__link">Client credentials</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../grant/password/" class="subnavigation__link">Password</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../grant/auth_code/" class="subnavigation__link">Authorization code</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../grant/implicit/" class="subnavigation__link">Implicit</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../grant/refresh_token/" class="subnavigation__link">Refresh token</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/mezzio/mezzio-authentication-oauth2//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/mezzio/mezzio-authentication-oauth2//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "mezzio",
+            siteName = 'mezzio-authentication-oauth2';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in mezzio-authentication-oauth2" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
