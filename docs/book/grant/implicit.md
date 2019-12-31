@@ -1,6 +1,6 @@
-<noscript><meta http-equiv="refresh" content="0; url=/zend-expressive-authentication-oauth2/v1/grant/implicit/"></noscript>
+<noscript><meta http-equiv="refresh" content="0; url=/mezzio-authentication-oauth2/v1/grant/implicit/"></noscript>
 <script>
   document.addEventListener("DOMContentLoaded", function (event) {
-    window.location.pathname = '/zend-expressive-authentication-oauth2/v1/grant/implicit/';
+    window.location.pathname = '/mezzio-authentication-oauth2/v1/grant/implicit/';
   });
 </script>
