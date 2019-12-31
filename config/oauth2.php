@@ -1,4 +1,5 @@
 <?php
+
 /**
  * To generate a private key run this command:
  * openssl genrsa -out private.key 1024

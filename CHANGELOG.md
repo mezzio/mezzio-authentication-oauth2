@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#1](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/1)
+- [zendframework/zend-expressive-authentication-oauth2#1](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/1)
   adds support for providing configuration for the cryptographic key. This may
   be done by providing any of the following via the `authentication.private_key`
   configuration:
@@ -38,7 +38,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Adds support for zend-expressive-authentication 0.2.0.
+- Adds support for mezzio-authentication 0.2.0.
 
 ### Changed
 
@@ -50,7 +50,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Removes support for zend-expressive-authentication 0.1.0.
+- Removes support for mezzio-authentication 0.1.0.
 
 ### Fixed
 
