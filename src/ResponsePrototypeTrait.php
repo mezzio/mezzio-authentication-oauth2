@@ -1,18 +1,18 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-expressive-authentication for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive-authentication-oauth2/blob/master/LICENSE.md
- *     New BSD License
+ * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
 
-namespace Zend\Expressive\Authentication\OAuth2;
+namespace Mezzio\Authentication\OAuth2;
 
+use Laminas\Diactoros\Response;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
-use Zend\Diactoros\Response;
 
 trait ResponsePrototypeTrait
 {
@@ -24,7 +24,7 @@ trait ResponsePrototypeTrait
         ) {
             throw new Exception\InvalidConfigException(sprintf(
                 'Cannot create %s service; dependency %s is missing. Either define the service, '
-                . 'or install zendframework/zend-diactoros',
+                . 'or install laminas/laminas-diactoros',
                 OAuth2Middleware::class,
                 ResponseInterface::class
             ));
