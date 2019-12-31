@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#18](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/18)
+- [zendframework/zend-expressive-authentication-oauth2#18](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/18)
   updates the default SQL shipped with the package in `data/oauth2.sql` for
   generating OAuth2 tables to ensure it works with MySQL 5.7+; the SQL will
   still work with older versions, as well as other relational databases.
@@ -35,16 +35,16 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- [#17](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/17)
-  changes the constructor of each of the `Zend\Expressive\Authentication\OAuth2\OAuth2Adapter`
-  and `Zend\Expressive\Authentication\OAuth2\OAuth2Middleware` classes to accept
+- [zendframework/zend-expressive-authentication-oauth2#17](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/17)
+  changes the constructor of each of the `Mezzio\Authentication\OAuth2\OAuth2Adapter`
+  and `Mezzio\Authentication\OAuth2\OAuth2Middleware` classes to accept
   a callable `$responseFactory` instead of a `Psr\Http\Message\ResponseInterface` 
   response prototype. The `$responseFactory` should produce a
   `ResponseInterface` implementation when invoked.
 
-- [#17](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/17)
+- [zendframework/zend-expressive-authentication-oauth2#17](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/17)
   updates the `OAuth2AdapterFactory` and `OAuth2MiddlewareFactory` classes to no
-  longer use `Zend\Expressive\Authentication\ResponsePrototypeTrait`, and
+  longer use `Mezzio\Authentication\ResponsePrototypeTrait`, and
   instead always depend on the `Psr\Http\Message\ResponseInterface` service to
   correctly return a PHP callable capable of producing a `ResponseInterface`
   instance.
@@ -65,36 +65,36 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
-  adds `Zend\Expressive\Authentication\OAuth2\Entity\RevokableTrait`, which
+- [zendframework/zend-expressive-authentication-oauth2#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
+  adds `Mezzio\Authentication\OAuth2\Entity\RevokableTrait`, which
   provides a way to flag whether or not a token has been revoked, and mimics
   traits from the upstream league/oauth2-server implementation.
 
-- [#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
-  adds `Zend\Expressive\Authentication\OAuth2\Entity\TimestampableTrait`, which
+- [zendframework/zend-expressive-authentication-oauth2#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
+  adds `Mezzio\Authentication\OAuth2\Entity\TimestampableTrait`, which
   provides methods for setting and retrieving `DateTime` values representing
   creation and update timestamps for a token; it mimics traits from the upstream
   league/oauth2-server implementation.
 
 ### Changed
 
-- [#15](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/15)
-  updates the repository to pin to zend-expressive-authentication `^1.0.0alpha3`.
+- [zendframework/zend-expressive-authentication-oauth2#15](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/15)
+  updates the repository to pin to mezzio-authentication `^1.0.0alpha3`.
 
-- [#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
-  updates `Zend\Expressive\Authentication\OAuth2\Entity\AccessTokenEntity` to
+- [zendframework/zend-expressive-authentication-oauth2#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
+  updates `Mezzio\Authentication\OAuth2\Entity\AccessTokenEntity` to
   use the `RevokableTrait` and `TimestampableTrait`.
 
-- [#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
-  updates `Zend\Expressive\Authentication\OAuth2\Entity\AuthCodeEntity` to
+- [zendframework/zend-expressive-authentication-oauth2#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
+  updates `Mezzio\Authentication\OAuth2\Entity\AuthCodeEntity` to
   use the `RevokableTrait`.
 
-- [#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
-  updates `Zend\Expressive\Authentication\OAuth2\Entity\RefreshTokenEntity` to
+- [zendframework/zend-expressive-authentication-oauth2#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
+  updates `Mezzio\Authentication\OAuth2\Entity\RefreshTokenEntity` to
   use the `RevokableTrait`.
 
-- [#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
-  updates `Zend\Expressive\Authentication\OAuth2\Entity\ClientEntity` to
+- [zendframework/zend-expressive-authentication-oauth2#13](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/13)
+  updates `Mezzio\Authentication\OAuth2\Entity\ClientEntity` to
   use the `RevokableTrait` and `TimestampableTrait`. It also adds methods for
   setting and retrieving the client secret, personal access client, and password
   client.
@@ -115,7 +115,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#9](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/9)
+- [zendframework/zend-expressive-authentication-oauth2#9](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/9)
   adds support for PSR-15.
 
 ### Changed
@@ -128,8 +128,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- [#9](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/9) and
-  [#5](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/5)
+- [zendframework/zend-expressive-authentication-oauth2#9](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/9) and
+  [zendframework/zend-expressive-authentication-oauth2#5](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/5)
   remove support for http-interop/http-middleware and
   http-interop/http-server-middleware.
 
@@ -157,7 +157,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#18](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/18)
+- [zendframework/zend-expressive-authentication-oauth2#18](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/18)
   updates the default SQL shipped with the package in `data/oauth2.sql` for
   generating OAuth2 tables to ensure it works with MySQL 5.7+; the SQL will
   still work with older versions, as well as other relational databases.
@@ -166,8 +166,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#11](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/11)
-  adds support for zend-expressive-authentication 0.3.0.
+- [zendframework/zend-expressive-authentication-oauth2#11](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/11)
+  adds support for mezzio-authentication 0.3.0.
 
 ### Changed
 
@@ -189,7 +189,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#1](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/1)
+- [zendframework/zend-expressive-authentication-oauth2#1](https://github.com/zendframework/zend-expressive-authentication-oauth2/pull/1)
   adds support for providing configuration for the cryptographic key. This may
   be done by providing any of the following via the `authentication.private_key`
   configuration:
@@ -221,7 +221,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Adds support for zend-expressive-authentication 0.2.0.
+- Adds support for mezzio-authentication 0.2.0.
 
 ### Changed
 
@@ -233,7 +233,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Removes support for zend-expressive-authentication 0.1.0.
+- Removes support for mezzio-authentication 0.1.0.
 
 ### Fixed
 
