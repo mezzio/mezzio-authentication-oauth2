@@ -1,16 +1,19 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-expressive-authentication-oauth2 for the canonical source repository
- * @copyright Copyright (c) 2017-2019 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive-authentication-oauth2/blob/master/LICENSE.md
- *     New BSD License
+ * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
 
-namespace ZendTest\Expressive\Authentication\OAuth2\Pdo;
+namespace MezzioTest\Authentication\OAuth2\Pdo;
 
 use DateInterval;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\Stream;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\CodeChallengeVerifiers\S256Verifier;
 use League\OAuth2\Server\Grant\AuthCodeGrant;
@@ -19,26 +22,24 @@ use League\OAuth2\Server\Grant\ImplicitGrant;
 use League\OAuth2\Server\Grant\PasswordGrant;
 use League\OAuth2\Server\Grant\RefreshTokenGrant;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use Mezzio\Authentication\OAuth2\AuthorizationHandler;
+use Mezzio\Authentication\OAuth2\AuthorizationMiddleware;
+use Mezzio\Authentication\OAuth2\Entity\UserEntity;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\AccessTokenRepository;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\ClientRepository;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\ScopeRepository;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\UserRepository;
+use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use PDO;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\Stream;
-use Zend\Expressive\Authentication\OAuth2\AuthorizationHandler;
-use Zend\Expressive\Authentication\OAuth2\AuthorizationMiddleware;
-use Zend\Expressive\Authentication\OAuth2\Entity\UserEntity;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AccessTokenRepository;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ClientRepository;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\PdoService;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ScopeRepository;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\UserRepository;
-use Zend\Expressive\Authentication\OAuth2\TokenEndpointHandler;
+
 use function assert;
 use function bin2hex;
 use function explode;
@@ -63,7 +64,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
     const DB_SCHEMA      = __DIR__ . '/../../data/oauth2.sql';
     const DB_DATA        = __DIR__ . '/TestAsset/test_data.sql';
     const PRIVATE_KEY    = __DIR__ .'/../TestAsset/private.key';
-    const ENCRYPTION_KEY = 'T2x2+1OGrEzfS+01OUmwhOcJiGmE58UD1fllNn6CGcQ=';
+    const ENCRYPTION_KEY = 'T2x2+1OGrElaminasS+01OUmwhOcJiGmE58UD1fllNn6CGcQ=';
 
     const CODE_VERIFIER = 'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk';
 

@@ -15,16 +15,16 @@ You can require an access token using one of the following scenarios:
 
 ## Authenticate a middleware
 
-This library uses the authentication abstraction of the `Zend\Expressive\Authentication\AuthenticationMiddleware`
-class provided by [zend-expressive-authentication](https://github.com/zendframework/zend-expressive-authentication).
+This library uses the authentication abstraction of the `Mezzio\Authentication\AuthenticationMiddleware`
+class provided by [mezzio-authentication](https://github.com/mezzio/mezzio-authentication).
 
 In order to use OAuth2, we need to configure the service
-`Zend\Expressive\Authentication\AuthenticationInterface` to resolve to
-`Zend\Expressive\Authentication\OAuth2\OAuth2Adapter`. This can be achieved
+`Mezzio\Authentication\AuthenticationInterface` to resolve to
+`Mezzio\Authentication\OAuth2\OAuth2Adapter`. This can be achieved
 using the following configuration:
 
 ```php
-use Zend\Expressive\Authentication;
+use Mezzio\Authentication;
 
 return [
     'dependencies' => [
@@ -35,21 +35,21 @@ return [
 ];
 ```
 
-The previous configuration will instruct `zend-expressive-authentication` to use
+The previous configuration will instruct `mezzio-authentication` to use
 the OAuth2 adapter provided in this package. (Unlike other adapters, this
-adapter does not require a `Zend\Expressive\Authentication\UserRepositoryInterface`;
+adapter does not require a `Mezzio\Authentication\UserRepositoryInterface`;
 the OAuth2 database with user and client credentials is managed by the component
 itself.)
 
 When the service alias is configured, you can immediately begin authenticating
 your application/API by adding the `AuthenticationMiddleware` to either your
 application or route-specific middleware pipeline. For instance, using an
-[Expressive](https://docs.zendframework.com/zend-expressive/) application, you
+[Mezzio](https://docs.mezzio.dev/mezzio/) application, you
 could add it to a specific route, as follows:
 
 ```php
 $app->post('/api/users', [
-    Zend\Expressive\Authentication\AuthenticationMiddleware::class,
+    Mezzio\Authentication\AuthenticationMiddleware::class,
     App\Action\AddUserAction::class,
 ], 'api.add.user');
 ```
