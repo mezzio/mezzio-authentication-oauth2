@@ -1,18 +1,18 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-expressive-authentication-oauth2 for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive-authentication-oauth2/blob/master/LICENSE.md
- *     New BSD License
+ * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Expressive\Authentication\OAuth2;
+namespace Mezzio\Authentication\OAuth2;
 
+use Laminas\Diactoros\Response;
 use League\OAuth2\Server\AuthorizationServer;
+use Mezzio\Authentication\ResponsePrototypeTrait;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
-use Zend\Diactoros\Response;
-use Zend\Expressive\Authentication\ResponsePrototypeTrait;
 
 class OAuth2MiddlewareFactory
 {
