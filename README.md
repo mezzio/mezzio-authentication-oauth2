@@ -1,9 +1,9 @@
-# OAuth2 server middleware for Expressive and PSR-7 applications
+# OAuth2 server middleware for Mezzio and PSR-7 applications
 
-[![Build Status](https://secure.travis-ci.org/zendframework/zend-expressive-authorization.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-expressive-authorization)
-[![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-expressive-authorization/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-expressive-authorization?branch=master)
+[![Build Status](https://travis-ci.org/mezzio/mezzio-authorization.svg?branch=master)](https://travis-ci.org/mezzio/mezzio-authorization)
+[![Coverage Status](https://coveralls.io/repos/github/mezzio/mezzio-authorization/badge.svg?branch=master)](https://coveralls.io/github/mezzio/mezzio-authorization?branch=master)
 
-Zend-expressive-authentication-oauth2 is middleware for [Expressive](https://github.com/zendframework/zend-expressive)
+Laminas-mezzio-authentication-oauth2 is middleware for [Mezzio](https://github.com/mezzio/mezzio)
 and [PSR-7](http://www.php-fig.org/psr/psr-7/) applications providing an OAuth2
 server for authentication.
 
@@ -20,8 +20,8 @@ types:
 ## WORK IN PROGRESS
 
 This repository contains a **work in progress** project for building an
-authentication module for Expressive and PSR-7 applications.
-It also provides an OAuth2 adapter for [zend-expressive-authentication](https://github.com/zendframework/zend-expressive-authentication)
+authentication module for Mezzio and PSR-7 applications.
+It also provides an OAuth2 adapter for [mezzio-authentication](https://github.com/mezzio/mezzio-authentication)
 library.
 
 
@@ -29,19 +29,19 @@ library.
 
 ## Installation
 
-You can install the *zend-expressive-authentication-oauth2* library with
+You can install the *mezzio-authentication-oauth2* library with
 composer:
 
 ```bash
-$ composer require zendframework/zend-expressive-authentication-oauth2
+$ composer require mezzio/mezzio-authentication-oauth2
 ```
 
 ## Documentation
 
-Documentation is [in the doc tree](doc/book/), and can be compiled using [mkdocs](http://www.mkdocs.org):
+Documentation is [in the doc tree](doc/book/), and can be compiled using [mkdocs](https://www.mkdocs.org):
 
 ```bash
 $ mkdocs build
 ```
 
-You may also [browse the documentation online](https://docs.zendframework.com/zend-expressive-authentication-oauth2/).
+You may also [browse the documentation online](https://docs.mezzio.dev/mezzio-authentication-oauth2/).

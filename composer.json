@@ -1,54 +1,53 @@
 {
-    "name": "zendframework/zend-expressive-authentication-oauth2",
-    "description": "OAuth2 (server) authentication middleware for Expressive and PSR-7 applications.",
-    "homepage": "https://docs.zendframework.com/zend-expressive-authentication-oauth2/",
-    "type": "library",
+    "name": "mezzio/mezzio-authentication-oauth2",
+    "description": "OAuth2 (server) authentication middleware for Mezzio and PSR-7 applications.",
     "license": "BSD-3-Clause",
     "keywords": [
+        "laminas",
+        "mezzio",
         "authentication",
-        "expressive",
         "http",
         "middleware",
         "oauth2",
-        "psr-7",
-        "zendframework",
-        "zf"
+        "psr-7"
     ],
+    "homepage": "https://mezzio.dev",
+    "support": {
+        "docs": "https://docs.mezzio.dev/mezzio-authentication-oauth2/",
+        "issues": "https://github.com/mezzio/mezzio-authentication-oauth2/issues",
+        "source": "https://github.com/mezzio/mezzio-authentication-oauth2",
+        "rss": "https://github.com/mezzio/mezzio-authentication-oauth2/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
+    },
     "config": {
         "sort-packages": true
-    },
-    "support": {
-        "docs": "https://docs.zendframework.com/zend-expressive-authentication-oauth2/",
-        "issues": "https://github.com/zendframework/zend-expressive-authentication-oauth2/issues",
-        "source": "https://github.com/zendframework/zend-expressive-authentication-oauth2",
-        "slack": "https://zendframework-slack.herokuapp.com",
-        "forum": "https://discourse.zendframework.com/c/questions/expressive"
     },
     "require": {
         "php": "^7.1",
         "http-interop/http-middleware": "^0.4.1",
+        "laminas/laminas-zendframework-bridge": "^1.0",
         "league/oauth2-server": "^6.0",
+        "mezzio/mezzio-authentication": "^0.1 || ^1.0",
         "psr/container": "^1.0",
-        "psr/http-message": "^1.0.1",
-        "zendframework/zend-expressive-authentication": "^0.1 || ^1.0"
+        "psr/http-message": "^1.0.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.0.8",
-        "roave/security-advisories": "dev-master",
-        "zendframework/zend-coding-standard": "~1.0.0",
-        "zendframework/zend-diactoros": "^1.4.0"
+        "laminas/laminas-coding-standard": "~1.0.0",
+        "laminas/laminas-diactoros": "^1.4.0",
+        "phpunit/phpunit": "^6.0.8"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2.0"
     },
     "autoload": {
         "psr-4": {
-            "Zend\\Expressive\\Authentication\\OAuth2\\": "src/"
+            "Mezzio\\Authentication\\OAuth2\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ZendTest\\Expressive\\Authentication\\OAuth2\\": "test/"
+            "MezzioTest\\Authentication\\OAuth2\\": "test/"
         }
     },
     "scripts": {
@@ -63,5 +62,8 @@
         "test-coverage": "phpunit --coverage-clover clover.xml",
         "license-check": "vendor/bin/docheader check src/ test/",
         "generate-keys": "php bin/generate-keys.php"
+    },
+    "replace": {
+        "zendframework/zend-expressive-authentication-oauth2": "self.version"
     }
 }

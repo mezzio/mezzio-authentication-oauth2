@@ -1,16 +1,13 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-expressive-authentication-oauth2 for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive-authentication-oauth2/blob/master/LICENSE.md
- *     New BSD License
+ * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Expressive\Authentication\OAuth2;
+namespace MezzioTest\Authentication\OAuth2;
 
-use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
@@ -18,7 +15,10 @@ use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
-use Zend\Expressive\Authentication\OAuth2\AuthorizationServerFactory;
+use Mezzio\Authentication\OAuth2\AuthorizationServerFactory;
+use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class AuthorizationServerFactoryTest extends TestCase
 {
@@ -51,7 +51,7 @@ class AuthorizationServerFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException Zend\Expressive\Authentication\OAuth2\Exception\InvalidConfigException
+     * @expectedException Mezzio\Authentication\OAuth2\Exception\InvalidConfigException
      */
     public function testInvokeWithEmptyContainer()
     {
@@ -73,7 +73,7 @@ class AuthorizationServerFactoryTest extends TestCase
 
     /**
      * @dataProvider getRepositorySlices
-     * @expectedException Zend\Expressive\Authentication\OAuth2\Exception\InvalidConfigException
+     * @expectedException Mezzio\Authentication\OAuth2\Exception\InvalidConfigException
      */
     public function testInvokeWithMissingRepository($repos)
     {
@@ -104,7 +104,7 @@ class AuthorizationServerFactoryTest extends TestCase
 
     /**
      * @dataProvider getConfigKeys
-     * @expectedException Zend\Expressive\Authentication\OAuth2\Exception\InvalidConfigException
+     * @expectedException Mezzio\Authentication\OAuth2\Exception\InvalidConfigException
      */
     public function testInvokeWithMissingConfig($key)
     {

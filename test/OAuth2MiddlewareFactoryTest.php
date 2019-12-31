@@ -1,23 +1,23 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-expressive-authentication-oauth2 for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive-authentication-oauth2/blob/master/LICENSE.md
- *     New BSD License
+ * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Expressive\Authentication\OAuth2;
+namespace MezzioTest\Authentication\OAuth2;
 
+use League\OAuth2\Server\AuthorizationServer;
+use Mezzio\Authentication\OAuth2\Exception\InvalidConfigException;
+use Mezzio\Authentication\OAuth2\OAuth2Middleware;
+use Mezzio\Authentication\OAuth2\OAuth2MiddlewareFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
-use League\OAuth2\Server\AuthorizationServer;
-use Zend\Expressive\Authentication\OAuth2\OAuth2Middleware;
-use Zend\Expressive\Authentication\OAuth2\OAuth2MiddlewareFactory;
-use Zend\Expressive\Authentication\OAuth2\Exception\InvalidConfigException;
 
 /**
- * @covers Zend\Expressive\Authentication\OAuth2\OAuth2MiddlewareFactory
+ * @covers Mezzio\Authentication\OAuth2\OAuth2MiddlewareFactory
  */
 class OAuth2MiddlewareFactoryTest extends TestCase
 {
@@ -43,7 +43,7 @@ class OAuth2MiddlewareFactoryTest extends TestCase
     }
 
     /**
-     * @covers Zend\Expressive\Authentication\OAuth2\ResponsePrototypeTrait::getResponsePrototype
+     * @covers Mezzio\Authentication\OAuth2\ResponsePrototypeTrait::getResponsePrototype
      */
     public function testInvokeWithAuthServerWithoutResponseInterface()
     {
@@ -63,7 +63,7 @@ class OAuth2MiddlewareFactoryTest extends TestCase
     }
 
     /**
-     * @covers Zend\Expressive\Authentication\OAuth2\ResponsePrototypeTrait::getResponsePrototype
+     * @covers Mezzio\Authentication\OAuth2\ResponsePrototypeTrait::getResponsePrototype
      */
     public function testInvokeWithAuthServerWithResponseInterface()
     {
