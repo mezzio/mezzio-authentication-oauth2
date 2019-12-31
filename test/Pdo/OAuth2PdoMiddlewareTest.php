@@ -1,34 +1,34 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-expressive-authentication-oauth2 for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive-authentication-oauth2/blob/master/LICENSE.md
- *     New BSD License
+ * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Expressive\Authentication\OAuth2\Pdo;
+namespace MezzioTest\Authentication\OAuth2\Pdo;
 
 use DateInterval;
 use Interop\Http\ServerMiddleware\DelegateInterface;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\Stream;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Grant\AuthCodeGrant;
 use League\OAuth2\Server\Grant\ClientCredentialsGrant;
 use League\OAuth2\Server\Grant\ImplicitGrant;
 use League\OAuth2\Server\Grant\PasswordGrant;
 use League\OAuth2\Server\Grant\RefreshTokenGrant;
+use Mezzio\Authentication\OAuth2\OAuth2Middleware;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\AccessTokenRepository;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\ClientRepository;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\ScopeRepository;
+use Mezzio\Authentication\OAuth2\Repository\Pdo\UserRepository;
 use PDO;
 use PHPUnit\Framework\TestCase;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\Stream;
-use Zend\Expressive\Authentication\OAuth2\OAuth2Middleware;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AccessTokenRepository;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ClientRepository;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\PdoService;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ScopeRepository;
-use Zend\Expressive\Authentication\OAuth2\Repository\Pdo\UserRepository;
 
 class OAuth2PdoMiddlewareTest extends TestCase
 {
@@ -36,7 +36,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
     const DB_SCHEMA      = __DIR__ . '/../../data/oauth2.sql';
     const DB_DATA        = __DIR__ . '/TestAsset/test_data.sql';
     const PRIVATE_KEY    = __DIR__ .'/../TestAsset/private.key';
-    const ENCRYPTION_KEY = 'T2x2+1OGrEzfS+01OUmwhOcJiGmE58UD1fllNn6CGcQ=';
+    const ENCRYPTION_KEY = 'T2x2+1OGrElaminasS+01OUmwhOcJiGmE58UD1fllNn6CGcQ=';
 
     public static function setUpBeforeClass()
     {
@@ -372,7 +372,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
      * @param sting $url
      * @param array $params
      * @param array $headers
-     * @return Zend\Diactoros\ServerRequest
+     * @return Laminas\Diactoros\ServerRequest
      */
     protected function buildServerRequest($method, $url, $body, $params, $headers = [], $queryParams = [])
     {
