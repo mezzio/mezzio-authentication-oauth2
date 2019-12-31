@@ -9,14 +9,14 @@ Since there are authorization flows that require user interaction,
 ## Add the token endpoint
 
 Adding the token endpoint involves routing to the provided
-`Zend\Expressive\Authentication\OAuth2\TokenEndpointHandler`.
+`Mezzio\Authentication\OAuth2\TokenEndpointHandler`.
 
 This endpoint **MUST** accept `POST` requests.
 
 For example:
 
 ```php
-use Zend\Expressive\Authentication\OAuth2;
+use Mezzio\Authentication\OAuth2;
 
 $app->post('/oauth2/token', OAuth2\TokenEndpointHandler::class);
 ```
@@ -43,8 +43,8 @@ For example, to add the authorization endpoint, you can declare a middleware
 pipeline for the route as follows:
 
 ```php
-use Zend\Expressive\Authentication\OAuth2;
-use Zend\Expressive\Session\SessionMiddleware;
+use Mezzio\Authentication\OAuth2;
+use Mezzio\Session\SessionMiddleware;
 
 $app->route('/oauth2/authorize', [
     SessionMiddleware::class,
@@ -74,7 +74,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
-use Zend\Expressive\Authentication\UserInterface;
+use Mezzio\Authentication\UserInterface;
 
 class OAuthAuthorizationMiddleware implements MiddlewareInterface
 {
