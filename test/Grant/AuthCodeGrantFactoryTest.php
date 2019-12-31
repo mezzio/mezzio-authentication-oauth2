@@ -1,21 +1,21 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-expressive-authentication-oauth2 for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive-authentication-oauth2/blob/master/LICENSE.md
- *     New BSD License
+ * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
 
-namespace ZendTest\Expressive\Authentication\OAuth2\Grant;
+namespace MezzioTest\Authentication\OAuth2\Grant;
 
 use League\OAuth2\Server\Grant\AuthCodeGrant;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
+use Mezzio\Authentication\OAuth2\Grant\AuthCodeGrantFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Authentication\OAuth2\Grant\AuthCodeGrantFactory;
 
 class AuthCodeGrantFactoryTest extends TestCase
 {
