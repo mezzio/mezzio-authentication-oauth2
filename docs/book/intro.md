@@ -1,18 +1,18 @@
-# zendframework/zend-expressive-authentication-oauth2
+# mezzio/mezzio-authentication-oauth2
 
 This component provides [OAuth2](https://oauth.net/2/) (server) authentication
-for [Expressive](https://docs.zendframework.com/zend-expressive/) and
+for [Mezzio](https://docs.mezzio.dev/mezzio/) and
 [PSR-7](https://www.php-fig.org/psr/psr-7/) applications. It implements
-`Zend\Expressive\Authentication\AuthenticationInterface`, and it be used as
-an adapter for [zend-expressive-authentication](https://github.com/zendframework/zend-expressive-authentication).
+`Mezzio\Authentication\AuthenticationInterface`, and it be used as
+an adapter for [mezzio-authentication](https://github.com/mezzio/mezzio-authentication).
 
 This library uses the [league/oauth2-server](https://oauth2.thephpleague.com/)
 package for implementing the OAuth2 server.
 
 If you need an introduction to OAuth2, you can read the following references:
 
-- [OAuth2 documentation](https://apigility.org/documentation/auth/authentication-oauth2)
-  from the Apigility project.
+- [OAuth2 documentation](https://api-tools.getlaminas.org/documentation/auth/authentication-oauth2)
+  from the Laminas API Tools project.
 - [An Introduction to OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2)
   by Digital Ocean.
 - The [OAuth2 specification](https://oauth.net/2/) itself, via its official
@@ -46,7 +46,7 @@ as security settings for the OAuth2 server infrastructure.
 ## Configuration
 
 The OAuth2 server is configured by the `authentication` configuration key in the
-PSR-11 container (e.g. [zend-servicemanager](https://github.com/zendframework/zend-servicemanager)).
+PSR-11 container (e.g. [laminas-servicemanager](https://github.com/laminas/laminas-servicemanager)).
 
 The default values are:
 
@@ -84,7 +84,7 @@ scenario. The default value is 10 minutes.
 The last parameter is the PDO database configuration. Here we need to insert
 the parameters to access the OAuth2 database. These parameters are the `dsn`,
 the `username`, and the `password`, if required. The SQL structure of this
-database is stored in the [data/oauth2.sql](https://github.com/zendframework/zend-expressive-authentication-oauth2/blob/master/data/oauth2.sql)
+database is stored in the [data/oauth2.sql](https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/data/oauth2.sql)
 file.
 
 You need to provide an OAuth2 database yourself, or generate a [SQLite](https://www.sqlite.org)
@@ -116,15 +116,15 @@ function of PHP.
 ## Configure the OAuth2 route
 
 As last step, in order to use the OAuth2 server you need to configure a route
-to point to `Zend\Expressive\Authentication\OAuth2\OAuth2Middleware` with
+to point to `Mezzio\Authentication\OAuth2\OAuth2Middleware` with
 GET and POST HTTP verbs.
 
-For instance, you can add the following route to your Expressive application:
+For instance, you can add the following route to your Mezzio application:
 
 ```php
 $app->route(
     '/oauth',
-    Zend\Expressive\Authentication\OAuth2\OAuth2Middleware::class,
+    Mezzio\Authentication\OAuth2\OAuth2Middleware::class,
     ['GET', 'POST'],
     'oauth'
 );
