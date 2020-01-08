@@ -6,10 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="OAuth2 (server) for Mezzio and PSR-7 applications.">  
-    <link rel="canonical" href="https://docs.mezzio.dev/v1/grant/password/">
     <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
 
-    <title>Password - mezzio-authentication-oauth2 - Laminas Docs</title>
+    <title>mezzio-authentication-oauth2 - Laminas Docs</title>
 
     <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -20,7 +19,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -59,7 +58,7 @@
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="../../..">mezzio-authentication-oauth2</a>
+            <a href="../.">mezzio-authentication-oauth2</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -74,7 +73,7 @@
                     
                         
                             <li class="subnavigation__list-item ">
-                                <a href="../../intro/" class="subnavigation__link">Introduction</a>
+                                <a href="../v1/intro/" class="subnavigation__link">Introduction</a>
                             </li>
                         
                     
@@ -88,7 +87,7 @@
                     
                         
                             <li class="subnavigation__list-item ">
-                                <a href="../../usage/" class="subnavigation__link">Usage</a>
+                                <a href="../v1/usage/" class="subnavigation__link">Usage</a>
                             </li>
                         
                     
@@ -102,7 +101,7 @@
                     
                         
                             <li class="subnavigation__list-item ">
-                                <a href="../../authorization-server/" class="subnavigation__link">Authorization server</a>
+                                <a href="../v1/authorization-server/" class="subnavigation__link">Authorization server</a>
                             </li>
                         
                     
@@ -116,7 +115,7 @@
                     
                         
                             <li class="subnavigation__list-item ">
-                                <a href="../../authenticated-user/" class="subnavigation__link">Authenticated user</a>
+                                <a href="../v1/authenticated-user/" class="subnavigation__link">Authenticated user</a>
                             </li>
                         
                     
@@ -135,31 +134,31 @@
                                     
                                         
     <li class="subnavigation__list-item ">
-        <a href="../client_credentials/" class="subnavigation__link">Client credentials</a>
-    </li>
-
-                                    
-                                        
-    <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">Password</a>
+        <a href="../v1/grant/client_credentials/" class="subnavigation__link">Client credentials</a>
     </li>
 
                                     
                                         
     <li class="subnavigation__list-item ">
-        <a href="../auth_code/" class="subnavigation__link">Authorization code</a>
+        <a href="../v1/grant/password/" class="subnavigation__link">Password</a>
     </li>
 
                                     
                                         
     <li class="subnavigation__list-item ">
-        <a href="../implicit/" class="subnavigation__link">Implicit</a>
+        <a href="../v1/grant/auth_code/" class="subnavigation__link">Authorization code</a>
     </li>
 
                                     
                                         
     <li class="subnavigation__list-item ">
-        <a href="../refresh_token/" class="subnavigation__link">Refresh token</a>
+        <a href="../v1/grant/implicit/" class="subnavigation__link">Implicit</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../v1/grant/refresh_token/" class="subnavigation__link">Refresh token</a>
     </li>
 
                                     
@@ -228,116 +227,21 @@
         <div class="row">
             <div class="col-md-2 col-sm-12">
                 
-    
-
-    
-    
-
             </div>
             <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
                 
-                    <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        
-            <li class="breadcrumb-item"><a href="">Overview</a></li>
 
-            
-                <li class="breadcrumb-item"><a href="../../..">mezzio-authentication-oauth2</a></li>
+<h1 class="content__title">404</h1>
+<blockquote>
+    <h3>Something went wrong!</h3>
+    <p>
+        We're sorry, but the page you are looking for does not exist.
+    </p>
+</blockquote>
 
-                
-                    
-                        
-                        
-                            <li class="breadcrumb-item">Grant</li>
-                        
-                    
-                
-
-                <li class="breadcrumb-item active" aria-current="page">Password</li>
-            
-        
-    </ol>
-</nav>
+<a href="../." class="btn btn-default" role="button">Go to homepage</a>
 
 
-
-
-
-
-    
-    
-        <h2 class="chapter__headline">Grant</h2>
-    
-
-    <h1 id="password">Password</h1>
-<p>This use case allows authentication to an API using the user's credentials
-(generally a username and password).  The typical scenario includes a "Login"
-web page that captures a username and password combination that is used to
-authenticate against a first-party API. Password grant is only appropriate for
-<strong>trusted clients</strong>. If you build your own website as a client of your API, then
-this is a great way to handle logging in.</p>
-<p>The client sends a POST request with following parameters:</p>
-<ul>
-<li><code>grant_type</code> = password.</li>
-<li><code>client_id</code> with the client’s ID.</li>
-<li><code>client_secret</code> with the client’s secret.</li>
-<li><code>scope</code> with a space-delimited list of requested scope permissions.</li>
-<li><code>username</code> with the user’s username.</li>
-<li><code>password</code> with the user’s password.</li>
-</ul>
-<p>The authorization server responds with a JSON as follows:</p>
-<pre class=codehilite><code class=language-json>{
-    &quot;token_type&quot; : &quot;Bearer&quot;,
-    &quot;expires_in&quot; : &quot;3600&quot;,
-    &quot;refresh_token&quot; : &quot;YWYwNjhmNmZmMDhmZjkyOGJj...&quot;,
-    &quot;access_token&quot; : &quot;eyJ0eXAiOiJKV1Q...&quot;
-}</code></pre>
-<p>The <code>token_type</code> is the type of generated token (Bearer). The <code>expires_in</code> is an
-integer representing the TTL (in seconds) of the access token.  The
-<code>refresh_token</code> a token that can be used to refresh the <code>access_token</code> when
-expired.  The <code>access_token</code> contains a <code>JWT</code> signed with the authorization
-server’s private key. This token must be used in the <code>Authorization</code> request
-HTTP header.</p>
-
-
-
-
-    <nav>
-    <ul class="page-nav hidden-print">
-
-        
-        <li class="page-nav__item">
-            
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../client_credentials/">
-                    <i class="fa fa-chevron-left"></i> Previous
-                </a>
-            
-        </li>
-
-        
-        <li class="page-nav__item">
-            
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../auth_code/">
-                    Next <i class="fa fa-chevron-right"></i>
-                </a>
-            
-        </li>
-    </ul>
-</nav>
-
-
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/mezzio/mezzio-authentication-oauth2/edit/master/docs/book/v1/grant/password.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
-
-                
             </div>
             <div class="col-md-3 col-sm-12 sidebar">
                 
@@ -352,7 +256,7 @@ HTTP header.</p>
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="../../..">mezzio-authentication-oauth2</a>
+            <a href="../.">mezzio-authentication-oauth2</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -367,7 +271,7 @@ HTTP header.</p>
                     
                         
                             <li class="subnavigation__list-item ">
-                                <a href="../../intro/" class="subnavigation__link">Introduction</a>
+                                <a href="../v1/intro/" class="subnavigation__link">Introduction</a>
                             </li>
                         
                     
@@ -381,7 +285,7 @@ HTTP header.</p>
                     
                         
                             <li class="subnavigation__list-item ">
-                                <a href="../../usage/" class="subnavigation__link">Usage</a>
+                                <a href="../v1/usage/" class="subnavigation__link">Usage</a>
                             </li>
                         
                     
@@ -395,7 +299,7 @@ HTTP header.</p>
                     
                         
                             <li class="subnavigation__list-item ">
-                                <a href="../../authorization-server/" class="subnavigation__link">Authorization server</a>
+                                <a href="../v1/authorization-server/" class="subnavigation__link">Authorization server</a>
                             </li>
                         
                     
@@ -409,7 +313,7 @@ HTTP header.</p>
                     
                         
                             <li class="subnavigation__list-item ">
-                                <a href="../../authenticated-user/" class="subnavigation__link">Authenticated user</a>
+                                <a href="../v1/authenticated-user/" class="subnavigation__link">Authenticated user</a>
                             </li>
                         
                     
@@ -428,31 +332,31 @@ HTTP header.</p>
                                     
                                         
     <li class="subnavigation__list-item ">
-        <a href="../client_credentials/" class="subnavigation__link">Client credentials</a>
-    </li>
-
-                                    
-                                        
-    <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">Password</a>
+        <a href="../v1/grant/client_credentials/" class="subnavigation__link">Client credentials</a>
     </li>
 
                                     
                                         
     <li class="subnavigation__list-item ">
-        <a href="../auth_code/" class="subnavigation__link">Authorization code</a>
+        <a href="../v1/grant/password/" class="subnavigation__link">Password</a>
     </li>
 
                                     
                                         
     <li class="subnavigation__list-item ">
-        <a href="../implicit/" class="subnavigation__link">Implicit</a>
+        <a href="../v1/grant/auth_code/" class="subnavigation__link">Authorization code</a>
     </li>
 
                                     
                                         
     <li class="subnavigation__list-item ">
-        <a href="../refresh_token/" class="subnavigation__link">Refresh token</a>
+        <a href="../v1/grant/implicit/" class="subnavigation__link">Implicit</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../v1/grant/refresh_token/" class="subnavigation__link">Refresh token</a>
     </li>
 
                                     
@@ -543,12 +447,12 @@ HTTP header.</p>
 </footer>
 
     <script>
-        let base_url = '../../..',
+        let base_url = '..',
             project  = "mezzio",
             siteName = 'mezzio-authentication-oauth2';
     </script>
     <script src="/js/scripts.js"></script>
-        <script src="../../../search/main.js"></script>
+        <script src="../search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">

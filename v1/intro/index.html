@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -300,16 +304,14 @@ package for implementing the OAuth2 server.</p>
 <p>In order to implement the OAuth2 server, we first need to configure it. The
 first step is to generate new cryptographic keys. We need to execute the script
 <code>./vendor/bin/generate-oauth2-keys</code> in order to generate these keys.</p>
-<p> <div class=codehilite><pre><span></span>$ ./vendor/bin/generate-oauth2-keys
-</pre></div></p>
+<pre class=codehilite><code class=language-bash>$ ./vendor/bin/generate-oauth2-keys</code></pre>
 <p>This script will store the keys in the application's <code>data</code> folder if found:</p>
-<p> <div class=codehilite><pre><span></span>Private key stored in:
+<pre class=codehilite><code class=language-text>Private key stored in:
 ./data/oauth/private.key
 Public key stored in:
 ./data/oauth/public.key
 Encryption key stored in:
-./data/oauth/encryption.key
-</pre></div></p>
+./data/oauth/encryption.key</code></pre>
 <p>The script will generate public and private keys, and an encryption key.
 These keys are used by <a href="https://oauth2.thephpleague.com/">league/oauth2-server</a>
 as security settings for the OAuth2 server infrastructure.</p>
@@ -317,31 +319,30 @@ as security settings for the OAuth2 server infrastructure.</p>
 <p>The OAuth2 server is configured by the <code>authentication</code> configuration key in the
 PSR-11 container (e.g. <a href="https://github.com/laminas/laminas-servicemanager">laminas-servicemanager</a>).</p>
 <p>The default values are:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use League\OAuth2\Server\Grant;</span>
+<pre class=codehilite><code class=language-php>use League\OAuth2\Server\Grant;
 
-<span class=x>return [</span>
-<span class=x>    &#39;private_key&#39;    =&gt; __DIR__ . &#39;/../data/oauth/private.key&#39;,</span>
-<span class=x>    &#39;public_key&#39;     =&gt; __DIR__ . &#39;/../data/oauth/public.key&#39;,</span>
-<span class=x>    &#39;encryption_key&#39; =&gt; require __DIR__ . &#39;/../data/oauth/encryption.key&#39;,</span>
-<span class=x>    &#39;access_token_expire&#39;  =&gt; &#39;P1D&#39;,</span>
-<span class=x>    &#39;refresh_token_expire&#39; =&gt; &#39;P1M&#39;,</span>
-<span class=x>    &#39;auth_code_expire&#39;     =&gt; &#39;PT10M&#39;,</span>
-<span class=x>    &#39;pdo&#39; =&gt; [</span>
-<span class=x>        &#39;dsn&#39;      =&gt; &#39;&#39;,</span>
-<span class=x>        &#39;username&#39; =&gt; &#39;&#39;,</span>
-<span class=x>        &#39;password&#39; =&gt; &#39;&#39;</span>
-<span class=x>    ],</span>
+return [
+    'private_key'    =&gt; __DIR__ . '/../data/oauth/private.key',
+    'public_key'     =&gt; __DIR__ . '/../data/oauth/public.key',
+    'encryption_key' =&gt; require __DIR__ . '/../data/oauth/encryption.key',
+    'access_token_expire'  =&gt; 'P1D',
+    'refresh_token_expire' =&gt; 'P1M',
+    'auth_code_expire'     =&gt; 'PT10M',
+    'pdo' =&gt; [
+        'dsn'      =&gt; '',
+        'username' =&gt; '',
+        'password' =&gt; ''
+    ],
 
-<span class=x>    // Set value to null to disable a grant</span>
-<span class=x>    &#39;grants&#39; =&gt; [</span>
-<span class=x>        Grant\ClientCredentialsGrant::class =&gt; Grant\ClientCredentialsGrant::class,</span>
-<span class=x>        Grant\PasswordGrant::class          =&gt; Grant\PasswordGrant::class,</span>
-<span class=x>        Grant\AuthCodeGrant::class          =&gt; Grant\AuthCodeGrant::class,</span>
-<span class=x>        Grant\ImplicitGrant::class          =&gt; Grant\ImplicitGrant::class,</span>
-<span class=x>        Grant\RefreshTokenGrant::class      =&gt; Grant\RefreshTokenGrant::class</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
-</pre></div></p>
+    // Set value to null to disable a grant
+    'grants' =&gt; [
+        Grant\ClientCredentialsGrant::class =&gt; Grant\ClientCredentialsGrant::class,
+        Grant\PasswordGrant::class          =&gt; Grant\PasswordGrant::class,
+        Grant\AuthCodeGrant::class          =&gt; Grant\AuthCodeGrant::class,
+        Grant\ImplicitGrant::class          =&gt; Grant\ImplicitGrant::class,
+        Grant\RefreshTokenGrant::class      =&gt; Grant\RefreshTokenGrant::class
+    ],
+];</code></pre>
 <p>The <code>private_key</code> and <code>public_key</code> values contains the paths to the previous
 generated pair of keys. The <code>encryption_key</code> contains the encryption key value
 as a string, as stored in the <code>data/oauth/encryption.key</code> file.</p>
@@ -349,13 +350,12 @@ as a string, as stored in the <code>data/oauth/encryption.key</code> file.</p>
 600, 640 or 660 is expected, and 600 or 660 is recommended). In case the
 environment/operating system (e.g. Windows) does not support such a permissions,
 the check can be disabled:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>    // ...</span>
-<span class=x>    &#39;private_key&#39; =&gt; [</span>
-<span class=x>        &#39;key_or_path&#39; =&gt; __DIR__ . &#39;/../data/oauth/private.key&#39;,</span>
-<span class=x>        &#39;key_permissions_check&#39; =&gt; false,</span>
-<span class=x>    ],</span>
-<span class=x>    // ...</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>    // ...
+    'private_key' =&gt; [
+        'key_or_path' =&gt; __DIR__ . '/../data/oauth/private.key',
+        'key_permissions_check' =&gt; false,
+    ],
+    // ...</code></pre>
 <p>The <code>access_token_expire</code> value is the time-to-live (TTL) value of the access
 token. The time period is represented using the <a href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a>
 format in PHP.  The default value is <code>P1D</code> (1 day).</p>
@@ -371,10 +371,9 @@ database is stored in the <a href="https://github.com/mezzio/mezzio-authenticati
 file.</p>
 <p>If you already have a PDO service configured, you can instead pass the service
 name to the <code>pdo</code> key as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>return [</span>
-<span class=x>    &#39;pdo&#39; =&gt; &#39;myServiceName&#39;,</span>
-<span class=x>];</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>return [
+    'pdo' =&gt; 'myServiceName',
+];</code></pre>
 <p>The <code>grants</code> array is for enabling/disabling grants. By default, all the supported
 grants are configured to be available. If you would like to disable any of the
 supplied grants, change the value for the grant to <code>null</code>. Additionally,
@@ -391,34 +390,31 @@ you can extend this array to add your own custom grants.</p>
 <p>The <code>event_listener_providers</code> key must contain an array. Each array element must contain either a concrete instance of <code>League\Event\ListenerProviderInterface</code> or a string pointing to your container service instance of a listener provider.</p>
 <p>See the <a href="https://event.thephpleague.com/2.0/listeners/providers/">documentation for listener providers</a>.</p>
 <p>Example config:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>return [    </span>
-<span class=x>    &#39;event_listeners&#39; =&gt; [</span>
-<span class=x>        // using a container service</span>
-<span class=x>        [</span>
-<span class=x>            \League\OAuth2\Server\RequestEvent::CLIENT_AUTHENTICATION_FAILED,</span>
-<span class=x>            \My\Event\Listener\Service::class,</span>
-<span class=x>        ],</span>
-<span class=x>        // using a callable</span>
-<span class=x>        [</span>
-<span class=x>            \League\OAuth2\Server\RequestEvent::ACCESS_TOKEN_ISSUED,</span>
-<span class=x>            function (\League\OAuth2\Server\RequestEvent $event) {</span>
-<span class=x>                // do something</span>
-<span class=x>            },</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    &#39;event_listener_providers&#39; =&gt; [</span>
-<span class=x>        \My\Event\ListenerProvider\Service::class,</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>return [    
+    'event_listeners' =&gt; [
+        // using a container service
+        [
+            \League\OAuth2\Server\RequestEvent::CLIENT_AUTHENTICATION_FAILED,
+            \My\Event\Listener\Service::class,
+        ],
+        // using a callable
+        [
+            \League\OAuth2\Server\RequestEvent::ACCESS_TOKEN_ISSUED,
+            function (\League\OAuth2\Server\RequestEvent $event) {
+                // do something
+            },
+        ],
+    ],
+    'event_listener_providers' =&gt; [
+        \My\Event\ListenerProvider\Service::class,
+    ],
+];</code></pre>
 <h2 id="oauth2-database">OAuth2 Database</h2>
 <p>You need to provide an OAuth2 database yourself, or generate a <a href="https://www.sqlite.org">SQLite</a>
 database with the following command (using <code>sqlite3</code> for GNU/Linux):</p>
-<p> <div class=codehilite><pre><span></span>$ sqlite3 data/oauth2.sqlite &lt; vendor/mezzio/mezzio-authentication-oauth2/data/oauth2.sql
-</pre></div></p>
+<pre class=codehilite><code class=language-bash>$ sqlite3 data/oauth2.sqlite &lt; vendor/mezzio/mezzio-authentication-oauth2/data/oauth2.sql</code></pre>
 <p>You can also create some testing values using the <code>data/oauth2_test.sql</code> file:</p>
-<p> <div class=codehilite><pre><span></span>$ sqlite3 data/oauth2.sqlite &lt; vendor/mezzio/mezzio-authentication-oauth2/data/oauth2_test.sql
-</pre></div></p>
+<pre class=codehilite><code class=language-bash>$ sqlite3 data/oauth2.sqlite &lt; vendor/mezzio/mezzio-authentication-oauth2/data/oauth2_test.sql</code></pre>
 <p>These commands will insert the following testing values:</p>
 <ul>
 <li>a client <code>client_test</code> with secret <code>test</code>, used for <a href="../grant/client_credentials/">client_credentials</a>
@@ -623,9 +619,10 @@ the <a href="../authorization-server/">Implement an authorization server</a> sec
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -662,7 +659,7 @@ the <a href="../authorization-server/">Implement an authorization server</a> sec
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/mezzio/mezzio-authentication-oauth2//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -671,8 +668,8 @@ the <a href="../authorization-server/">Implement an authorization server</a> sec
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/mezzio/mezzio-authentication-oauth2//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/mezzio/mezzio-authentication-oauth2/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

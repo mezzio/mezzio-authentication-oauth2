@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -281,10 +285,9 @@ for your application.</p>
 <code>Mezzio\Authentication\OAuth2\TokenEndpointHandler</code>.</p>
 <p>This endpoint <strong>MUST</strong> accept <code>POST</code> requests.</p>
 <p>For example:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Mezzio\Authentication\OAuth2;</span>
+<pre class=codehilite><code class=language-php>use Mezzio\Authentication\OAuth2;
 
-<span class=x>$app-&gt;post(&#39;/oauth2/token&#39;, OAuth2\TokenEndpointHandler::class);</span>
-</pre></div></p>
+$app-&gt;post('/oauth2/token', OAuth2\TokenEndpointHandler::class);</code></pre>
 <h2 id="add-the-authorization-endpoint">Add the authorization endpoint</h2>
 <p>The authorization endpoint is the URL to which the client redirects
 to obtain an access token or authorization code.</p>
@@ -307,76 +310,74 @@ to obtain an access token or authorization code.</p>
 <p>The first and the last items are provided by this library.</p>
 <p>For example, to add the authorization endpoint, you can declare a middleware
 pipeline for the route as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Mezzio\Authentication\OAuth2;</span>
-<span class=x>use Mezzio\Session\SessionMiddleware;</span>
+<pre class=codehilite><code class=language-php>use Mezzio\Authentication\OAuth2;
+use Mezzio\Session\SessionMiddleware;
 
-<span class=x>$app-&gt;route(&#39;/oauth2/authorize&#39;, [</span>
-<span class=x>    SessionMiddleware::class,</span>
+$app-&gt;route('/oauth2/authorize', [
+    SessionMiddleware::class,
 
-<span class=x>    OAuth2\AuthorizationMiddleware::class,</span>
+    OAuth2\AuthorizationMiddleware::class,
 
-<span class=x>    // The following middleware is provided by your application (see below):</span>
-<span class=x>    App\OAuthAuthorizationMiddleware::class,</span>
+    // The following middleware is provided by your application (see below):
+    App\OAuthAuthorizationMiddleware::class,
 
-<span class=x>    OAuth2\AuthorizationHandler::class</span>
-<span class=x>], [&#39;GET&#39;, &#39;POST&#39;]);</span>
-</pre></div></p>
+    OAuth2\AuthorizationHandler::class
+], ['GET', 'POST']);</code></pre>
 <p>In your <code>App\OAuthAuthorizationMiddleware</code>, you'll have access to the
 <code>League\OAuth2\Server\RequestTypes\AuthorizationRequest</code> via the PSR-7 request.
 Your middleware should populate the <code>AuthorizationRequest</code>'s user entity via its
 <code>setUser()</code> method, and the user's consent decision via the
 <code>setAuthorizationApproved()</code>method.</p>
 <p>As an example:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace App;</span>
+<pre class=codehilite><code class=language-php>namespace App;
 
-<span class=x>use Psr\Http\Server\MiddlewareInterface;</span>
-<span class=x>use Psr\Http\Message\ServerRequestInterface;</span>
-<span class=x>use Psr\Http\Server\RequestHandlerInterface;</span>
-<span class=x>use Psr\Http\Message\ResponseInterface;</span>
-<span class=x>use League\OAuth2\Server\RequestTypes\AuthorizationRequest;</span>
-<span class=x>use Mezzio\Authentication\UserInterface;</span>
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Http\Message\ResponseInterface;
+use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use Mezzio\Authentication\UserInterface;
 
-<span class=x>class OAuthAuthorizationMiddleware implements MiddlewareInterface</span>
-<span class=x>{</span>
-<span class=x>    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface</span>
-<span class=x>    {</span>
-<span class=x>        // Assume a middleware handled the authentication check and</span>
-<span class=x>        // populates the user object, which also implements the</span>
-<span class=x>        // OAuth2 UserEntityInterface</span>
-<span class=x>        $user = $request-&gt;getAttribute(UserInterface::class);</span>
+class OAuthAuthorizationMiddleware implements MiddlewareInterface
+{
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    {
+        // Assume a middleware handled the authentication check and
+        // populates the user object, which also implements the
+        // OAuth2 UserEntityInterface
+        $user = $request-&gt;getAttribute(UserInterface::class);
 
-<span class=x>        // Assume the SessionMiddleware handles and populates a session</span>
-<span class=x>        // container</span>
-<span class=x>        $session = $request-&gt;getAttribute(&#39;session&#39;);</span>
+        // Assume the SessionMiddleware handles and populates a session
+        // container
+        $session = $request-&gt;getAttribute('session');
 
-<span class=x>        // This is populated by the previous middleware:</span>
-<span class=x>        /** @var AuthorizationRequest $authRequest */</span>
-<span class=x>        $authRequest = $request-&gt;getAttribute(AuthorizationRequest::class);</span>
+        // This is populated by the previous middleware:
+        /** @var AuthorizationRequest $authRequest */
+        $authRequest = $request-&gt;getAttribute(AuthorizationRequest::class);
 
-<span class=x>        // The user is authenticated:</span>
-<span class=x>        if ($user) {</span>
-<span class=x>            $authRequest-&gt;setUser($user);</span>
+        // The user is authenticated:
+        if ($user) {
+            $authRequest-&gt;setUser($user);
 
-<span class=x>            // This assumes all clients are trusted, but you could</span>
-<span class=x>            // handle consent here, or within the next middleware</span>
-<span class=x>            // as needed.</span>
-<span class=x>            $authRequest-&gt;setAuthorizationApproved(true);</span>
+            // This assumes all clients are trusted, but you could
+            // handle consent here, or within the next middleware
+            // as needed.
+            $authRequest-&gt;setAuthorizationApproved(true);
 
-<span class=x>            return $handler-&gt;handle($request);</span>
-<span class=x>        }</span>
+            return $handler-&gt;handle($request);
+        }
 
-<span class=x>        // The user is not authenticated, show login form ...</span>
+        // The user is not authenticated, show login form ...
 
-<span class=x>        // Store the auth request state</span>
-<span class=x>        // NOTE: Do not attempt to serialize or store the authorization</span>
-<span class=x>        // request object. Store the query parameters instead and redirect</span>
-<span class=x>        // with these to this endpoint again to replay the request.</span>
-<span class=x>        $session[&#39;oauth2_request_params&#39;] = $request-&gt;getQueryParams();</span>
+        // Store the auth request state
+        // NOTE: Do not attempt to serialize or store the authorization
+        // request object. Store the query parameters instead and redirect
+        // with these to this endpoint again to replay the request.
+        $session['oauth2_request_params'] = $request-&gt;getQueryParams();
 
-<span class=x>        return new RedirectResponse(&#39;/oauth2/login&#39;);</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        return new RedirectResponse('/oauth2/login');
+    }
+}</code></pre>
 
 
 
@@ -564,9 +565,10 @@ Your middleware should populate the <code>AuthorizationRequest</code>'s user ent
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -603,7 +605,7 @@ Your middleware should populate the <code>AuthorizationRequest</code>'s user ent
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/mezzio/mezzio-authentication-oauth2//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -612,8 +614,8 @@ Your middleware should populate the <code>AuthorizationRequest</code>'s user ent
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/mezzio/mezzio-authentication-oauth2//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/mezzio/mezzio-authentication-oauth2/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>
