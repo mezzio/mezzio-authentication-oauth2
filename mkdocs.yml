@@ -26,4 +26,3 @@ site_description: 'OAuth2 (server) for Mezzio and PSR-7 applications.'
 repo_url: 'https://github.com/mezzio/mezzio-authentication-oauth2'
 extra:
     project: Mezzio
-    project_url: 'https://docs.mezzio.dev'

@@ -1,6 +1,6 @@
 # OAuth2 server middleware for Mezzio and PSR-7 applications
 
-[![Build Status](https://travis-ci.org/mezzio/mezzio-authentication-oauth2.svg?branch=master)](https://travis-ci.org/mezzio/mezzio-authentication-oauth2)
+[![Build Status](https://travis-ci.com/mezzio/mezzio-authentication-oauth2.svg?branch=master)](https://travis-ci.com/mezzio/mezzio-authentication-oauth2)
 [![Coverage Status](https://coveralls.io/repos/github/mezzio/mezzio-authentication-oauth2/badge.svg?branch=master)](https://coveralls.io/github/mezzio/mezzio-authentication-oauth2?branch=master)
 
 Laminas-mezzio-authentication-oauth2 is middleware for [Mezzio](https://github.com/mezzio/mezzio)
