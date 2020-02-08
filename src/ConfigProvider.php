@@ -65,6 +65,7 @@ class ConfigProvider
                 AuthenticationInterface::class => OAuth2Adapter::class,
 
                 // Legacy Zend Framework aliases
+                // @codingStandardsIgnoreStart
                 \Zend\Expressive\Authentication\AuthenticationInterface::class => AuthenticationInterface::class,
                 \Zend\Expressive\Authentication\OAuth2\AuthorizationMiddleware::class => AuthorizationMiddleware::class,
                 \Zend\Expressive\Authentication\OAuth2\AuthorizationHandler::class => AuthorizationHandler::class,
@@ -78,6 +79,7 @@ class ConfigProvider
                 \Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ScopeRepository::class => Pdo\ScopeRepository::class,
                 \Zend\Expressive\Authentication\OAuth2\Repository\Pdo\UserRepository::class => Pdo\UserRepository::class,
                 \Zend\Expressive\Authentication\OAuth2\PasswordGrant::class => PasswordGrant::class,
+                // @codingStandardsIgnoreEnd
             ],
             'factories' => [
                 AuthorizationMiddleware::class => AuthorizationMiddlewareFactory::class,
