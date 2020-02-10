@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.0.1 - TBD
+## 2.0.1 - 2020-02-10
 
 ### Added
 
@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#12](https://github.com/mezzio/mezzio-authentication-oauth2/pull/12) fixes default paths to keys in configuration (uses `data/oauth` directories).
 
 ## 2.0.0 - 2019-12-28
 
@@ -45,6 +45,28 @@ All notable changes to this project will be documented in this file, in reverse 
 ### Fixed
 
 - Nothing.
+
+## 1.3.1 - 2020-02-10
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#12](https://github.com/mezzio/mezzio-authentication-oauth2/pull/12) fixes default paths to keys in configuration (uses `data/oauth` directories).
 
 ## 1.3.0 - 2019-12-28
 
