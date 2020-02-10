@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#12](https://github.com/mezzio/mezzio-authentication-oauth2/pull/12) fixes default paths to keys in configuration (uses `data/oauth` directories).
 
 ## 2.0.0 - 2019-12-28
 
