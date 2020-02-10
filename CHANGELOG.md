@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.3.1 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#12](https://github.com/mezzio/mezzio-authentication-oauth2/pull/12) fixes default paths to keys in configuration (uses `data/oauth` directories).
+
 ## 1.3.0 - 2019-12-28
 
 ### Added
