@@ -355,7 +355,7 @@ class provided by <a href="https://github.com/mezzio/mezzio-authentication">mezz
 <code>Mezzio\Authentication\AuthenticationInterface</code> to resolve to
 <code>Mezzio\Authentication\OAuth2\OAuth2Adapter</code>. This can be achieved
 using the following configuration:</p>
-<pre class=codehilite><code class=language-php>use Mezzio\Authentication;
+<pre class="highlight"><code class="language-php">use Mezzio\Authentication;
 
 return [
     'dependencies' =&gt; [
@@ -364,6 +364,7 @@ return [
         ],
     ],
 ];</code></pre>
+
 <p>The previous configuration will instruct <code>mezzio-authentication</code> to use
 the OAuth2 adapter provided in this package. (Unlike other adapters, this
 adapter does not require a <code>Mezzio\Authentication\UserRepositoryInterface</code>;
@@ -374,10 +375,11 @@ your application/API by adding the <code>AuthenticationMiddleware</code> to eith
 application or route-specific middleware pipeline. For instance, using an
 <a href="https://docs.mezzio.dev/mezzio/">Mezzio</a> application, you
 could add it to a specific route, as follows:</p>
-<pre class=codehilite><code class=language-php>$app-&gt;post('/api/users', [
+<pre class="highlight"><code class="language-php">$app-&gt;post('/api/users', [
     Mezzio\Authentication\AuthenticationMiddleware::class,
     App\Action\AddUserAction::class,
 ], 'api.add.user');</code></pre>
+
 <h1 id="providing-an-authorization-server">Providing an authorization server</h1>
 <p>See the chapter <a href="../authorization-server/">Authorization server</a> for details on how
 to implement this.</p>

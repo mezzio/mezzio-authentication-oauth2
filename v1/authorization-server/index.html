@@ -344,9 +344,10 @@ for your application.</p>
 <code>Mezzio\Authentication\OAuth2\TokenEndpointHandler</code>.</p>
 <p>This endpoint <strong>MUST</strong> accept <code>POST</code> requests.</p>
 <p>For example:</p>
-<pre class=codehilite><code class=language-php>use Mezzio\Authentication\OAuth2;
+<pre class="highlight"><code class="language-php">use Mezzio\Authentication\OAuth2;
 
 $app-&gt;post('/oauth2/token', OAuth2\TokenEndpointHandler::class);</code></pre>
+
 <h2 id="add-the-authorization-endpoint">Add the authorization endpoint</h2>
 <p>The authorization endpoint is the URL to which the client redirects
 to obtain an access token or authorization code.</p>
@@ -369,7 +370,7 @@ to obtain an access token or authorization code.</p>
 <p>The first and the last items are provided by this library.</p>
 <p>For example, to add the authorization endpoint, you can declare a middleware
 pipeline for the route as follows:</p>
-<pre class=codehilite><code class=language-php>use Mezzio\Authentication\OAuth2;
+<pre class="highlight"><code class="language-php">use Mezzio\Authentication\OAuth2;
 use Mezzio\Session\SessionMiddleware;
 
 $app-&gt;route('/oauth2/authorize', [
@@ -382,13 +383,14 @@ $app-&gt;route('/oauth2/authorize', [
 
     OAuth2\AuthorizationHandler::class
 ], ['GET', 'POST']);</code></pre>
+
 <p>In your <code>App\OAuthAuthorizationMiddleware</code>, you'll have access to the
 <code>League\OAuth2\Server\RequestTypes\AuthorizationRequest</code> via the PSR-7 request.
 Your middleware should populate the <code>AuthorizationRequest</code>'s user entity via its
 <code>setUser()</code> method, and the user's consent decision via the
 <code>setAuthorizationApproved()</code>method.</p>
 <p>As an example:</p>
-<pre class=codehilite><code class=language-php>namespace App;
+<pre class="highlight"><code class="language-php">namespace App;
 
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
