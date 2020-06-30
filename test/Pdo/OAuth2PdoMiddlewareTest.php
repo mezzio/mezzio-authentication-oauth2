@@ -155,11 +155,49 @@ class OAuth2PdoMiddlewareTest extends TestCase
     }
 
     /**
-     * Test the Client Credential Grant
+     * Test the Client Credential Grant if client is not confidential
      *
      * @see https://oauth2.thephpleague.com/authorization-server/client-credentials-grant/
      */
-    public function testProcessClientCredentialGrant()
+    public function testProcessClientCredentialGrantNotConfidential()
+    {
+        // Enable the client credentials grant on the server
+        $this->authServer->enableGrantType(
+            new ClientCredentialsGrant(),
+            new DateInterval('PT1H') // access tokens will expire after 1 hour
+        );
+
+        // Server request
+        $params = [
+            'grant_type'    => 'client_credentials',
+            'client_id'     => 'client_test_not_confidential',
+            'client_secret' => 'test',
+            'scope'         => 'test'
+        ];
+        $request = $this->buildServerRequest(
+            'POST',
+            '/access_token',
+            http_build_query($params),
+            $params,
+            [ 'Content-Type' => 'application/x-www-form-urlencoded' ]
+        );
+
+        $handler = new TokenEndpointHandler(
+            $this->authServer,
+            $this->responseFactory
+        );
+
+        $response = $handler->handle($request);
+
+        $this->assertEquals(401, $response->getStatusCode());
+    }
+
+    /**
+     * Test the Client Credential Grant if client is confidential
+     *
+     * @see https://oauth2.thephpleague.com/authorization-server/client-credentials-grant/
+     */
+    public function testProcessClientCredentialGrantConfidential()
     {
         // Enable the client credentials grant on the server
         $this->authServer->enableGrantType(

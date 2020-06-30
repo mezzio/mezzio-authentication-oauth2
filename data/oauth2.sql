@@ -47,6 +47,7 @@ CREATE TABLE `oauth_clients` (
   `personal_access_client` tinyint(1) DEFAULT NULL,
   `password_client` tinyint(1) DEFAULT NULL,
   `revoked` tinyint(1) DEFAULT NULL,
+  `is_confidential` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL
 );
