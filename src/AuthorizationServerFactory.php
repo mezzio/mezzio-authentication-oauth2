@@ -31,10 +31,11 @@ class AuthorizationServerFactory
 
     /**
      * @param ContainerInterface $container
+     * @param string $requestedName
      *
      * @return AuthorizationServer
      */
-    public function __invoke(ContainerInterface $container) : AuthorizationServer
+    public function __invoke(ContainerInterface $container, $requestedName) : AuthorizationServer
     {
         $clientRepository = $this->getClientRepository($container);
         $accessTokenRepository = $this->getAccessTokenRepository($container);
@@ -44,7 +45,7 @@ class AuthorizationServerFactory
         $encryptKey = $this->getEncryptionKey($container);
         $grants = $this->getGrantsConfig($container);
 
-        $authServer = new AuthorizationServer(
+        $authServer = new $requestedName(
             $clientRepository,
             $accessTokenRepository,
             $scopeRepository,

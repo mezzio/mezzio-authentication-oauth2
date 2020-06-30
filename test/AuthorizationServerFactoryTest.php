@@ -67,7 +67,7 @@ class AuthorizationServerFactoryTest extends TestCase
 
         $factory = new AuthorizationServerFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer->reveal(), AuthorizationServer::class);
 
         $this->assertInstanceOf(AuthorizationServer::class, $result);
     }
@@ -117,7 +117,7 @@ class AuthorizationServerFactoryTest extends TestCase
 
         $factory = new AuthorizationServerFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer->reveal(), AuthorizationServer::class);
 
         $this->assertInstanceOf(AuthorizationServer::class, $result);
     }
@@ -156,7 +156,7 @@ class AuthorizationServerFactoryTest extends TestCase
 
         $factory = new AuthorizationServerFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer->reveal(), AuthorizationServer::class);
 
         $this->assertInstanceOf(AuthorizationServer::class, $result);
     }
@@ -190,7 +190,7 @@ class AuthorizationServerFactoryTest extends TestCase
 
         $this->expectException(InvalidConfigException::class);
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer->reveal(), AuthorizationServer::class);
     }
 
     public function testInvokeWithListenerProviderConfig()
@@ -218,7 +218,7 @@ class AuthorizationServerFactoryTest extends TestCase
 
         $factory = new AuthorizationServerFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer->reveal(), AuthorizationServer::class);
 
         $this->assertInstanceOf(AuthorizationServer::class, $result);
     }
@@ -248,6 +248,6 @@ class AuthorizationServerFactoryTest extends TestCase
         $factory = new AuthorizationServerFactory();
 
         $this->expectException(InvalidConfigException::class);
-        $factory($mockContainer->reveal());
+        $factory($mockContainer->reveal(), AuthorizationServer::class);
     }
 }
