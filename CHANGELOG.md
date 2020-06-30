@@ -32,7 +32,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- Nothing.
+- [#16](https://github.com/mezzio/mezzio-authentication-oauth2/pull/16) adds support for checking if an OAuth2 client is marked as "confidential". To make use of this feature, you will need to add the field `is_confidential` to your `oauth_clients` table as a TINYINT: `is_confidential tinyint(1) NOT NULL DEFAULT "0"`
 
 ### Deprecated
 
@@ -44,7 +44,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#16](https://github.com/mezzio/mezzio-authentication-oauth2/pull/16) fixes compatibility with the upstream league/oauth2-server library when performing a `ClientCredentialsCheck` grant.
 
 ## 2.0.2 - 2020-03-28
 

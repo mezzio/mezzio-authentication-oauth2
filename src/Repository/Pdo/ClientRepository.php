@@ -32,7 +32,8 @@ class ClientRepository extends AbstractRepository implements ClientRepositoryInt
         return new ClientEntity(
             $clientIdentifier,
             $clientData['name'] ?? '',
-            $clientData['redirect'] ?? ''
+            $clientData['redirect'] ?? '',
+            (bool) ($clientData['is_confidential'] ?? null)
         );
     }
 
