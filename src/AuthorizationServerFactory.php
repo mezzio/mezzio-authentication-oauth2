@@ -35,7 +35,7 @@ class AuthorizationServerFactory
      *
      * @return AuthorizationServer
      */
-    public function __invoke(ContainerInterface $container, $requestedName) : AuthorizationServer
+    public function __invoke(ContainerInterface $container, $requestedName = AuthorizationServer::class) : AuthorizationServer
     {
         $clientRepository = $this->getClientRepository($container);
         $accessTokenRepository = $this->getAccessTokenRepository($container);
