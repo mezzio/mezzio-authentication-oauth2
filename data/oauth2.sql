@@ -79,7 +79,6 @@ CREATE TABLE `oauth_scopes` (
 --
 -- Table structure for table `oauth_users`
 --
-
 CREATE TABLE `oauth_users` (
   `id` INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `username` varchar(320) UNIQUE NOT NULL,
