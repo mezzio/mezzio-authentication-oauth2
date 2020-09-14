@@ -39,7 +39,7 @@ CREATE INDEX `IDX_BB493F8319EB6921` ON oauth_auth_codes (`client_id`);
 --
 
 CREATE TABLE `oauth_clients` (
-  `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `user_id` int(10) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `secret` varchar(100) DEFAULT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE `oauth_scopes` (
 --
 
 CREATE TABLE `oauth_users` (
-  `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  `id` INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `username` varchar(320) UNIQUE NOT NULL,
   `password` varchar(100) NOT NULL,
   `first_name` varchar(80) DEFAULT NULL,
