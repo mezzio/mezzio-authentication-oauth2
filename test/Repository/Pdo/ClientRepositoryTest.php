@@ -16,9 +16,12 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PDOStatement;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ClientRepositoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     protected function setUp() : void
     {
         $this->pdo = $this->prophesize(PdoService::class);

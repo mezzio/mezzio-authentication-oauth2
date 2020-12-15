@@ -24,10 +24,13 @@ use PDOStatement;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use function time;
 
 class AccessTokenRepositoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var AccessTokenRepository
      */

@@ -15,10 +15,13 @@ use League\OAuth2\Server\ResourceServer;
 use Mezzio\Authentication\OAuth2\Exception;
 use Mezzio\Authentication\OAuth2\ResourceServerFactory;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class ResourceServerFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     const PUBLIC_KEY = __DIR__ . '/TestAsset/public.key';
 
     const PUBLIC_KEY_EXTENDED = [

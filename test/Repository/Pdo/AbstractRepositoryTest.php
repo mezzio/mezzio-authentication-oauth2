@@ -13,9 +13,12 @@ namespace MezzioTest\Authentication\OAuth2\Repository\Pdo;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\AbstractRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class AbstractRepositoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     protected function setUp() : void
     {
         $this->pdo = $this->prophesize(PdoService::class);

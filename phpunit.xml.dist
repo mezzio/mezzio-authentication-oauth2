@@ -4,15 +4,14 @@
          bootstrap="test/bootstrap.php"
          colors="true"
          stderr="true">
-    <testsuites>
-        <testsuite name="mezzio-authentication-oauth2">
-            <directory>./test</directory>
-        </testsuite>
-    </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
+  <coverage>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="mezzio-authentication-oauth2">
+      <directory>./test</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>

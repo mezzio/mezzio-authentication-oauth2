@@ -18,12 +18,15 @@ use Mezzio\Authentication\OAuth2\OAuth2Adapter;
 use Mezzio\Authentication\UserInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class OAuth2AdapterTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var ResourceServer|ObjectProphecy */
     private $resourceServer;
 

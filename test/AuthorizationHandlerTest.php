@@ -14,6 +14,7 @@ use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use stdClass;
@@ -24,6 +25,8 @@ use TypeError;
  */
 class AuthorizationHandlerTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testHandleUsesAuthorizationServerService(): void
     {
         $server = $this->prophesize(AuthorizationServer::class);

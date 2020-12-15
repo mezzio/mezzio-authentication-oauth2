@@ -14,10 +14,13 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\AuthCodeRepositoryFactory;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class AuthCodeRepositoryFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var ContainerInterface
      */

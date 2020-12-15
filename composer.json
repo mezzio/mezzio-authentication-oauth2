@@ -29,9 +29,9 @@
         }
     },
     "require": {
-        "php": "^7.1",
+        "php": "^7.3 || ~8.0.0",
         "laminas/laminas-zendframework-bridge": "^1.0",
-        "league/oauth2-server": "^8.0.0",
+        "league/oauth2-server": "^8.2",
         "mezzio/mezzio-authentication": "^1.0",
         "psr/container": "^1.0",
         "psr/http-message": "^1.0.1",
@@ -40,8 +40,9 @@
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
         "laminas/laminas-diactoros": "^1.4.0 || ^2.0",
-        "laminas/laminas-servicemanager": "^3.0.0",
-        "phpunit/phpunit": "^7.5.15 || ^8.3.4"
+        "laminas/laminas-servicemanager": "^3.0 || ^4.0.x-dev",
+        "phpunit/phpunit": "^9.5",
+        "phpspec/prophecy-phpunit": "^2.0"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2.0"

@@ -16,6 +16,7 @@ use Mezzio\Authentication\OAuth2\AuthorizationHandler;
 use Mezzio\Authentication\OAuth2\AuthorizationHandlerFactory;
 use Mezzio\Authentication\OAuth2\ConfigProvider;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -27,6 +28,8 @@ use TypeError;
  */
 class AuthorizationHandlerFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var AuthorizationServer|ObjectProphecy */
     private $authServer;
 

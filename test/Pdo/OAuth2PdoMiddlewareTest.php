@@ -35,6 +35,7 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\UserRepository;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use PDO;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -60,6 +61,8 @@ use function unlink;
  */
 class OAuth2PdoMiddlewareTest extends TestCase
 {
+    use ProphecyTrait;
+
     const DB_FILE        = __DIR__ . '/TestAsset/test_oauth2.sq3';
     const DB_SCHEMA      = __DIR__ . '/../../data/oauth2.sql';
     const DB_DATA        = __DIR__ . '/TestAsset/test_data.sql';

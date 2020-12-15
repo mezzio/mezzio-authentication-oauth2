@@ -17,6 +17,7 @@ use Mezzio\Authentication\OAuth2\OAuth2Adapter;
 use Mezzio\Authentication\OAuth2\OAuth2AdapterFactory;
 use Mezzio\Authentication\UserInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -25,6 +26,8 @@ use TypeError;
 
 class OAuth2AdapterFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var ContainerInterface|ObjectProphecy */
     private $container;
 
