@@ -2,27 +2,24 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.1.0 - TBD
+## 2.1.0 - 2021-01-19
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [2.1.0](https://github.com/mezzio/mezzio-authentication-oauth2/milestone/1)
 
-- Nothing.
 
-### Deprecated
 
-- Nothing.
+### 2.1.0
 
-### Removed
+- Total issues resolved: **1**
+- Total pull requests resolved: **1**
+- Total contributors: **2**
 
-- Nothing.
+#### Enhancement
 
-### Fixed
-
-- Nothing.
+ - [24: PHP 8 Support](https://github.com/mezzio/mezzio-authentication-oauth2/pull/24) thanks to @agustingomes and @boesing
 
 ## 2.0.3 - 2020-06-30
 
