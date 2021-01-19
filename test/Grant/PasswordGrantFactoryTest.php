@@ -15,10 +15,13 @@ use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Grant\PasswordGrantFactory;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class PasswordGrantFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testInvoke()
     {
         $mockContainer = $this->prophesize(ContainerInterface::class);

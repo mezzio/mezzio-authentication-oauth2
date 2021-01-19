@@ -14,6 +14,7 @@ use League\OAuth2\Server\AuthorizationServer;
 use Mezzio\Authentication\OAuth2\AuthorizationMiddleware;
 use Mezzio\Authentication\OAuth2\AuthorizationMiddlewareFactory;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -25,6 +26,8 @@ use TypeError;
  */
 class AuthorizationMiddlewareFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var AuthorizationServer|ObjectProphecy */
     private $authServer;
 

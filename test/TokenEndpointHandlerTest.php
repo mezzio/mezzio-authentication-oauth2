@@ -16,6 +16,7 @@ use Mezzio\Authentication\OAuth2\Exception\RuntimeException;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -24,6 +25,8 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class TokenEndpointHandlerTest extends TestCase
 {
+    use ProphecyTrait;
+
     private function createResponseFactory(ResponseInterface $response = null): callable
     {
         return function () use ($response): ResponseInterface {

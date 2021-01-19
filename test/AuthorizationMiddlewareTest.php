@@ -16,6 +16,7 @@ use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 use Mezzio\Authentication\OAuth2\AuthorizationMiddleware;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -26,6 +27,8 @@ use RuntimeException;
 
 class AuthorizationMiddlewareTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var AuthorizationRequest|ObjectProphecy */
     private $authRequest;
 

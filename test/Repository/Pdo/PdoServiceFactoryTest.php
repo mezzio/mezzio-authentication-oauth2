@@ -14,10 +14,13 @@ use Mezzio\Authentication\OAuth2\Exception;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoServiceFactory;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class PdoServiceFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     protected function setUp() : void
     {
         $this->container = $this->prophesize(ContainerInterface::class);

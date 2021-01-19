@@ -15,6 +15,7 @@ use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandlerFactory;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -25,6 +26,8 @@ use TypeError;
  */
 class TokenEndpointHandlerFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var TokenEndpointHandlerFactory
      */

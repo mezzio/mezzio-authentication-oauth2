@@ -13,10 +13,13 @@ namespace MezzioTest\Authentication\OAuth2;
 use Mezzio\Authentication\OAuth2\ConfigTrait;
 use Mezzio\Authentication\OAuth2\Exception;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class ConfigTraitTest extends TestCase
 {
+    use ProphecyTrait;
+
     protected function setUp() : void
     {
         $this->trait = $trait = new class {
@@ -160,14 +163,13 @@ class ConfigTraitTest extends TestCase
             ->willReturn([]);
         $result = $this->trait
             ->proxy('getListenersConfig', $this->container->reveal());
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
-    /**
-     * @expectedException Mezzio\Authentication\OAuth2\Exception\InvalidConfigException
-     */
     public function testGetListenersConfigNoArrayValue()
     {
+        $this->expectException(Exception\InvalidConfigException::class);
+
         $this->container
             ->get('config')
             ->willReturn([
@@ -199,14 +201,13 @@ class ConfigTraitTest extends TestCase
             ->willReturn([]);
         $result = $this->trait
             ->proxy('getListenerProvidersConfig', $this->container->reveal());
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
-    /**
-     * @expectedException Mezzio\Authentication\OAuth2\Exception\InvalidConfigException
-     */
     public function testGetListenerProvidersConfigNoArrayValue()
     {
+        $this->expectException(Exception\InvalidConfigException::class);
+
         $this->container
             ->get('config')
             ->willReturn([

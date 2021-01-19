@@ -14,10 +14,13 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepositoryFactory;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class RefreshTokenRepositoryFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var ContainerInterface
      */

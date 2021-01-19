@@ -14,10 +14,13 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\ClientRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\ClientRepositoryFactory;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class ClientRepositoryFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var ContainerInterface
      */

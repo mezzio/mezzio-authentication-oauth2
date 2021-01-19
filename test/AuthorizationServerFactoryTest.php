@@ -23,6 +23,7 @@ use League\OAuth2\Server\RequestEvent;
 use Mezzio\Authentication\OAuth2\AuthorizationServerFactory;
 use Mezzio\Authentication\OAuth2\Exception\InvalidConfigException;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
@@ -32,6 +33,7 @@ use function in_array;
 
 class AuthorizationServerFactoryTest extends TestCase
 {
+    use ProphecyTrait;
 
     public function testInvoke()
     {
