@@ -1,5 +1,9 @@
 {
     "extensions": [
          "pdo-sqlite"
+    ],
+    "exclude": [
+        {"name": "PHPUnit on PHP 8.0 with lowest dependencies"},
+        {"name": "PHPUnit on PHP 8.0 with locked dependencies"}
     ]
 }
