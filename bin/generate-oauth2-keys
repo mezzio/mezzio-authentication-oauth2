@@ -73,7 +73,7 @@ printf('Using %d bits to generate key of type RSA' . "\n\n", $bits);
 // Private key
 $res = openssl_pkey_new($config);
 
-if (!is_resource($res)) {
+if (!(is_resource($res) || (is_object($res) && $res instanceof OpenSSLAsymmetricKey))) {
     fwrite(STDERR, 'Failed to create private key.' . PHP_EOL);
     fwrite(STDERR, 'Check your openssl extension settings.' . PHP_EOL);
     exit(1);
