@@ -29,8 +29,10 @@ if (!extension_loaded('openssl')) {
 
 // find the best dir
 if (
+    // get path of data dir of the parent application
+    ($dataDir = realpath(__DIR__ . '/../../../../data'))
     // see if there's a data dir of the parent application
-    file_exists($dataDir = realpath(__DIR__ . '/../../../../data'))
+    && file_exists($dataDir)
 ) {
     printf("Found a good location for keys:\n%s\n\n", $dataDir);
 } elseif (
