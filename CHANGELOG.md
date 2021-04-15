@@ -2,27 +2,25 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.1.1 - TBD
+## 2.1.1 - 2021-04-15
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [2.1.1](https://github.com/mezzio/mezzio-authentication-oauth2/milestone/2)
 
-- Nothing.
+2.1.x bugfix release (patch)
 
-### Deprecated
+### 2.1.1
 
-- Nothing.
+- Total issues resolved: **0**
+- Total pull requests resolved: **2**
+- Total contributors: **2**
 
-### Removed
+#### Bug
 
-- Nothing.
-
-### Fixed
-
-- Nothing.
+ - [27: Fixes fatal error in `generate-oauth2-keys` (#26)](https://github.com/mezzio/mezzio-authentication-oauth2/pull/27) thanks to @artemmolotov
+ - [25: Fix key generator, to support PHP8 'resource to object' migration](https://github.com/mezzio/mezzio-authentication-oauth2/pull/25) thanks to @adambalint-srg
 
 ## 2.1.0 - 2021-01-19
 
