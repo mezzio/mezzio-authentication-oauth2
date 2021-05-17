@@ -1,7 +1,6 @@
 {
     "name": "mezzio/mezzio-authentication-oauth2",
     "description": "OAuth2 (server) authentication middleware for Mezzio and PSR-7 applications.",
-    "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
         "mezzio",
@@ -12,22 +11,7 @@
         "psr-7"
     ],
     "homepage": "https://mezzio.dev",
-    "support": {
-        "docs": "https://docs.mezzio.dev/mezzio-authentication-oauth2/",
-        "issues": "https://github.com/mezzio/mezzio-authentication-oauth2/issues",
-        "source": "https://github.com/mezzio/mezzio-authentication-oauth2",
-        "rss": "https://github.com/mezzio/mezzio-authentication-oauth2/releases.atom",
-        "chat": "https://laminas.dev/chat",
-        "forum": "https://discourse.laminas.dev"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "laminas": {
-            "config-provider": "Mezzio\\Authentication\\OAuth2\\ConfigProvider"
-        }
-    },
+    "license": "BSD-3-Clause",
     "require": {
         "php": "^7.3 || ~8.0.0",
         "laminas/laminas-zendframework-bridge": "^1.0",
@@ -37,15 +21,26 @@
         "psr/http-message": "^1.0.1",
         "psr/http-server-middleware": "^1.0"
     },
+    "replace": {
+        "zendframework/zend-expressive-authentication-oauth2": "^2.0.0"
+    },
+    "conflict": {
+        "container-interop/container-interop": "<1.2.0"
+    },
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
         "laminas/laminas-diactoros": "^1.4.0 || ^2.0",
         "laminas/laminas-servicemanager": "^3.0 || ^4.0.x-dev",
-        "phpunit/phpunit": "^9.5",
-        "phpspec/prophecy-phpunit": "^2.0"
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpunit/phpunit": "^9.5"
     },
-    "conflict": {
-        "container-interop/container-interop": "<1.2.0"
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laminas": {
+            "config-provider": "Mezzio\\Authentication\\OAuth2\\ConfigProvider"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -70,7 +65,12 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
-    "replace": {
-        "zendframework/zend-expressive-authentication-oauth2": "^2.0.0"
+    "support": {
+        "issues": "https://github.com/mezzio/mezzio-authentication-oauth2/issues",
+        "forum": "https://discourse.laminas.dev",
+        "chat": "https://laminas.dev/chat",
+        "source": "https://github.com/mezzio/mezzio-authentication-oauth2",
+        "docs": "https://docs.mezzio.dev/mezzio-authentication-oauth2/",
+        "rss": "https://github.com/mezzio/mezzio-authentication-oauth2/releases.atom"
     }
 }
