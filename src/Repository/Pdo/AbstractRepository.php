@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2\Repository\Pdo;
 
+use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use function array_reduce;
 use function trim;
 
