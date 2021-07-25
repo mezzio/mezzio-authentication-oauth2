@@ -24,10 +24,13 @@ class AuthorizationHandlerTest extends TestCase
     public function testHandleUsesAuthorizationServerService(): void
     {
         $server           = $this->prophesize(AuthorizationServer::class);
-        $response         = $this->prophesize(ResponseInterface::class);
+        $response         = $this->createMock(ResponseInterface::class);
         $authRequest      = $this->prophesize(AuthorizationRequest::class);
         $request          = $this->prophesize(ServerRequestInterface::class);
-        $expectedResponse = $response->reveal();
+        $expectedResponse = $response;
+        $response
+            ->method('withStatus')
+            ->willReturnSelf();
 
         $request->getAttribute(AuthorizationRequest::class)
             ->willReturn($authRequest->reveal());

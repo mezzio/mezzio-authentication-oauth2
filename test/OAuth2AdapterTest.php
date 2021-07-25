@@ -10,6 +10,7 @@ use Mezzio\Authentication\AuthenticationInterface;
 use Mezzio\Authentication\DefaultUser;
 use Mezzio\Authentication\OAuth2\OAuth2Adapter;
 use Mezzio\Authentication\UserInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -24,7 +25,7 @@ class OAuth2AdapterTest extends TestCase
     /** @var ResourceServer|ObjectProphecy */
     private $resourceServer;
 
-    /** @var ResponseInterface|ObjectProphecy */
+    /** @var ResponseInterface&MockObject */
     private $response;
 
     /** @var callable */
@@ -36,9 +37,9 @@ class OAuth2AdapterTest extends TestCase
     protected function setUp(): void
     {
         $this->resourceServer  = $this->prophesize(ResourceServer::class);
-        $this->response        = $this->prophesize(ResponseInterface::class);
-        $this->responseFactory = function () {
-            return $this->response->reveal();
+        $this->response        = $this->createMock(ResponseInterface::class);
+        $this->responseFactory = function (): ResponseInterface {
+            return $this->response;
         };
         $this->userFactory     = function (
             string $identity,
@@ -150,11 +151,15 @@ class OAuth2AdapterTest extends TestCase
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();
 
         $this->response
-            ->withHeader('WWW-Authenticate', 'Bearer realm="OAuth2 token"')
-            ->will([$this->response, 'reveal']);
+            ->expects(self::once())
+            ->method('withHeader')
+            ->with('WWW-Authenticate', 'Bearer realm="OAuth2 token"')
+            ->willReturnSelf();
         $this->response
-            ->withStatus(401)
-            ->will([$this->response, 'reveal']);
+            ->expects(self::once())
+            ->method('withStatus')
+            ->with(401)
+            ->willReturnSelf();
 
         $adapter = new OAuth2Adapter(
             $this->resourceServer->reveal(),
@@ -163,7 +168,7 @@ class OAuth2AdapterTest extends TestCase
         );
 
         $this->assertSame(
-            $this->response->reveal(),
+            $this->response,
             $adapter->unauthorizedResponse($request)
         );
     }

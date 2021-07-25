@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace MezzioTest\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
-use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandlerFactory;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use TypeError;
 
@@ -44,12 +44,20 @@ class TokenEndpointHandlerFactoryTest extends TestCase
         };
         $container       = $this->prophesize(ContainerInterface::class);
 
-        $container->get(AuthorizationServer::class)
-            ->willReturn($server->reveal());
-        $container->get(ResponseInterface::class)
-            ->willReturn($responseFactory);
+        $container
+            ->has(ResponseFactoryInterface::class)
+            ->willReturn(false)
+            ->shouldBeCalledOnce();
+        $container
+            ->get(AuthorizationServer::class)
+            ->willReturn($server->reveal())
+            ->shouldBeCalledOnce();
+        $container
+            ->get(ResponseInterface::class)
+            ->willReturn($responseFactory)
+            ->shouldBeCalledOnce();
 
-        self::assertInstanceOf(TokenEndpointHandler::class, ($this->subject)($container->reveal()));
+        ($this->subject)($container->reveal());
     }
 
     public function testDirectResponseInstanceFromContainerThrowsTypeError()
@@ -57,9 +65,14 @@ class TokenEndpointHandlerFactoryTest extends TestCase
         $server    = $this->prophesize(AuthorizationServer::class);
         $container = $this->prophesize(ContainerInterface::class);
 
-        $container->get(AuthorizationServer::class)
+        $container
+            ->has(ResponseFactoryInterface::class)
+            ->willReturn(false);
+        $container
+            ->get(AuthorizationServer::class)
             ->willReturn($server->reveal());
-        $container->get(ResponseInterface::class)
+        $container
+            ->get(ResponseInterface::class)
             ->willReturn($this->prophesize(ResponseInterface::class)->reveal());
 
         $this->expectException(TypeError::class);
