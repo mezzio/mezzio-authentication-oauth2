@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
  /**
   * To generate a private key run this command:
   * openssl genrsa -out private.key 1024
@@ -13,6 +11,8 @@ declare(strict_types=1);
   *
   * @see http://php.net/manual/en/class.dateinterval.php
   */
+
+declare(strict_types=1);
 
 $config = [
     'private_key'          => getcwd() . '/data/oauth/private.key',
