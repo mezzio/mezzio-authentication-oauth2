@@ -45,6 +45,9 @@ class RefreshTokenRepository extends AbstractRepository implements RefreshTokenR
         }
     }
 
+    /**
+     * @param string $tokenId
+     */
     public function revokeRefreshToken($tokenId)
     {
         $sth = $this->pdo->prepare(
@@ -56,6 +59,9 @@ class RefreshTokenRepository extends AbstractRepository implements RefreshTokenR
         $sth->execute();
     }
 
+    /**
+     * @param string $tokenId
+     */
     public function isRefreshTokenRevoked($tokenId): bool
     {
         $sth = $this->pdo->prepare(
