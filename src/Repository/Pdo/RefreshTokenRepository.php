@@ -17,7 +17,7 @@ use function date;
 
 class RefreshTokenRepository extends AbstractRepository implements RefreshTokenRepositoryInterface
 {
-    public function getNewRefreshToken()
+    public function getNewRefreshToken(): RefreshTokenEntity
     {
         return new RefreshTokenEntity();
     }
@@ -56,7 +56,7 @@ class RefreshTokenRepository extends AbstractRepository implements RefreshTokenR
         $sth->execute();
     }
 
-    public function isRefreshTokenRevoked($tokenId)
+    public function isRefreshTokenRevoked($tokenId): bool
     {
         $sth = $this->pdo->prepare(
             'SELECT revoked FROM oauth_refresh_tokens WHERE id = :tokenId'

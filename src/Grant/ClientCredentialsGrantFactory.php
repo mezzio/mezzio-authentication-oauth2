@@ -13,7 +13,7 @@ use Psr\Container\ContainerInterface;
 
 class ClientCredentialsGrantFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): ClientCredentialsGrant
     {
         return new ClientCredentialsGrant();
     }

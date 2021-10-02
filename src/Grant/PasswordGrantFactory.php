@@ -19,7 +19,7 @@ class PasswordGrantFactory
     use ConfigTrait;
     use RepositoryTrait;
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): PasswordGrant
     {
         $grant = new PasswordGrant(
             $this->getUserRepository($container),

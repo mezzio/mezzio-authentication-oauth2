@@ -26,7 +26,7 @@ class PdoServiceFactoryTest extends TestCase
         $this->factory   = new PdoServiceFactory();
     }
 
-    public function invalidConfiguration()
+    public function invalidConfiguration(): array
     {
         // @codingStandardsIgnoreStart
         return [

@@ -14,7 +14,7 @@ use Psr\Http\Message\ResponseInterface;
 
 final class AuthorizationHandlerFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): AuthorizationHandler
     {
         return new AuthorizationHandler(
             $container->get(AuthorizationServer::class),

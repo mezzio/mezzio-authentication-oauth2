@@ -20,7 +20,7 @@ class RefreshTokenGrantFactory
 
     use RepositoryTrait;
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): RefreshTokenGrant
     {
         $grant = new RefreshTokenGrant(
             $this->getRefreshTokenRepository($container)

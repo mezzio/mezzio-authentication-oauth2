@@ -40,7 +40,7 @@ class ScopeRepository extends AbstractRepository implements ScopeRepositoryInter
         $grantType,
         ClientEntityInterface $clientEntity,
         $userIdentifier = null
-    ) {
+    ): array {
         return $scopes;
     }
 }

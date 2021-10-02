@@ -97,7 +97,7 @@ class ClientRepositoryTest extends TestCase
         );
     }
 
-    public function invalidGrants()
+    public function invalidGrants(): array
     {
         return [
             'personal_access_password_mismatch' => [
@@ -122,7 +122,7 @@ class ClientRepositoryTest extends TestCase
         ];
     }
 
-    public function testValidateClientReturnsFalseIfNoRowReturned()
+    public function testValidateClientReturnsFalseIfNoRowReturned(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
