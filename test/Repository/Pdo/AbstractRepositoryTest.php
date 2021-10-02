@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -19,7 +17,7 @@ class AbstractRepositoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->pdo = $this->prophesize(PdoService::class);
     }
@@ -32,7 +30,7 @@ class AbstractRepositoryTest extends TestCase
 
     public function testScopesToStringWithEmptyArray()
     {
-        $proxy = new class($this->pdo->reveal()) extends AbstractRepository {
+        $proxy  = new class ($this->pdo->reveal()) extends AbstractRepository {
             public function scopesToString(array $scopes): string
             {
                 return parent::scopesToString($scopes);

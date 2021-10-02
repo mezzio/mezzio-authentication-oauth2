@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -20,17 +18,18 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PDOStatement;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-
 use Prophecy\PhpUnit\ProphecyTrait;
+
+use function date;
 use function time;
 
 class AuthCodeRepositoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->pdo = $this->prophesize(PdoService::class);
+        $this->pdo  = $this->prophesize(PdoService::class);
         $this->repo = new AuthCodeRepository($this->pdo->reveal());
     }
 

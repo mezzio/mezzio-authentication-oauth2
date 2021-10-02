@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -19,19 +17,13 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class OAuth2Adapter implements AuthenticationInterface
 {
-    /**
-     * @var ResourceServer
-     */
+    /** @var ResourceServer */
     protected $resourceServer;
 
-    /**
-     * @var callable
-     */
+    /** @var callable */
     protected $responseFactory;
 
-    /**
-     * @var callable
-     */
+    /** @var callable */
     protected $userFactory;
 
     public function __construct(
@@ -39,15 +31,15 @@ class OAuth2Adapter implements AuthenticationInterface
         callable $responseFactory,
         callable $userFactory
     ) {
-        $this->resourceServer = $resourceServer;
-        $this->responseFactory = function () use ($responseFactory) : ResponseInterface {
+        $this->resourceServer  = $resourceServer;
+        $this->responseFactory = function () use ($responseFactory): ResponseInterface {
             return $responseFactory();
         };
-        $this->userFactory = function (
+        $this->userFactory     = function (
             string $identity,
             array $roles = [],
             array $details = []
-        ) use ($userFactory) : UserInterface {
+        ) use ($userFactory): UserInterface {
             return $userFactory($identity, $roles, $details);
         };
     }
@@ -55,21 +47,21 @@ class OAuth2Adapter implements AuthenticationInterface
     /**
      * {@inheritDoc}
      */
-    public function authenticate(ServerRequestInterface $request) : ?UserInterface
+    public function authenticate(ServerRequestInterface $request): ?UserInterface
     {
         try {
-            $result = $this->resourceServer->validateAuthenticatedRequest($request);
-            $userId = $result->getAttribute('oauth_user_id', null);
+            $result   = $this->resourceServer->validateAuthenticatedRequest($request);
+            $userId   = $result->getAttribute('oauth_user_id', null);
             $clientId = $result->getAttribute('oauth_client_id', null);
             if (isset($userId)) {
                 return ($this->userFactory)(
                     $userId,
                     [],
                     [
-                        'oauth_user_id' => $userId,
-                        'oauth_client_id' => $clientId,
+                        'oauth_user_id'         => $userId,
+                        'oauth_client_id'       => $clientId,
                         'oauth_access_token_id' => $result->getAttribute('oauth_access_token_id', null),
-                        'oauth_scopes' => $result->getAttribute('oauth_scopes', null)
+                        'oauth_scopes'          => $result->getAttribute('oauth_scopes', null),
                     ]
                 );
             }
@@ -82,7 +74,7 @@ class OAuth2Adapter implements AuthenticationInterface
     /**
      * {@inheritDoc}
      */
-    public function unauthorizedResponse(ServerRequestInterface $request) : ResponseInterface
+    public function unauthorizedResponse(ServerRequestInterface $request): ResponseInterface
     {
         return ($this->responseFactory)()
             ->withHeader(

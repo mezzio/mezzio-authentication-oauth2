@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -21,15 +19,13 @@ class RefreshTokenRepositoryFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var ContainerInterface
-     */
+    /** @var ContainerInterface */
     private $container;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->container = $this->prophesize(ContainerInterface::class);
-        $this->pdo = $this->prophesize(PdoService::class);
+        $this->pdo       = $this->prophesize(PdoService::class);
     }
 
     public function testFactory()
@@ -38,7 +34,7 @@ class RefreshTokenRepositoryFactoryTest extends TestCase
             ->get(PdoService::class)
             ->willReturn($this->pdo->reveal());
 
-        $factory = (new RefreshTokenRepositoryFactory)($this->container->reveal());
+        $factory = (new RefreshTokenRepositoryFactory())($this->container->reveal());
         $this->assertInstanceOf(RefreshTokenRepository::class, $factory);
     }
 }

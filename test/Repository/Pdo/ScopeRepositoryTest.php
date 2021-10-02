@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -23,9 +21,9 @@ class ScopeRepositoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->pdo = $this->prophesize(PdoService::class);
+        $this->pdo  = $this->prophesize(PdoService::class);
         $this->repo = new ScopeRepository($this->pdo->reveal());
     }
 
@@ -63,7 +61,7 @@ class ScopeRepositoryTest extends TestCase
         $statement->bindParam(':identifier', 'id')->shouldBeCalled();
         $statement->execute()->willReturn(true)->shouldBeCalled();
         $statement->fetch()->willReturn([
-            'id' => 'foo'
+            'id' => 'foo',
         ])->shouldBeCalled();
 
         $this->pdo
@@ -78,7 +76,7 @@ class ScopeRepositoryTest extends TestCase
     public function testFinalizeScopesWithEmptyScopes()
     {
         $clientEntity = $this->prophesize(ClientEntityInterface::class);
-        $scopes = $this->repo->finalizeScopes([], 'foo', $clientEntity->reveal());
+        $scopes       = $this->repo->finalizeScopes([], 'foo', $clientEntity->reveal());
         $this->assertEquals([], $scopes);
     }
 }

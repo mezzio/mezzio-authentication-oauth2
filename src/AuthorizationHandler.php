@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -12,7 +10,6 @@ namespace Mezzio\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
-use phpDocumentor\Reflection\Types\This;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -28,19 +25,15 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class AuthorizationHandler implements RequestHandlerInterface
 {
-    /**
-     * @var AuthorizationServer
-     */
+    /** @var AuthorizationServer */
     private $server;
 
-    /**
-     * @var callable
-     */
+    /** @var callable */
     private $responseFactory;
 
     public function __construct(AuthorizationServer $server, callable $responseFactory)
     {
-        $this->server = $server;
+        $this->server          = $server;
         $this->responseFactory = function () use ($responseFactory): ResponseInterface {
             return $responseFactory();
         };

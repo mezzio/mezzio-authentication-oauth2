@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -23,13 +21,13 @@ class RefreshTokenGrantFactoryTest extends TestCase
 
     public function testInvoke()
     {
-        $mockContainer = $this->prophesize(ContainerInterface::class);
+        $mockContainer        = $this->prophesize(ContainerInterface::class);
         $mockRefreshTokenRepo = $this->prophesize(RefreshTokenRepositoryInterface::class);
 
         $config = [
             'authentication' => [
-                'refresh_token_expire' => 'P1M'
-            ]
+                'refresh_token_expire' => 'P1M',
+            ],
         ];
 
         $mockContainer->has(RefreshTokenRepositoryInterface::class)->willReturn(true);

@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -20,9 +18,9 @@ class ConfigTraitTest extends TestCase
 {
     use ProphecyTrait;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->trait = $trait = new class {
+        $this->trait     = $trait = new class {
             use ConfigTrait;
 
             public function proxy(string $name, ContainerInterface $container)
@@ -30,15 +28,15 @@ class ConfigTraitTest extends TestCase
                 return $this->$name($container);
             }
         };
-        $this->config = [
+        $this->config    = [
             'authentication' => [
-                'private_key' => 'xxx',
-                'encryption_key' => 'xxx',
-                'access_token_expire' => '3600',
+                'private_key'          => 'xxx',
+                'encryption_key'       => 'xxx',
+                'access_token_expire'  => '3600',
                 'refresh_token_expire' => '3600',
-                'auth_code_expire' => '120',
-                'grants' => ['xxx']
-            ]
+                'auth_code_expire'     => '120',
+                'grants'               => ['xxx'],
+            ],
         ];
         $this->container = $this->prophesize(ContainerInterface::class);
         $this->container
@@ -189,7 +187,7 @@ class ConfigTraitTest extends TestCase
                     'event_listeners' => $expected = [['xxx']],
                 ],
             ]);
-        $result = $this->trait
+        $result                                    = $this->trait
             ->proxy('getListenersConfig', $this->container->reveal());
         $this->assertEquals($expected, $result);
     }
@@ -227,7 +225,7 @@ class ConfigTraitTest extends TestCase
                     'event_listener_providers' => $expected = ['xxx'],
                 ],
             ]);
-        $result = $this->trait
+        $result                                             = $this->trait
             ->proxy('getListenerProvidersConfig', $this->container->reveal());
         $this->assertEquals($expected, $result);
     }

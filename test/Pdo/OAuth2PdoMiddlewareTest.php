@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -11,6 +9,7 @@ declare(strict_types=1);
 namespace MezzioTest\Authentication\OAuth2\Pdo;
 
 use DateInterval;
+use Exception;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Stream;
@@ -42,16 +41,20 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 use function assert;
+use function base64_encode;
 use function bin2hex;
 use function explode;
 use function file_exists;
 use function file_get_contents;
+use function hash;
 use function http_build_query;
 use function json_decode;
 use function parse_str;
 use function random_bytes;
+use function rtrim;
 use function sprintf;
 use function strtolower;
+use function strtr;
 use function unlink;
 
 /**
@@ -66,7 +69,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
     const DB_FILE        = __DIR__ . '/TestAsset/test_oauth2.sq3';
     const DB_SCHEMA      = __DIR__ . '/../../data/oauth2.sql';
     const DB_DATA        = __DIR__ . '/TestAsset/test_data.sql';
-    const PRIVATE_KEY    = __DIR__ .'/../TestAsset/private.key';
+    const PRIVATE_KEY    = __DIR__ . '/../TestAsset/private.key';
     const ENCRYPTION_KEY = 'T2x2+1OGrElaminasS+01OUmwhOcJiGmE58UD1fllNn6CGcQ=';
 
     const CODE_VERIFIER = 'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk';
@@ -104,44 +107,44 @@ class OAuth2PdoMiddlewareTest extends TestCase
     /** @var UserRepository */
     private $userRepository;
 
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass(): void
     {
         self::tearDownAfterClass();
 
         // Generate the OAuth2 database
         $pdo = new PDO('sqlite:' . self::DB_FILE);
         if (false === $pdo->exec(file_get_contents(self::DB_SCHEMA))) {
-            throw new \Exception(sprintf(
+            throw new Exception(sprintf(
                 "The test cannot be executed without the %s db",
                 self::DB_SCHEMA
             ));
         }
         // Insert the test values
         if (false === $pdo->exec(file_get_contents(self::DB_DATA))) {
-            throw new \Exception(sprintf(
+            throw new Exception(sprintf(
                 "The test cannot be executed without the values in %s",
                 self::DB_DATA
             ));
         }
     }
 
-    public static function tearDownAfterClass() : void
+    public static function tearDownAfterClass(): void
     {
         if (file_exists(self::DB_FILE)) {
             unlink(self::DB_FILE);
         }
     }
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->response = new Response();
-        $this->pdoService = new PdoService('sqlite:' . self::DB_FILE);
-        $this->clientRepository = new ClientRepository($this->pdoService);
-        $this->accessTokenRepository = new AccessTokenRepository($this->pdoService);
-        $this->scopeRepository = new ScopeRepository($this->pdoService);
-        $this->userRepository = new UserRepository($this->pdoService);
+        $this->response               = new Response();
+        $this->pdoService             = new PdoService('sqlite:' . self::DB_FILE);
+        $this->clientRepository       = new ClientRepository($this->pdoService);
+        $this->accessTokenRepository  = new AccessTokenRepository($this->pdoService);
+        $this->scopeRepository        = new ScopeRepository($this->pdoService);
+        $this->userRepository         = new UserRepository($this->pdoService);
         $this->refreshTokenRepository = new RefreshTokenRepository($this->pdoService);
-        $this->authCodeRepository = new AuthCodeRepository($this->pdoService);
+        $this->authCodeRepository     = new AuthCodeRepository($this->pdoService);
 
         $this->authServer = new AuthorizationServer(
             $this->clientRepository,
@@ -151,7 +154,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
             self::ENCRYPTION_KEY
         );
 
-        $this->handler = $this->prophesize(RequestHandlerInterface::class);
+        $this->handler         = $this->prophesize(RequestHandlerInterface::class);
         $this->responseFactory = function () {
             return $this->response;
         };
@@ -171,18 +174,18 @@ class OAuth2PdoMiddlewareTest extends TestCase
         );
 
         // Server request
-        $params = [
+        $params  = [
             'grant_type'    => 'client_credentials',
             'client_id'     => 'client_test_not_confidential',
             'client_secret' => 'test',
-            'scope'         => 'test'
+            'scope'         => 'test',
         ];
         $request = $this->buildServerRequest(
             'POST',
             '/access_token',
             http_build_query($params),
             $params,
-            [ 'Content-Type' => 'application/x-www-form-urlencoded' ]
+            ['Content-Type' => 'application/x-www-form-urlencoded']
         );
 
         $handler = new TokenEndpointHandler(
@@ -209,18 +212,18 @@ class OAuth2PdoMiddlewareTest extends TestCase
         );
 
         // Server request
-        $params = [
+        $params  = [
             'grant_type'    => 'client_credentials',
             'client_id'     => 'client_test',
             'client_secret' => 'test',
-            'scope'         => 'test'
+            'scope'         => 'test',
         ];
         $request = $this->buildServerRequest(
             'POST',
             '/access_token',
             http_build_query($params),
             $params,
-            [ 'Content-Type' => 'application/x-www-form-urlencoded' ]
+            ['Content-Type' => 'application/x-www-form-urlencoded']
         );
 
         $handler = new TokenEndpointHandler(
@@ -255,20 +258,20 @@ class OAuth2PdoMiddlewareTest extends TestCase
             new DateInterval('PT1H') // access tokens will expire after 1 hour
         );
         // Server request
-        $params = [
+        $params  = [
             'grant_type'    => 'password',
             'client_id'     => 'client_test',
             'client_secret' => 'test',
             'scope'         => 'test',
             'username'      => 'user_test',
-            'password'      => 'test'
+            'password'      => 'test',
         ];
         $request = $this->buildServerRequest(
             'POST',
             '/access_token',
             http_build_query($params),
             $params,
-            [ 'Content-Type' => 'application/x-www-form-urlencoded' ]
+            ['Content-Type' => 'application/x-www-form-urlencoded']
         );
 
         $handler = new TokenEndpointHandler(
@@ -312,14 +315,14 @@ class OAuth2PdoMiddlewareTest extends TestCase
             'client_id'     => 'client_test2',
             'redirect_uri'  => 'http://example.com/redirect',
             'scope'         => 'test',
-            'state'         => $state
+            'state'         => $state,
         ];
 
         $codeVerifier = new S256Verifier();
 
         $params['code_challenge_method'] = $codeVerifier->getMethod();
-        $params['code_verifier'] = self::CODE_VERIFIER;
-        $params['code_challenge'] = strtr(
+        $params['code_verifier']         = self::CODE_VERIFIER;
+        $params['code_challenge']        = strtr(
             rtrim(base64_encode(hash('sha256', self::CODE_VERIFIER, true)), '='),
             '+/',
             '-_'
@@ -335,8 +338,8 @@ class OAuth2PdoMiddlewareTest extends TestCase
         );
 
         // mocks the authorization endpoint pipe
-        $authMiddleware = new AuthorizationMiddleware($this->authServer, $this->responseFactory);
-        $authHandler = new AuthorizationHandler($this->authServer, $this->responseFactory);
+        $authMiddleware  = new AuthorizationMiddleware($this->authServer, $this->responseFactory);
+        $authHandler     = new AuthorizationHandler($this->authServer, $this->responseFactory);
         $consumerHandler = $this->buildConsumerAuthMiddleware($authHandler);
 
         $response = $authMiddleware->process($request, $consumerHandler);
@@ -357,6 +360,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
      * Test the Authorization Code Grant (Part Two)
      *
      * @see https://oauth2.thephpleague.com/authorization-server/auth-code-grant/
+     *
      * @depends testProcessGetAuthorizationCode
      */
     public function testProcessFromAuthorizationCode(string $code)
@@ -389,7 +393,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
             '/access_token',
             http_build_query($params),
             $params,
-            [ 'Content-Type' => 'application/x-www-form-urlencoded' ]
+            ['Content-Type' => 'application/x-www-form-urlencoded']
         );
 
         $handler = new TokenEndpointHandler(
@@ -423,12 +427,12 @@ class OAuth2PdoMiddlewareTest extends TestCase
         );
         $state = bin2hex(random_bytes(10)); // CSRF token
         // Server request
-        $params = [
+        $params  = [
             'response_type' => 'token',
             'client_id'     => 'client_test2',
             'redirect_uri'  => 'http://example.com/redirect',
             'scope'         => 'test',
-            'state'         => $state
+            'state'         => $state,
         ];
         $request = $this->buildServerRequest(
             'GET',
@@ -439,8 +443,8 @@ class OAuth2PdoMiddlewareTest extends TestCase
             $params
         );
 
-        $authMiddleware = new AuthorizationMiddleware($this->authServer, $this->responseFactory);
-        $authHandler = new AuthorizationHandler($this->authServer, $this->responseFactory);
+        $authMiddleware  = new AuthorizationMiddleware($this->authServer, $this->responseFactory);
+        $authHandler     = new AuthorizationHandler($this->authServer, $this->responseFactory);
         $consumerHandler = $this->buildConsumerAuthMiddleware($authHandler);
 
         $response = $authMiddleware->process($request, $consumerHandler);
@@ -463,6 +467,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
      * Test the Refresh Token Grant
      *
      * @see https://oauth2.thephpleague.com/authorization-server/refresh-token-grant/
+     *
      * @depends testProcessFromAuthorizationCode
      */
     public function testProcessRefreshTokenGrant(string $refreshToken)
@@ -476,19 +481,19 @@ class OAuth2PdoMiddlewareTest extends TestCase
             new DateInterval('PT1H') // new access tokens will expire after an hour
         );
         // Server request
-        $params = [
+        $params  = [
             'grant_type'    => 'refresh_token',
             'client_id'     => 'client_test2',
             'client_secret' => 'test',
             'refresh_token' => $refreshToken,
-            'scope'         => 'test'
+            'scope'         => 'test',
         ];
         $request = $this->buildServerRequest(
             'POST',
             '/access_token',
             http_build_query($params),
             $params,
-            [ 'Content-Type' => 'application/x-www-form-urlencoded' ]
+            ['Content-Type' => 'application/x-www-form-urlencoded']
         );
 
         $handler = new TokenEndpointHandler(
@@ -508,11 +513,9 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
     private function buildConsumerAuthMiddleware(AuthorizationHandler $authHandler)
     {
-        return new class($authHandler) implements RequestHandlerInterface
+        return new class ($authHandler) implements RequestHandlerInterface
         {
-            /**
-             * @var AuthorizationHandler
-             */
+            /** @var AuthorizationHandler */
             private $handler;
 
             public function __construct(AuthorizationHandler $handler)
@@ -545,7 +548,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
         array $params,
         array $headers = [],
         array $queryParams = []
-    ) : ServerRequest {
+    ): ServerRequest {
         $stream = new Stream('php://temp', 'w');
         $stream->write($body);
 
