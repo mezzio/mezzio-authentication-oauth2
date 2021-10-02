@@ -24,7 +24,7 @@ class PdoServiceFactoryTest extends TestCase
 
     public function invalidConfiguration(): array
     {
-        // @codingStandardsIgnoreStart
+        // phpcs:disable
         return [
             'no-config-service'                   => [false, [], 'PDO configuration is missing'],
             'config-empty'                        => [true, [], 'PDO configuration is missing'],
@@ -32,7 +32,7 @@ class PdoServiceFactoryTest extends TestCase
             'config-authentication-pdo-empty'     => [true, ['authentication' => ['pdo' => null]], 'PDO configuration is missing'],
             'config-authentication-pdo-dsn-empty' => [true, ['authentication' => ['pdo' => ['dsn' => null]]], 'DSN configuration is missing'],
         ];
-        // @codingStandardsIgnoreEnd
+        // phpcs:enable
     }
 
     /**
