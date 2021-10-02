@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- */
-
 namespace Mezzio\Authentication\OAuth2;
 
 use League\OAuth2\Server\CryptKey;
