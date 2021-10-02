@@ -23,6 +23,9 @@ class ConfigTraitTest extends TestCase
         $this->trait     = $trait = new class {
             use ConfigTrait;
 
+            /**
+             * @return array|string
+             */
             public function proxy(string $name, ContainerInterface $container)
             {
                 return $this->$name($container);

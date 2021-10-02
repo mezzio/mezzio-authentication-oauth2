@@ -15,7 +15,7 @@ use function is_array;
 
 trait ConfigTrait
 {
-    protected function getPrivateKey(ContainerInterface $container)
+    protected function getPrivateKey(ContainerInterface $container): string
     {
         $config = $container->get('config')['authentication'] ?? [];
 

@@ -12,6 +12,7 @@ use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
+use League\OAuth2\Server\Repositories\RepositoryInterface;
 use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Exception;
@@ -29,7 +30,7 @@ class RepositoryTraitTest extends TestCase
         $this->trait     = new class {
             use RepositoryTrait;
 
-            public function proxy(string $name, ContainerInterface $container)
+            public function proxy(string $name, ContainerInterface $container): RepositoryInterface
             {
                 return $this->$name($container);
             }

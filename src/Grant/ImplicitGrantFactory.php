@@ -17,7 +17,7 @@ class ImplicitGrantFactory
 {
     use ConfigTrait;
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): ImplicitGrant
     {
         return new ImplicitGrant(
             new DateInterval($this->getAuthCodeExpire($container))

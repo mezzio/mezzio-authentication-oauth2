@@ -294,7 +294,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
      *
      * @see https://oauth2.thephpleague.com/authorization-server/auth-code-grant/
      */
-    public function testProcessGetAuthorizationCode()
+    public function testProcessGetAuthorizationCode(): string
     {
         $grant = new AuthCodeGrant(
             $this->authCodeRepository,
@@ -363,7 +363,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
      *
      * @depends testProcessGetAuthorizationCode
      */
-    public function testProcessFromAuthorizationCode(string $code)
+    public function testProcessFromAuthorizationCode(string $code): string
     {
         $grant = new AuthCodeGrant(
             $this->authCodeRepository,
@@ -511,7 +511,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
         $this->assertNotEmpty($content->refresh_token);
     }
 
-    private function buildConsumerAuthMiddleware(AuthorizationHandler $authHandler)
+    private function buildConsumerAuthMiddleware(AuthorizationHandler $authHandler): object
     {
         return new class ($authHandler) implements RequestHandlerInterface
         {

@@ -19,7 +19,7 @@ class AuthCodeGrantFactory
     use ConfigTrait;
     use RepositoryTrait;
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): AuthCodeGrant
     {
         $grant = new AuthCodeGrant(
             $this->getAuthCodeRepository($container),
