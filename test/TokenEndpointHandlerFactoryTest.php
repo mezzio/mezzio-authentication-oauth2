@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -11,14 +9,12 @@ declare(strict_types=1);
 namespace MezzioTest\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
-use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandlerFactory;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use TypeError;
 
 /**
@@ -28,12 +24,10 @@ class TokenEndpointHandlerFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var TokenEndpointHandlerFactory
-     */
+    /** @var TokenEndpointHandlerFactory */
     private $subject;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->subject = new TokenEndpointHandlerFactory();
         parent::setUp();
@@ -49,10 +43,10 @@ class TokenEndpointHandlerFactoryTest extends TestCase
 
     public function testCreatesTokenEndpointHandler()
     {
-        $server = $this->prophesize(AuthorizationServer::class);
+        $server          = $this->prophesize(AuthorizationServer::class);
         $responseFactory = function () {
         };
-        $container = $this->prophesize(ContainerInterface::class);
+        $container       = $this->prophesize(ContainerInterface::class);
 
         $container->get(AuthorizationServer::class)
             ->willReturn($server->reveal());
@@ -64,7 +58,7 @@ class TokenEndpointHandlerFactoryTest extends TestCase
 
     public function testDirectResponseInstanceFromContainerThrowsTypeError()
     {
-        $server = $this->prophesize(AuthorizationServer::class);
+        $server    = $this->prophesize(AuthorizationServer::class);
         $container = $this->prophesize(ContainerInterface::class);
 
         $container->get(AuthorizationServer::class)

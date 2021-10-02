@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -18,38 +16,30 @@ use function explode;
 
 class ClientEntity implements ClientEntityInterface
 {
-    use ClientTrait, EntityTrait, RevokableTrait, TimestampableTrait;
+    use ClientTrait;
+    use EntityTrait;
+    use RevokableTrait;
+    use TimestampableTrait;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $secret;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $personalAccessClient;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $passwordClient;
-
 
     /**
      * Constructor
      *
-     * @param string $identifier
-     * @param string $name
-     * @param string $redirectUri
-     * @param bool   $isConfidential
      * @return void
      */
     public function __construct(string $identifier, string $name, string $redirectUri, bool $isConfidential = false)
     {
         $this->setIdentifier($identifier);
-        $this->name = $name;
-        $this->redirectUri = explode(',', $redirectUri);
+        $this->name           = $name;
+        $this->redirectUri    = explode(',', $redirectUri);
         $this->isConfidential = $isConfidential;
     }
 

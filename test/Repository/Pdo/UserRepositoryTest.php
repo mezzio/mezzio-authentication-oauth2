@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -19,13 +17,17 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 
+use function password_hash;
+
+use const PASSWORD_DEFAULT;
+
 class UserRepositoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->pdo = $this->prophesize(PdoService::class);
+        $this->pdo  = $this->prophesize(PdoService::class);
         $this->repo = new UserRepository($this->pdo->reveal());
     }
 
@@ -42,7 +44,7 @@ class UserRepositoryTest extends TestCase
         $client = $this->prophesize(ClientEntityInterface::class);
 
         $this->assertNull(
-            $this->repo ->getUserEntityByUserCredentials(
+            $this->repo->getUserEntityByUserCredentials(
                 'username',
                 'password',
                 'auth',
@@ -69,7 +71,7 @@ class UserRepositoryTest extends TestCase
         $client = $this->prophesize(ClientEntityInterface::class);
 
         $this->assertNull(
-            $this->repo ->getUserEntityByUserCredentials(
+            $this->repo->getUserEntityByUserCredentials(
                 'username',
                 'password',
                 'auth',
@@ -94,7 +96,7 @@ class UserRepositoryTest extends TestCase
         $client = $this->prophesize(ClientEntityInterface::class);
 
         $this->assertNull(
-            $this->repo ->getUserEntityByUserCredentials(
+            $this->repo->getUserEntityByUserCredentials(
                 'username',
                 'password',
                 'auth',
@@ -109,7 +111,7 @@ class UserRepositoryTest extends TestCase
         $statement->bindParam(':username', 'username')->shouldBeCalled();
         $statement->execute()->willReturn(true);
         $statement->fetch()->willReturn([
-            'password' => password_hash('password', PASSWORD_DEFAULT)
+            'password' => password_hash('password', PASSWORD_DEFAULT),
         ]);
 
         $this->pdo

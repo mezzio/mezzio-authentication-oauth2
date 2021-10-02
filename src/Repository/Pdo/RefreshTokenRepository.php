@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -15,18 +13,20 @@ use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationExcep
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Entity\RefreshTokenEntity;
 
+use function date;
+
 class RefreshTokenRepository extends AbstractRepository implements RefreshTokenRepositoryInterface
 {
     public function getNewRefreshToken()
     {
-        return new RefreshTokenEntity;
+        return new RefreshTokenEntity();
     }
 
     public function persistNewRefreshToken(RefreshTokenEntityInterface $refreshTokenEntity)
     {
         $sth = $this->pdo->prepare(
-            'INSERT INTO oauth_refresh_tokens (id, access_token_id, revoked, expires_at) ' .
-            'VALUES (:id, :access_token_id, :revoked, :expires_at)'
+            'INSERT INTO oauth_refresh_tokens (id, access_token_id, revoked, expires_at) '
+            . 'VALUES (:id, :access_token_id, :revoked, :expires_at)'
         );
 
         $sth->bindValue(':id', $refreshTokenEntity->getIdentifier());

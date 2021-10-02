@@ -2,22 +2,16 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2;
 
-use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
-use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
-use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
-use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
-use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
-use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Exception\InvalidConfigException;
 use Psr\Container\ContainerInterface;
+
+use function is_array;
 
 trait ConfigTrait
 {
@@ -34,7 +28,7 @@ trait ConfigTrait
         return $config['private_key'];
     }
 
-    protected function getEncryptionKey(ContainerInterface $container) : string
+    protected function getEncryptionKey(ContainerInterface $container): string
     {
         $config = $container->get('config')['authentication'] ?? [];
 
@@ -47,7 +41,7 @@ trait ConfigTrait
         return $config['encryption_key'];
     }
 
-    protected function getAccessTokenExpire(ContainerInterface $container) : string
+    protected function getAccessTokenExpire(ContainerInterface $container): string
     {
         $config = $container->get('config')['authentication'] ?? [];
 
@@ -60,7 +54,7 @@ trait ConfigTrait
         return $config['access_token_expire'];
     }
 
-    protected function getRefreshTokenExpire(ContainerInterface $container) : string
+    protected function getRefreshTokenExpire(ContainerInterface $container): string
     {
         $config = $container->get('config')['authentication'] ?? [];
 
@@ -73,12 +67,12 @@ trait ConfigTrait
         return $config['refresh_token_expire'];
     }
 
-    protected function getAuthCodeExpire(ContainerInterface $container) : string
+    protected function getAuthCodeExpire(ContainerInterface $container): string
     {
         $config = $container->get('config')['authentication'] ?? [];
 
         if (! isset($config['auth_code_expire'])) {
-            throw new Exception\InvalidConfigException(
+            throw new InvalidConfigException(
                 'The auth_code_expire value is missing in config authentication'
             );
         }
@@ -86,7 +80,7 @@ trait ConfigTrait
         return $config['auth_code_expire'];
     }
 
-    protected function getGrantsConfig(ContainerInterface $container) : array
+    protected function getGrantsConfig(ContainerInterface $container): array
     {
         $config = $container->get('config')['authentication'] ?? [];
 
@@ -105,11 +99,9 @@ trait ConfigTrait
     }
 
     /**
-     * @param ContainerInterface $container
-     *
      * @return array
      */
-    protected function getListenersConfig(ContainerInterface $container) : array
+    protected function getListenersConfig(ContainerInterface $container): array
     {
         $config = $container->get('config')['authentication'] ?? [];
 
@@ -126,11 +118,9 @@ trait ConfigTrait
     }
 
     /**
-     * @param ContainerInterface $container
-     *
      * @return array
      */
-    protected function getListenerProvidersConfig(ContainerInterface $container) : array
+    protected function getListenerProvidersConfig(ContainerInterface $container): array
     {
         $config = $container->get('config')['authentication'] ?? [];
 

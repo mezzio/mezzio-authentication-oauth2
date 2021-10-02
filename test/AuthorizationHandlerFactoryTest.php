@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -39,7 +37,7 @@ class AuthorizationHandlerFactoryTest extends TestCase
     /** @var ResponseInterface|ObjectProphecy */
     private $response;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->container  = $this->prophesize(ContainerInterface::class);
         $this->authServer = $this->prophesize(AuthorizationServer::class);
@@ -109,7 +107,7 @@ class AuthorizationHandlerFactoryTest extends TestCase
                 return $this->response->reveal();
             });
 
-        $factory = new AuthorizationHandlerFactory();
+        $factory    = new AuthorizationHandlerFactory();
         $middleware = $factory($this->container->reveal());
         $this->assertInstanceOf(AuthorizationHandler::class, $middleware);
     }

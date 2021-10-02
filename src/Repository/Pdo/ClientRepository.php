@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -21,7 +19,7 @@ class ClientRepository extends AbstractRepository implements ClientRepositoryInt
     /**
      * {@inheritDoc}
      */
-    public function getClientEntity($clientIdentifier) : ?ClientEntityInterface
+    public function getClientEntity($clientIdentifier): ?ClientEntityInterface
     {
         $clientData = $this->getClientData($clientIdentifier);
 
@@ -40,7 +38,7 @@ class ClientRepository extends AbstractRepository implements ClientRepositoryInt
     /**
      * {@inheritDoc}
      */
-    public function validateClient($clientIdentifier, $clientSecret, $grantType) : bool
+    public function validateClient($clientIdentifier, $clientSecret, $grantType): bool
     {
         $clientData = $this->getClientData($clientIdentifier);
 
@@ -63,11 +61,8 @@ class ClientRepository extends AbstractRepository implements ClientRepositoryInt
      * Check the grantType for the client value, stored in $row
      *
      * @param array  $row
-     * @param string $grantType
-     *
-     * @return bool
      */
-    protected function isGranted(array $row, string $grantType = null) : bool
+    protected function isGranted(array $row, ?string $grantType = null): bool
     {
         switch ($grantType) {
             case 'authorization_code':
@@ -81,7 +76,7 @@ class ClientRepository extends AbstractRepository implements ClientRepositoryInt
         }
     }
 
-    private function getClientData(string $clientIdentifier) : ?array
+    private function getClientData(string $clientIdentifier): ?array
     {
         $statement = $this->pdo->prepare(
             'SELECT * FROM oauth_clients WHERE name = :clientIdentifier'

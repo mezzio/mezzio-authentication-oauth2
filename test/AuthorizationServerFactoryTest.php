@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -27,33 +25,29 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
-use function array_merge;
-use function array_slice;
-use function in_array;
-
 class AuthorizationServerFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
     public function testInvoke()
     {
-        $mockContainer = $this->prophesize(ContainerInterface::class);
-        $mockClientRepo = $this->prophesize(ClientRepositoryInterface::class);
+        $mockContainer       = $this->prophesize(ContainerInterface::class);
+        $mockClientRepo      = $this->prophesize(ClientRepositoryInterface::class);
         $mockAccessTokenRepo = $this->prophesize(AccessTokenRepositoryInterface::class);
-        $mockScopeRepo = $this->prophesize(ScopeRepositoryInterface::class);
-        $mockClientGrant = $this->prophesize(GrantTypeInterface::class);
-        $mockPasswordGrant = $this->prophesize(GrantTypeInterface::class);
+        $mockScopeRepo       = $this->prophesize(ScopeRepositoryInterface::class);
+        $mockClientGrant     = $this->prophesize(GrantTypeInterface::class);
+        $mockPasswordGrant   = $this->prophesize(GrantTypeInterface::class);
 
         $config = [
             'authentication' => [
-                'private_key' => __DIR__ . '/TestAsset/private.key',
-                'encryption_key' => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
+                'private_key'         => __DIR__ . '/TestAsset/private.key',
+                'encryption_key'      => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
                 'access_token_expire' => 'P1D',
-                'grants' => [
+                'grants'              => [
                     ClientCredentialsGrant::class => ClientCredentialsGrant::class,
-                    PasswordGrant::class => PasswordGrant::class,
+                    PasswordGrant::class          => PasswordGrant::class,
                 ],
-            ]
+            ],
         ];
 
         $mockContainer->has(ClientRepositoryInterface::class)->willReturn(true);
@@ -74,17 +68,14 @@ class AuthorizationServerFactoryTest extends TestCase
         $this->assertInstanceOf(AuthorizationServer::class, $result);
     }
 
-    /**
-     * @return ObjectProphecy
-     */
     private function getContainerMock(): ObjectProphecy
     {
-        $mockContainer = $this->prophesize(ContainerInterface::class);
-        $mockClientRepo = $this->prophesize(ClientRepositoryInterface::class);
+        $mockContainer       = $this->prophesize(ContainerInterface::class);
+        $mockClientRepo      = $this->prophesize(ClientRepositoryInterface::class);
         $mockAccessTokenRepo = $this->prophesize(AccessTokenRepositoryInterface::class);
-        $mockScopeRepo = $this->prophesize(ScopeRepositoryInterface::class);
-        $mockClientGrant = $this->prophesize(GrantTypeInterface::class);
-        $mockPasswordGrant = $this->prophesize(GrantTypeInterface::class);
+        $mockScopeRepo       = $this->prophesize(ScopeRepositoryInterface::class);
+        $mockClientGrant     = $this->prophesize(GrantTypeInterface::class);
+        $mockPasswordGrant   = $this->prophesize(GrantTypeInterface::class);
 
         $mockContainer->has(ClientRepositoryInterface::class)->willReturn(true);
         $mockContainer->has(AccessTokenRepositoryInterface::class)->willReturn(true);
@@ -105,12 +96,12 @@ class AuthorizationServerFactoryTest extends TestCase
 
         $config = [
             'authentication' => [
-                'private_key' => __DIR__ . '/TestAsset/private.key',
-                'encryption_key' => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
+                'private_key'         => __DIR__ . '/TestAsset/private.key',
+                'encryption_key'      => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
                 'access_token_expire' => 'P1D',
-                'grants' => [
+                'grants'              => [
                     ClientCredentialsGrant::class => null,
-                    PasswordGrant::class => PasswordGrant::class,
+                    PasswordGrant::class          => PasswordGrant::class,
                 ],
             ],
         ];
@@ -127,19 +118,19 @@ class AuthorizationServerFactoryTest extends TestCase
     public function testInvokeWithListenerConfig()
     {
         $mockContainer = $this->getContainerMock();
-        $mockListener = $this->prophesize(ListenerInterface::class);
+        $mockListener  = $this->prophesize(ListenerInterface::class);
         $mockContainer->has(ListenerInterface::class)->willReturn(true);
         $mockContainer->get(ListenerInterface::class)->willReturn($mockListener->reveal());
 
         $config = [
             'authentication' => [
-                'private_key' => __DIR__ . '/TestAsset/private.key',
-                'encryption_key' => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
+                'private_key'         => __DIR__ . '/TestAsset/private.key',
+                'encryption_key'      => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
                 'access_token_expire' => 'P1D',
-                'grants' => [
+                'grants'              => [
                     ClientCredentialsGrant::class => ClientCredentialsGrant::class,
                 ],
-                'event_listeners' => [
+                'event_listeners'     => [
                     [
                         RequestEvent::CLIENT_AUTHENTICATION_FAILED,
                         function (RequestEvent $event) {
@@ -166,18 +157,18 @@ class AuthorizationServerFactoryTest extends TestCase
     public function testInvokeWithListenerConfigMissingServiceThrowsException()
     {
         $mockContainer = $this->getContainerMock();
-        $mockListener = $this->prophesize(ListenerInterface::class);
+        $mockListener  = $this->prophesize(ListenerInterface::class);
         $mockContainer->has(ListenerInterface::class)->willReturn(false);
 
         $config = [
             'authentication' => [
-                'private_key' => __DIR__ . '/TestAsset/private.key',
-                'encryption_key' => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
+                'private_key'         => __DIR__ . '/TestAsset/private.key',
+                'encryption_key'      => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
                 'access_token_expire' => 'P1D',
-                'grants' => [
+                'grants'              => [
                     ClientCredentialsGrant::class => ClientCredentialsGrant::class,
                 ],
-                'event_listeners' => [
+                'event_listeners'     => [
                     [
                         RequestEvent::CLIENT_AUTHENTICATION_FAILED,
                         ListenerInterface::class,
@@ -198,20 +189,20 @@ class AuthorizationServerFactoryTest extends TestCase
     public function testInvokeWithListenerProviderConfig()
     {
         $mockContainer = $this->getContainerMock();
-        $mockProvider = $this->prophesize(ListenerProviderInterface::class);
+        $mockProvider  = $this->prophesize(ListenerProviderInterface::class);
         $mockContainer->has(ListenerProviderInterface::class)->willReturn(true);
         $mockContainer->get(ListenerProviderInterface::class)->willReturn($mockProvider->reveal());
 
         $config = [
             'authentication' => [
-                'private_key' => __DIR__ . '/TestAsset/private.key',
-                'encryption_key' => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
-                'access_token_expire' => 'P1D',
-                'grants' => [
+                'private_key'              => __DIR__ . '/TestAsset/private.key',
+                'encryption_key'           => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
+                'access_token_expire'      => 'P1D',
+                'grants'                   => [
                     ClientCredentialsGrant::class => ClientCredentialsGrant::class,
                 ],
                 'event_listener_providers' => [
-                    ListenerProviderInterface::class
+                    ListenerProviderInterface::class,
                 ],
             ],
         ];
@@ -228,15 +219,15 @@ class AuthorizationServerFactoryTest extends TestCase
     public function testInvokeWithListenerProviderConfigMissingServiceThrowsException()
     {
         $mockContainer = $this->getContainerMock();
-        $mockProvider = $this->prophesize(ListenerProviderInterface::class);
+        $mockProvider  = $this->prophesize(ListenerProviderInterface::class);
         $mockContainer->has(ListenerProviderInterface::class)->willReturn(false);
 
         $config = [
             'authentication' => [
-                'private_key' => __DIR__ . '/TestAsset/private.key',
-                'encryption_key' => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
-                'access_token_expire' => 'P1D',
-                'grants' => [
+                'private_key'              => __DIR__ . '/TestAsset/private.key',
+                'encryption_key'           => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
+                'access_token_expire'      => 'P1D',
+                'grants'                   => [
                     ClientCredentialsGrant::class => ClientCredentialsGrant::class,
                 ],
                 'event_listener_providers' => [

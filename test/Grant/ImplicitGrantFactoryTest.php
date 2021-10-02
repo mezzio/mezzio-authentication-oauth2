@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -27,7 +25,7 @@ class ImplicitGrantFactoryTest extends TestCase
         $config = [
             'authentication' => [
                 'auth_code_expire' => 'PT10M',
-            ]
+            ],
         ];
 
         $mockContainer->get('config')->willReturn($config);

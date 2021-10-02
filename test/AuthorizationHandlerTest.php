@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -29,10 +27,10 @@ class AuthorizationHandlerTest extends TestCase
 
     public function testHandleUsesAuthorizationServerService(): void
     {
-        $server = $this->prophesize(AuthorizationServer::class);
-        $response = $this->prophesize(ResponseInterface::class);
-        $authRequest = $this->prophesize(AuthorizationRequest::class);
-        $request = $this->prophesize(ServerRequestInterface::class);
+        $server           = $this->prophesize(AuthorizationServer::class);
+        $response         = $this->prophesize(ResponseInterface::class);
+        $authRequest      = $this->prophesize(AuthorizationRequest::class);
+        $request          = $this->prophesize(ServerRequestInterface::class);
         $expectedResponse = $response->reveal();
 
         $request->getAttribute(AuthorizationRequest::class)
@@ -51,9 +49,9 @@ class AuthorizationHandlerTest extends TestCase
 
     public function testInvalidResponseFactoryThrowsTypeError()
     {
-        $server = $this->prophesize(AuthorizationServer::class);
+        $server      = $this->prophesize(AuthorizationServer::class);
         $authRequest = $this->prophesize(AuthorizationRequest::class);
-        $request = $this->prophesize(ServerRequestInterface::class);
+        $request     = $this->prophesize(ServerRequestInterface::class);
 
         $request->getAttribute(AuthorizationRequest::class)
             ->willReturn($authRequest->reveal());

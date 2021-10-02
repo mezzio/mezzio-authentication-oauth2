@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -40,7 +38,7 @@ class OAuth2AdapterFactoryTest extends TestCase
     /** @var callable */
     private $responseFactory;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->container       = $this->prophesize(ContainerInterface::class);
         $this->resourceServer  = $this->prophesize(ResourceServer::class);
@@ -48,8 +46,8 @@ class OAuth2AdapterFactoryTest extends TestCase
         $this->responseFactory = function () {
             return $this->response->reveal();
         };
-        $this->user = $this->prophesize(UserInterface::class);
-        $this->userFactory = function (
+        $this->user            = $this->prophesize(UserInterface::class);
+        $this->userFactory     = function (
             string $identity,
             array $roles = [],
             array $details = []

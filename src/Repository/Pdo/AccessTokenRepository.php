@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -18,7 +16,9 @@ use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Entity\AccessTokenEntity;
 
 use function array_key_exists;
+use function date;
 use function implode;
+use function is_array;
 use function sprintf;
 
 class AccessTokenRepository extends AbstractRepository implements AccessTokenRepositoryInterface

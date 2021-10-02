@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -13,6 +11,7 @@ namespace MezzioTest\Authentication\OAuth2\Repository\Pdo;
 use Mezzio\Authentication\OAuth2\Exception;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoServiceFactory;
+use PDO;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
@@ -21,10 +20,10 @@ class PdoServiceFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->container = $this->prophesize(ContainerInterface::class);
-        $this->factory = new PdoServiceFactory();
+        $this->factory   = new PdoServiceFactory();
     }
 
     public function invalidConfiguration()
@@ -79,7 +78,7 @@ class PdoServiceFactoryTest extends TestCase
 
     public function testValidServiceInConfigurationReturnsPdoService()
     {
-        $mockPdo = $this->prophesize(\PDO::class);
+        $mockPdo = $this->prophesize(PDO::class);
 
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
@@ -93,7 +92,7 @@ class PdoServiceFactoryTest extends TestCase
 
         $pdo = ($this->factory)($this->container->reveal());
 
-        $this->assertInstanceOf(\PDO::class, $pdo);
+        $this->assertInstanceOf(PDO::class, $pdo);
     }
 
     public function testRaisesExceptionIfPdoServiceIsInvalid()
