@@ -9,11 +9,16 @@ declare(strict_types=1);
 namespace Mezzio\Authentication\OAuth2\Repository\Pdo;
 
 use League\OAuth2\Server\Entities\ClientEntityInterface;
+use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Entity\ScopeEntity;
 
 class ScopeRepository extends AbstractRepository implements ScopeRepositoryInterface
 {
+    /**
+     * @param string $identifier
+     * @return ScopeEntity|void
+     */
     public function getScopeEntityByIdentifier($identifier)
     {
         $sth = $this->pdo->prepare(
@@ -35,6 +40,12 @@ class ScopeRepository extends AbstractRepository implements ScopeRepositoryInter
         return $scope;
     }
 
+    /**
+     * @param ScopeEntityInterface[] $scopes
+     * @param string                 $grantType
+     * @param null|string            $userIdentifier
+     * @return ScopeEntityInterface[]
+     */
     public function finalizeScopes(
         array $scopes,
         $grantType,

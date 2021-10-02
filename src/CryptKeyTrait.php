@@ -15,6 +15,9 @@ use function sprintf;
 
 trait CryptKeyTrait
 {
+    /**
+     * @param array|string $keyConfig
+     */
     protected function getCryptKey($keyConfig, string $configPath): CryptKey
     {
         if (is_string($keyConfig)) {
