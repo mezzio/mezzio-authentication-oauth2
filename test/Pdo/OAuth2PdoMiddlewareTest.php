@@ -66,13 +66,13 @@ class OAuth2PdoMiddlewareTest extends TestCase
 {
     use ProphecyTrait;
 
-    const DB_FILE        = __DIR__ . '/TestAsset/test_oauth2.sq3';
-    const DB_SCHEMA      = __DIR__ . '/../../data/oauth2.sql';
-    const DB_DATA        = __DIR__ . '/TestAsset/test_data.sql';
-    const PRIVATE_KEY    = __DIR__ . '/../TestAsset/private.key';
-    const ENCRYPTION_KEY = 'T2x2+1OGrElaminasS+01OUmwhOcJiGmE58UD1fllNn6CGcQ=';
+    private const DB_FILE        = __DIR__ . '/TestAsset/test_oauth2.sq3';
+    private const DB_SCHEMA      = __DIR__ . '/../../data/oauth2.sql';
+    private const DB_DATA        = __DIR__ . '/TestAsset/test_data.sql';
+    private const PRIVATE_KEY    = __DIR__ . '/../TestAsset/private.key';
+    private const ENCRYPTION_KEY = 'T2x2+1OGrElaminasS+01OUmwhOcJiGmE58UD1fllNn6CGcQ=';
 
-    const CODE_VERIFIER = 'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk';
+    private const CODE_VERIFIER = 'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk';
 
     /** @var AccessTokenRepository */
     private $accessTokenRepository;

@@ -21,9 +21,9 @@ class ResourceServerFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    const PUBLIC_KEY = __DIR__ . '/TestAsset/public.key';
+    private const PUBLIC_KEY = __DIR__ . '/TestAsset/public.key';
 
-    const PUBLIC_KEY_EXTENDED = [
+    private const PUBLIC_KEY_EXTENDED = [
         'key_or_path'           => self::PUBLIC_KEY,
         'pass_phrase'           => 'test',
         'key_permissions_check' => false,
