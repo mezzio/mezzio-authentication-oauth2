@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- */
-
 declare(strict_types=1);
 
 // change the permission of private and public keys to 0600
