@@ -42,7 +42,5 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
         if (! empty($row) && password_verify($password, $row['password'])) {
             return new UserEntity($username);
         }
-
-        return;
     }
 }
