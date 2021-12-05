@@ -30,7 +30,6 @@
     },
     "require": {
         "php": "^7.3 || ~8.0.0",
-        "laminas/laminas-zendframework-bridge": "^1.0",
         "league/oauth2-server": "^8.2",
         "mezzio/mezzio-authentication": "^1.0",
         "psr/container": "^1.0",
@@ -45,7 +44,8 @@
         "phpspec/prophecy-phpunit": "^2.0"
     },
     "conflict": {
-        "container-interop/container-interop": "<1.2.0"
+        "container-interop/container-interop": "<1.2.0",
+        "zendframework/zend-expressive-authentication-oauth2": "*"
     },
     "autoload": {
         "psr-4": {
@@ -69,8 +69,5 @@
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
-    },
-    "replace": {
-        "zendframework/zend-expressive-authentication-oauth2": "^2.0.0"
     }
 }
