@@ -6,6 +6,8 @@ for your application.
 Since there are authorization flows that require user interaction,
 **your application is expected to provide the middleware to handle this**.
 
+To enable the authorization server to parse the requests from JSON, the [Body Parsing Middleware](https://docs.mezzio.dev/mezzio/v3/features/helpers/body-parse/) helper should be included in the application. 
+
 ## Add the token endpoint
 
 Adding the token endpoint involves routing to the provided
