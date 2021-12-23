@@ -59,7 +59,7 @@ class UserRepositoryTest extends TestCase
             $statement->fetch()->willReturn([
                 'password' => 'not-the-same-password',
             ]);
-            return null;
+            return true;
         });
 
         $this->pdo
@@ -84,7 +84,7 @@ class UserRepositoryTest extends TestCase
         $statement->bindParam(':username', 'username')->shouldBeCalled();
         $statement->execute()->will(function () use ($statement) {
             $statement->fetch()->willReturn(null);
-            return null;
+            return true;
         });
 
         $this->pdo
