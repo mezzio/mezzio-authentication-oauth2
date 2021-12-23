@@ -41,8 +41,8 @@ class AuthorizationServerFactoryTest extends TestCase
         $mockClientRepo = $this->prophesize(ClientRepositoryInterface::class);
         $mockAccessTokenRepo = $this->prophesize(AccessTokenRepositoryInterface::class);
         $mockScopeRepo = $this->prophesize(ScopeRepositoryInterface::class);
-        $mockClientGrant = $this->prophesize(GrantTypeInterface::class);
-        $mockPasswordGrant = $this->prophesize(GrantTypeInterface::class);
+        $mockClientGrant = $this->prophesize(ClientCredentialsGrant::class);
+        $mockPasswordGrant = $this->prophesize(PasswordGrant::class);
 
         $config = [
             'authentication' => [
@@ -83,8 +83,8 @@ class AuthorizationServerFactoryTest extends TestCase
         $mockClientRepo = $this->prophesize(ClientRepositoryInterface::class);
         $mockAccessTokenRepo = $this->prophesize(AccessTokenRepositoryInterface::class);
         $mockScopeRepo = $this->prophesize(ScopeRepositoryInterface::class);
-        $mockClientGrant = $this->prophesize(GrantTypeInterface::class);
-        $mockPasswordGrant = $this->prophesize(GrantTypeInterface::class);
+        $mockClientGrant = $this->prophesize(ClientCredentialsGrant::class);
+        $mockPasswordGrant = $this->prophesize(PasswordGrant::class);
 
         $mockContainer->has(ClientRepositoryInterface::class)->willReturn(true);
         $mockContainer->has(AccessTokenRepositoryInterface::class)->willReturn(true);
