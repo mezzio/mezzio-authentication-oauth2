@@ -47,7 +47,7 @@ class ScopeRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':identifier', 'id')->shouldBeCalled();
-        $statement->execute()->shouldBeCalled();
+        $statement->execute()->willReturn(true)->shouldBeCalled();
         $statement->fetch()->willReturn([])->shouldBeCalled();
 
         $this->pdo
@@ -61,7 +61,7 @@ class ScopeRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':identifier', 'id')->shouldBeCalled();
-        $statement->execute()->shouldBeCalled();
+        $statement->execute()->willReturn(true)->shouldBeCalled();
         $statement->fetch()->willReturn([
             'id' => 'foo'
         ])->shouldBeCalled();

@@ -99,7 +99,7 @@ class AccessTokenRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
-        $statement->execute()->willReturn(null)->shouldBeCalled();
+        $statement->execute()->willReturn(true)->shouldBeCalled();
         $statement->fetch()->willReturn([])->shouldBeCalled();
 
         $this->pdo
@@ -113,7 +113,7 @@ class AccessTokenRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
-        $statement->execute()->willReturn(null)->shouldBeCalled();
+        $statement->execute()->willReturn(true)->shouldBeCalled();
         $statement->fetch()->willReturn(['revoked' => 0])->shouldBeCalled();
 
         $this->pdo
@@ -127,7 +127,7 @@ class AccessTokenRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
-        $statement->execute()->willReturn(null)->shouldBeCalled();
+        $statement->execute()->willReturn(true)->shouldBeCalled();
         $statement->fetch()->willReturn(['revoked' => 1])->shouldBeCalled();
 
         $this->pdo
@@ -157,7 +157,7 @@ class AccessTokenRepositoryTest extends TestCase
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
         $statement->bindValue(':revoked', 1)->shouldBeCalled();
-        $statement->execute()->willReturn(null)->shouldBeCalled();
+        $statement->execute()->willReturn(true)->shouldBeCalled();
 
         $this->pdo
             ->prepare(Argument::containingString('UPDATE oauth_access_tokens SET revoked=:revoked'))
