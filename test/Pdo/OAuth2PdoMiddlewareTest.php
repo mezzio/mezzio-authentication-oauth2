@@ -310,7 +310,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
         $params = [
             'response_type' => 'code',
             'client_id'     => 'client_test2',
-            'redirect_uri'  => '/redirect',
+            'redirect_uri'  => 'http://example.com/redirect',
             'scope'         => 'test',
             'state'         => $state
         ];
@@ -379,7 +379,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
             'grant_type'    => 'authorization_code',
             'client_id'     => 'client_test2',
             'client_secret' => 'test',
-            'redirect_uri'  => '/redirect',
+            'redirect_uri'  => 'http://example.com/redirect',
             'code'          => $code,
             'code_verifier' => self::CODE_VERIFIER,
         ];
@@ -426,7 +426,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
         $params = [
             'response_type' => 'token',
             'client_id'     => 'client_test2',
-            'redirect_uri'  => '/redirect',
+            'redirect_uri'  => 'http://example.com/redirect',
             'scope'         => 'test',
             'state'         => $state
         ];

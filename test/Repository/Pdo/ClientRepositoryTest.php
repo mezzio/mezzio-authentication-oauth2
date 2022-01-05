@@ -49,14 +49,12 @@ class ClientRepositoryTest extends TestCase
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
         $statement->execute()->will(function () use ($statement) {
             $statement->fetch()->willReturn([]);
-            return null;
+            return true;
         });
 
         $this->pdo
             ->prepare(Argument::containingString('SELECT * FROM oauth_clients'))
             ->will([$statement, 'reveal']);
-
-        $client = $this->prophesize(ClientEntityInterface::class);
 
         $this->assertNull(
             $this->repo ->getClientEntity('client_id')
@@ -75,7 +73,7 @@ class ClientRepositoryTest extends TestCase
                 'name' => $name,
                 'redirect' => $redirect,
             ]);
-            return null;
+            return true;
         });
 
         $this->pdo
@@ -123,7 +121,7 @@ class ClientRepositoryTest extends TestCase
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
         $statement->execute()->will(function () use ($statement) {
             $statement->fetch()->willReturn([]);
-            return null;
+            return true;
         });
 
         $this->pdo
@@ -150,14 +148,12 @@ class ClientRepositoryTest extends TestCase
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
         $statement->execute()->will(function () use ($statement, $rowReturned) {
             $statement->fetch()->willReturn($rowReturned);
-            return null;
+            return true;
         });
 
         $this->pdo
             ->prepare(Argument::containingString('SELECT * FROM oauth_clients'))
             ->will([$statement, 'reveal']);
-
-        $client = $this->prophesize(ClientEntityInterface::class);
 
         $this->assertFalse(
             $this->repo ->validateClient(
@@ -177,7 +173,7 @@ class ClientRepositoryTest extends TestCase
                 'password_client' => true,
                 'secret' => 'bar',
             ]);
-            return null;
+            return true;
         });
 
         $this->pdo
@@ -204,7 +200,7 @@ class ClientRepositoryTest extends TestCase
                 'password_client' => true,
                 'secret' => null,
             ]);
-            return null;
+            return true;
         });
 
         $this->pdo
