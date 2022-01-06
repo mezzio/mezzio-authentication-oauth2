@@ -22,7 +22,15 @@ use Mezzio\Authentication\OAuth2;
 $app->post('/oauth2/token', OAuth2\TokenEndpointHandler::class);
 ```
 ## Parsing JSON payloads in the token endpoint
-To enable the token endpoint to handle the POST requests in JSON, the [Body Parsing Middleware](https://docs.mezzio.dev/mezzio/v3/features/helpers/body-parse/) helper should be included in the application. 
+To enable the token endpoint to handle the POST requests in JSON, the [Body Parsing Middleware](https://docs.mezzio.dev/mezzio/v3/features/helpers/body-parse/) helper must be included in the application. 
+
+For example:
+
+```php
+use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
+
+$app->pipe(BodyParamsMiddleware::class);
+```
 
 ## Add the authorization endpoint
 
