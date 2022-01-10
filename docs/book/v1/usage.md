@@ -54,7 +54,7 @@ $app->post('/api/users', [
 ], 'api.add.user');
 ```
 
-# Providing an authorization server
+## Providing an authorization server
 
 See the chapter [Authorization server](authorization-server.md) for details on how
 to implement this.
