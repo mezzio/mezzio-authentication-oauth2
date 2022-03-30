@@ -6,9 +6,13 @@ namespace Mezzio\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
+use Mezzio\Authentication\OAuth2\Response\CallableResponseFactoryDecorator;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+
+use function is_callable;
 
 /**
  * Provides an OAuth2 token endpoint implementation
@@ -25,18 +29,28 @@ class TokenEndpointHandler implements RequestHandlerInterface
     /** @var AuthorizationServer */
     protected $server;
 
-    /** @var callable */
+    /** @var ResponseFactoryInterface */
     protected $responseFactory;
 
-    public function __construct(AuthorizationServer $server, callable $responseFactory)
+    /**
+     * @param (callable():ResponseInterface)|ResponseFactoryInterface $responseFactory
+     */
+    public function __construct(AuthorizationServer $server, $responseFactory)
     {
-        $this->server          = $server;
+        $this->server = $server;
+        if (is_callable($responseFactory)) {
+            $responseFactory = new CallableResponseFactoryDecorator(
+                static function () use ($responseFactory): ResponseInterface {
+                    return $responseFactory();
+                }
+            );
+        }
         $this->responseFactory = $responseFactory;
     }
 
     private function createResponse(): ResponseInterface
     {
-        return ($this->responseFactory)();
+        return $this->responseFactory->createResponse();
     }
 
     /**

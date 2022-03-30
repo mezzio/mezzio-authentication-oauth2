@@ -8,6 +8,7 @@ use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 use Mezzio\Authentication\OAuth2\AuthorizationMiddleware;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -23,33 +24,33 @@ class AuthorizationMiddlewareTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var AuthorizationRequest|ObjectProphecy */
+    /** @var AuthorizationRequest&ObjectProphecy */
     private $authRequest;
 
-    /** @var AuthorizationServer|ObjectProphecy */
+    /** @var AuthorizationServer&ObjectProphecy */
     private $authServer;
 
-    /** @var RequestHandlerInterface|ObjectProphecy */
+    /** @var RequestHandlerInterface&ObjectProphecy */
     private $handler;
 
-    /** @var ResponseInterface|ObjectProphecy */
+    /** @var ResponseInterface&MockObject */
     private $response;
 
     /** @var callable */
     private $responseFactory;
 
-    /** @var ServerRequestInterface|ObjectProphecy */
+    /** @var ServerRequestInterface&ObjectProphecy */
     private $serverRequest;
 
     protected function setUp(): void
     {
         $this->authServer      = $this->prophesize(AuthorizationServer::class);
-        $this->response        = $this->prophesize(ResponseInterface::class);
+        $this->response        = $this->createMock(ResponseInterface::class);
         $this->serverRequest   = $this->prophesize(ServerRequestInterface::class);
         $this->authRequest     = $this->prophesize(AuthorizationRequest::class);
         $this->handler         = $this->prophesize(RequestHandlerInterface::class);
         $this->responseFactory = function () {
-            return $this->response->reveal();
+            return $this->response;
         };
     }
 
@@ -87,7 +88,7 @@ class AuthorizationMiddlewareTest extends TestCase
 
         // Expect the handler to be called with the new modified request,
         // that contains the auth request attribute
-        $handlerResponse = $this->prophesize(ResponseInterface::class)->reveal();
+        $handlerResponse = $this->createMock(ResponseInterface::class);
         $this->handler
             ->handle($newRequest->reveal())
             ->willReturn($handlerResponse);
@@ -106,27 +107,31 @@ class AuthorizationMiddlewareTest extends TestCase
 
     public function testAuthorizationRequestRaisingOAuthServerExceptionGeneratesResponseFromException()
     {
-        $response             = $this->prophesize(ResponseInterface::class);
-        $oauthServerException = $this->prophesize(OAuthServerException::class);
+        $oauthServerException = $this->createMock(OAuthServerException::class);
         $oauthServerException
-            ->generateHttpResponse(Argument::type(ResponseInterface::class))
-            ->willReturn($response->reveal());
+            ->method('generateHttpResponse')
+            ->with($this->response)
+            ->willReturnArgument(0);
 
         $this->authServer
             ->validateAuthorizationRequest($this->serverRequest->reveal())
-            ->willThrow($oauthServerException->reveal());
+            ->willThrow($oauthServerException);
 
         $middleware = new AuthorizationMiddleware(
             $this->authServer->reveal(),
             $this->responseFactory
         );
 
+        $this->response
+            ->method('withStatus')
+            ->willReturnSelf();
+
         $result = $middleware->process(
             $this->serverRequest->reveal(),
             $this->handler->reveal()
         );
 
-        $this->assertSame($response->reveal(), $result);
+        $this->assertSame($this->response, $result);
     }
 
     public function testAuthorizationRequestRaisingUnknownExceptionGeneratesResponseFromException()
@@ -136,15 +141,20 @@ class AuthorizationMiddlewareTest extends TestCase
             ->write(Argument::containingString('oauth2 server error'))
             ->shouldBeCalled();
 
-        $this->response->getBody()->willReturn($body->reveal())->shouldBeCalled();
         $this->response
-            ->withHeader(Argument::type('string'), Argument::type('string'))
-            ->willReturn($this->response->reveal())
-            ->shouldBeCalled();
+            ->expects(self::once())
+            ->method('getBody')
+            ->willReturn($body->reveal());
         $this->response
-            ->withStatus(500)
-            ->willReturn($this->response->reveal())
-            ->shouldBeCalled();
+            ->expects(self::once())
+            ->method('withHeader')
+            ->willReturnSelf();
+
+        $this->response
+            ->expects(self::exactly(2))
+            ->method('withStatus')
+            ->withConsecutive([200], [500])
+            ->willReturnSelf();
 
         $exception = new RuntimeException('oauth2 server error');
 
@@ -162,6 +172,6 @@ class AuthorizationMiddlewareTest extends TestCase
             $this->handler->reveal()
         );
 
-        $this->assertSame($this->response->reveal(), $response);
+        $this->assertSame($this->response, $response);
     }
 }

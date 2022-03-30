@@ -7,9 +7,13 @@ namespace Mezzio\Authentication\OAuth2;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\ResourceServer;
 use Mezzio\Authentication\AuthenticationInterface;
+use Mezzio\Authentication\OAuth2\Response\CallableResponseFactoryDecorator;
 use Mezzio\Authentication\UserInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+
+use function is_callable;
 
 class OAuth2Adapter implements AuthenticationInterface
 {
@@ -19,18 +23,28 @@ class OAuth2Adapter implements AuthenticationInterface
     /** @var callable */
     protected $responseFactory;
 
-    /** @var callable */
+    /** @var ResponseFactoryInterface */
     protected $userFactory;
 
+    /**
+     * @param (callable():ResponseInterface)|ResponseFactoryInterface $responseFactory
+     */
     public function __construct(
         ResourceServer $resourceServer,
-        callable $responseFactory,
+        $responseFactory,
         callable $userFactory
     ) {
-        $this->resourceServer  = $resourceServer;
-        $this->responseFactory = function () use ($responseFactory): ResponseInterface {
-            return $responseFactory();
-        };
+        $this->resourceServer = $resourceServer;
+
+        if (is_callable($responseFactory)) {
+            $responseFactory = new CallableResponseFactoryDecorator(
+                static function () use ($responseFactory): ResponseInterface {
+                    return $responseFactory();
+                }
+            );
+        }
+
+        $this->responseFactory = $responseFactory;
         $this->userFactory     = function (
             string $identity,
             array $roles = [],
@@ -72,11 +86,11 @@ class OAuth2Adapter implements AuthenticationInterface
      */
     public function unauthorizedResponse(ServerRequestInterface $request): ResponseInterface
     {
-        return ($this->responseFactory)()
+        return $this->responseFactory
+            ->createResponse(401)
             ->withHeader(
                 'WWW-Authenticate',
                 'Bearer realm="OAuth2 token"'
-            )
-            ->withStatus(401);
+            );
     }
 }

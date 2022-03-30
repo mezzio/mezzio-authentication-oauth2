@@ -6,9 +6,13 @@ namespace Mezzio\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use Mezzio\Authentication\OAuth2\Response\CallableResponseFactoryDecorator;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+
+use function is_callable;
 
 /**
  * Handles the already validated and competed authorization request
@@ -24,20 +28,32 @@ class AuthorizationHandler implements RequestHandlerInterface
     /** @var AuthorizationServer */
     private $server;
 
-    /** @var callable */
+    /** @var ResponseFactoryInterface */
     private $responseFactory;
 
-    public function __construct(AuthorizationServer $server, callable $responseFactory)
+    /**
+     * @param (callable():ResponseInterface)|ResponseFactoryInterface $responseFactory
+     */
+    public function __construct(AuthorizationServer $server, $responseFactory)
     {
-        $this->server          = $server;
-        $this->responseFactory = function () use ($responseFactory): ResponseInterface {
-            return $responseFactory();
-        };
+        $this->server = $server;
+        if (is_callable($responseFactory)) {
+            $responseFactory = new CallableResponseFactoryDecorator(
+                static function () use ($responseFactory): ResponseInterface {
+                    return $responseFactory();
+                }
+            );
+        }
+
+        $this->responseFactory = $responseFactory;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $authRequest = $request->getAttribute(AuthorizationRequest::class);
-        return $this->server->completeAuthorizationRequest($authRequest, ($this->responseFactory)());
+        return $this->server->completeAuthorizationRequest(
+            $authRequest,
+            $this->responseFactory->createResponse()
+        );
     }
 }

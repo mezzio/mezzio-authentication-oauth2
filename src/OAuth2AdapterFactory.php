@@ -7,10 +7,11 @@ namespace Mezzio\Authentication\OAuth2;
 use League\OAuth2\Server\ResourceServer;
 use Mezzio\Authentication\UserInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseInterface;
 
 class OAuth2AdapterFactory
 {
+    use Psr17ResponseFactoryTrait;
+
     public function __invoke(ContainerInterface $container): OAuth2Adapter
     {
         $resourceServer = $container->has(ResourceServer::class)
@@ -25,7 +26,7 @@ class OAuth2AdapterFactory
 
         return new OAuth2Adapter(
             $resourceServer,
-            $container->get(ResponseInterface::class),
+            $this->detectResponseFactory($container),
             $container->get(UserInterface::class)
         );
     }

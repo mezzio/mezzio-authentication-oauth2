@@ -24,16 +24,24 @@ class TokenEndpointHandlerTest extends TestCase
     private function createResponseFactory(?ResponseInterface $response = null): callable
     {
         return function () use ($response): ResponseInterface {
-            return $response ?? $this->prophesize(ResponseInterface::class)->reveal();
+            if ($response !== null) {
+                return $response;
+            }
+            $response = $this->createMock(ResponseInterface::class);
+            $response->method('withStatus')->willReturnSelf();
+            return $response;
         };
     }
 
     public function testHandleUsesAuthorizationServer()
     {
-        $server           = $this->prophesize(AuthorizationServer::class);
-        $request          = $this->prophesize(ServerRequestInterface::class);
-        $response         = $this->prophesize(ResponseInterface::class);
-        $expectedResponse = $response->reveal();
+        $server   = $this->prophesize(AuthorizationServer::class);
+        $request  = $this->prophesize(ServerRequestInterface::class);
+        $response = $this->createMock(ResponseInterface::class);
+        $response
+            ->method('withStatus')
+            ->willReturnSelf();
+        $expectedResponse = $response;
 
         $server->respondToAccessTokenRequest($request->reveal(), $expectedResponse)
             ->shouldBeCalled()
@@ -45,11 +53,14 @@ class TokenEndpointHandlerTest extends TestCase
 
     public function testOAuthExceptionProducesResult()
     {
-        $server           = $this->prophesize(AuthorizationServer::class);
-        $request          = $this->prophesize(ServerRequestInterface::class);
-        $response         = $this->prophesize(ResponseInterface::class);
+        $server   = $this->prophesize(AuthorizationServer::class);
+        $request  = $this->prophesize(ServerRequestInterface::class);
+        $response = $this->createMock(ResponseInterface::class);
+        $response
+            ->method('withStatus')
+            ->willReturnSelf();
         $exception        = $this->prophesize(OAuthServerException::class);
-        $expectedResponse = $response->reveal();
+        $expectedResponse = $response;
 
         $server->respondToAccessTokenRequest(Argument::cetera())
             ->willThrow($exception->reveal());

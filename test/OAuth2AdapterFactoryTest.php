@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2;
 
+use Closure;
 use League\OAuth2\Server\ResourceServer;
 use Mezzio\Authentication\AuthenticationInterface;
 use Mezzio\Authentication\OAuth2\Exception;
-use Mezzio\Authentication\OAuth2\OAuth2Adapter;
 use Mezzio\Authentication\OAuth2\OAuth2AdapterFactory;
 use Mezzio\Authentication\UserInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use TypeError;
@@ -28,19 +30,30 @@ class OAuth2AdapterFactoryTest extends TestCase
     /** @var ResourceServer|ObjectProphecy */
     private $resourceServer;
 
-    /** @var ResponseInterface|ObjectProphecy */
+    /** @var ResponseInterface&MockObject */
     private $response;
 
     /** @var callable */
     private $responseFactory;
 
+    /** @var UserInterface|ObjectProphecy */
+    private $user;
+
+    /** @var Closure */
+    private $userFactory;
+
     protected function setUp(): void
     {
-        $this->container       = $this->prophesize(ContainerInterface::class);
-        $this->resourceServer  = $this->prophesize(ResourceServer::class);
-        $this->response        = $this->prophesize(ResponseInterface::class);
+        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container
+            ->has(ResponseFactoryInterface::class)
+            ->willReturn(false);
+
+        $this->resourceServer = $this->prophesize(ResourceServer::class);
+        $this->response       = $this->createMock(ResponseInterface::class);
+
         $this->responseFactory = function () {
-            return $this->response->reveal();
+            return $this->response;
         };
         $this->user            = $this->prophesize(UserInterface::class);
         $this->userFactory     = function (
@@ -61,6 +74,9 @@ class OAuth2AdapterFactoryTest extends TestCase
     public function testInvokeWithEmptyContainer()
     {
         $factory = new OAuth2AdapterFactory();
+        $this->container
+            ->has(ResourceServer::class)
+            ->willReturn(false);
 
         $this->expectException(Exception\InvalidConfigException::class);
         $factory($this->container->reveal());
@@ -86,7 +102,7 @@ class OAuth2AdapterFactoryTest extends TestCase
         $factory = new OAuth2AdapterFactory();
 
         $this->expectException(TypeError::class);
-        $adapter = $factory($this->container->reveal());
+        $factory($this->container->reveal());
     }
 
     public function testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance()
@@ -100,7 +116,7 @@ class OAuth2AdapterFactoryTest extends TestCase
 
         $this->container
             ->get(ResponseInterface::class)
-            ->will([$this->response, 'reveal']);
+            ->willReturn($this->response);
 
         $this->container
             ->get(UserInterface::class)
@@ -109,7 +125,7 @@ class OAuth2AdapterFactoryTest extends TestCase
         $factory = new OAuth2AdapterFactory();
 
         $this->expectException(TypeError::class);
-        $adapter = $factory($this->container->reveal());
+        $factory($this->container->reveal());
     }
 
     public function testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer()
@@ -135,7 +151,6 @@ class OAuth2AdapterFactoryTest extends TestCase
         $factory = new OAuth2AdapterFactory();
         $adapter = $factory($this->container->reveal());
 
-        $this->assertInstanceOf(OAuth2Adapter::class, $adapter);
         $this->assertInstanceOf(AuthenticationInterface::class, $adapter);
     }
 }

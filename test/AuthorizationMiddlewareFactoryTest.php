@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace MezzioTest\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
-use Mezzio\Authentication\OAuth2\AuthorizationMiddleware;
 use Mezzio\Authentication\OAuth2\AuthorizationMiddlewareFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use TypeError;
@@ -28,14 +29,17 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
     /** @var ContainerInterface|ObjectProphecy */
     private $container;
 
-    /** @var ResponseInterface|ObjectProphecy */
+    /** @var ResponseInterface&MockObject */
     private $response;
 
     protected function setUp(): void
     {
         $this->container  = $this->prophesize(ContainerInterface::class);
         $this->authServer = $this->prophesize(AuthorizationServer::class);
-        $this->response   = $this->prophesize(ResponseInterface::class);
+        $this->response   = $this->createMock(ResponseInterface::class);
+        $this->container
+            ->has(ResponseFactoryInterface::class)
+            ->willReturn(false);
     }
 
     public function testConstructor()
@@ -82,7 +86,7 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
             ->willReturn($this->authServer->reveal());
         $this->container
             ->get(ResponseInterface::class)
-            ->will([$this->response, 'reveal']);
+            ->willReturn($this->response);
 
         $factory = new AuthorizationMiddlewareFactory();
 
@@ -98,11 +102,11 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
         $this->container
             ->get(ResponseInterface::class)
             ->willReturn(function () {
-                return $this->response->reveal();
-            });
+                return $this->response;
+            })
+            ->shouldBeCalled();
 
-        $factory    = new AuthorizationMiddlewareFactory();
-        $middleware = $factory($this->container->reveal());
-        $this->assertInstanceOf(AuthorizationMiddleware::class, $middleware);
+        $factory = new AuthorizationMiddlewareFactory();
+        $factory($this->container->reveal());
     }
 }
