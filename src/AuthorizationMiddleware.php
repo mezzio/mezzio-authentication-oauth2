@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2;
 
+use Exception as BaseException;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
@@ -73,7 +74,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
             // The validation throws this exception if the request is not valid
             // for example when the client id is invalid
             return $exception->generateHttpResponse($response);
-        } catch (Exception $exception) {
+        } catch (BaseException $exception) {
             $response = $this->responseFactory->createResponse();
             return (new OAuthServerException($exception->getMessage(), 0, 'unknown_error', 500))
                 ->generateHttpResponse($response);

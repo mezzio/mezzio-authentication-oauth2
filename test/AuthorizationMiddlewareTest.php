@@ -24,13 +24,13 @@ class AuthorizationMiddlewareTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var AuthorizationRequest|ObjectProphecy */
+    /** @var AuthorizationRequest&ObjectProphecy */
     private $authRequest;
 
-    /** @var AuthorizationServer|ObjectProphecy */
+    /** @var AuthorizationServer&ObjectProphecy */
     private $authServer;
 
-    /** @var RequestHandlerInterface|ObjectProphecy */
+    /** @var RequestHandlerInterface&ObjectProphecy */
     private $handler;
 
     /** @var ResponseInterface&MockObject */
@@ -39,7 +39,7 @@ class AuthorizationMiddlewareTest extends TestCase
     /** @var callable */
     private $responseFactory;
 
-    /** @var ServerRequestInterface|ObjectProphecy */
+    /** @var ServerRequestInterface&ObjectProphecy */
     private $serverRequest;
 
     protected function setUp(): void
