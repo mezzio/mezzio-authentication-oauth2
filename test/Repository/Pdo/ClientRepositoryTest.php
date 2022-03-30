@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2\Repository\Pdo;
@@ -22,9 +16,9 @@ class ClientRepositoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->pdo = $this->prophesize(PdoService::class);
+        $this->pdo  = $this->prophesize(PdoService::class);
         $this->repo = new ClientRepository($this->pdo->reveal());
     }
 
@@ -39,7 +33,7 @@ class ClientRepositoryTest extends TestCase
             ->will([$statement, 'reveal']);
 
         $this->assertNull(
-            $this->repo ->getClientEntity('client_id')
+            $this->repo->getClientEntity('client_id')
         );
     }
 
@@ -57,20 +51,20 @@ class ClientRepositoryTest extends TestCase
             ->will([$statement, 'reveal']);
 
         $this->assertNull(
-            $this->repo ->getClientEntity('client_id')
+            $this->repo->getClientEntity('client_id')
         );
     }
 
     public function testGetClientEntityReturnsCorrectEntity()
     {
-        $name = 'foo';
+        $name     = 'foo';
         $redirect = 'bar';
 
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
         $statement->execute()->will(function () use ($statement, $name, $redirect) {
             $statement->fetch()->willReturn([
-                'name' => $name,
+                'name'     => $name,
                 'redirect' => $redirect,
             ]);
             return true;
@@ -99,23 +93,32 @@ class ClientRepositoryTest extends TestCase
         );
     }
 
-    public function invalidGrants()
+    public function invalidGrants(): array
     {
         return [
-            'personal_access_password_mismatch' => ['authorization_code', [
-                'personal_access_client' => 'personal',
-                'password_client'        => 'password',
-            ]],
-            'personal_access_revoked' => ['personal_access', [
-                'personal_access_client' => false,
-            ]],
-            'password_revoked' => ['password', [
-                'password_client' => false,
-            ]],
+            'personal_access_password_mismatch' => [
+                'authorization_code',
+                [
+                    'personal_access_client' => 'personal',
+                    'password_client'        => 'password',
+                ],
+            ],
+            'personal_access_revoked'           => [
+                'personal_access',
+                [
+                    'personal_access_client' => false,
+                ],
+            ],
+            'password_revoked'                  => [
+                'password',
+                [
+                    'password_client' => false,
+                ],
+            ],
         ];
     }
 
-    public function testValidateClientReturnsFalseIfNoRowReturned()
+    public function testValidateClientReturnsFalseIfNoRowReturned(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
@@ -156,7 +159,7 @@ class ClientRepositoryTest extends TestCase
             ->will([$statement, 'reveal']);
 
         $this->assertFalse(
-            $this->repo ->validateClient(
+            $this->repo->validateClient(
                 'client_id',
                 '',
                 $grantType
@@ -171,7 +174,7 @@ class ClientRepositoryTest extends TestCase
         $statement->execute()->will(function () use ($statement) {
             $statement->fetch()->willReturn([
                 'password_client' => true,
-                'secret' => 'bar',
+                'secret'          => 'bar',
             ]);
             return true;
         });
@@ -183,7 +186,7 @@ class ClientRepositoryTest extends TestCase
         $client = $this->prophesize(ClientEntityInterface::class);
 
         $this->assertFalse(
-            $this->repo ->validateClient(
+            $this->repo->validateClient(
                 'client_id',
                 'foo',
                 'password'
@@ -198,7 +201,7 @@ class ClientRepositoryTest extends TestCase
         $statement->execute()->will(function () use ($statement) {
             $statement->fetch()->willReturn([
                 'password_client' => true,
-                'secret' => null,
+                'secret'          => null,
             ]);
             return true;
         });
@@ -210,7 +213,7 @@ class ClientRepositoryTest extends TestCase
         $client = $this->prophesize(ClientEntityInterface::class);
 
         $this->assertFalse(
-            $this->repo ->validateClient(
+            $this->repo->validateClient(
                 'client_id',
                 'foo',
                 'password'

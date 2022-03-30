@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2\Entity;
@@ -20,7 +14,7 @@ class UserEntityTest extends TestCase
     /** @var UserEntity */
     private $entity;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->entity = new UserEntity('foo');
     }

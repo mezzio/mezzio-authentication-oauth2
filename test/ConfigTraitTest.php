@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2;
@@ -20,25 +14,28 @@ class ConfigTraitTest extends TestCase
 {
     use ProphecyTrait;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->trait = $trait = new class {
+        $this->trait     = $trait = new class {
             use ConfigTrait;
 
+            /**
+             * @return array|string
+             */
             public function proxy(string $name, ContainerInterface $container)
             {
                 return $this->$name($container);
             }
         };
-        $this->config = [
+        $this->config    = [
             'authentication' => [
-                'private_key' => 'xxx',
-                'encryption_key' => 'xxx',
-                'access_token_expire' => '3600',
+                'private_key'          => 'xxx',
+                'encryption_key'       => 'xxx',
+                'access_token_expire'  => '3600',
                 'refresh_token_expire' => '3600',
-                'auth_code_expire' => '120',
-                'grants' => ['xxx']
-            ]
+                'auth_code_expire'     => '120',
+                'grants'               => ['xxx'],
+            ],
         ];
         $this->container = $this->prophesize(ContainerInterface::class);
         $this->container

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2;
@@ -39,30 +33,30 @@ class ConfigProvider
     /**
      * Return the configuration array.
      */
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return [
             'dependencies'   => $this->getDependencies(),
             'authentication' => include __DIR__ . '/../config/oauth2.php',
-            'routes'         => $this->getRoutes()
+            'routes'         => $this->getRoutes(),
         ];
     }
 
     /**
      * Returns the container dependencies
      */
-    public function getDependencies() : array
+    public function getDependencies(): array
     {
         return [
-            'aliases' => [
+            'aliases'   => [
                 // Choose a different adapter changing the alias value
-                AccessTokenRepositoryInterface::class => Pdo\AccessTokenRepository::class,
-                AuthCodeRepositoryInterface::class => Pdo\AuthCodeRepository::class,
-                ClientRepositoryInterface::class => Pdo\ClientRepository::class,
+                AccessTokenRepositoryInterface::class  => Pdo\AccessTokenRepository::class,
+                AuthCodeRepositoryInterface::class     => Pdo\AuthCodeRepository::class,
+                ClientRepositoryInterface::class       => Pdo\ClientRepository::class,
                 RefreshTokenRepositoryInterface::class => Pdo\RefreshTokenRepository::class,
-                ScopeRepositoryInterface::class => Pdo\ScopeRepository::class,
-                UserRepositoryInterface::class => Pdo\UserRepository::class,
-                AuthenticationInterface::class => OAuth2Adapter::class,
+                ScopeRepositoryInterface::class        => Pdo\ScopeRepository::class,
+                UserRepositoryInterface::class         => Pdo\UserRepository::class,
+                AuthenticationInterface::class         => OAuth2Adapter::class,
 
                 // Legacy Zend Framework aliases
                 // @codingStandardsIgnoreStart
@@ -83,37 +77,37 @@ class ConfigProvider
             ],
             'factories' => [
                 AuthorizationMiddleware::class => AuthorizationMiddlewareFactory::class,
-                AuthorizationHandler::class => AuthorizationHandlerFactory::class,
-                TokenEndpointHandler::class => TokenEndpointHandlerFactory::class,
-                OAuth2Adapter::class => OAuth2AdapterFactory::class,
-                AuthorizationServer::class => AuthorizationServerFactory::class,
-                ResourceServer::class => ResourceServerFactory::class,
+                AuthorizationHandler::class    => AuthorizationHandlerFactory::class,
+                TokenEndpointHandler::class    => TokenEndpointHandlerFactory::class,
+                OAuth2Adapter::class           => OAuth2AdapterFactory::class,
+                AuthorizationServer::class     => AuthorizationServerFactory::class,
+                ResourceServer::class          => ResourceServerFactory::class,
                 // Pdo adapter
-                Pdo\PdoService::class => Pdo\PdoServiceFactory::class,
-                Pdo\AccessTokenRepository::class => Pdo\AccessTokenRepositoryFactory::class,
-                Pdo\AuthCodeRepository::class => Pdo\AuthCodeRepositoryFactory::class,
-                Pdo\ClientRepository::class => Pdo\ClientRepositoryFactory::class,
+                Pdo\PdoService::class             => Pdo\PdoServiceFactory::class,
+                Pdo\AccessTokenRepository::class  => Pdo\AccessTokenRepositoryFactory::class,
+                Pdo\AuthCodeRepository::class     => Pdo\AuthCodeRepositoryFactory::class,
+                Pdo\ClientRepository::class       => Pdo\ClientRepositoryFactory::class,
                 Pdo\RefreshTokenRepository::class => Pdo\RefreshTokenRepositoryFactory::class,
-                Pdo\ScopeRepository::class => Pdo\ScopeRepositoryFactory::class,
-                Pdo\UserRepository::class => Pdo\UserRepositoryFactory::class,
+                Pdo\ScopeRepository::class        => Pdo\ScopeRepositoryFactory::class,
+                Pdo\UserRepository::class         => Pdo\UserRepositoryFactory::class,
                 // Default Grants
                 ClientCredentialsGrant::class => ClientCredentialsGrantFactory::class,
-                PasswordGrant::class => PasswordGrantFactory::class,
-                AuthCodeGrant::class => AuthCodeGrantFactory::class,
-                ImplicitGrant::class => ImplicitGrantFactory::class,
-                RefreshTokenGrant::class => RefreshTokenGrantFactory::class,
-            ]
+                PasswordGrant::class          => PasswordGrantFactory::class,
+                AuthCodeGrant::class          => AuthCodeGrantFactory::class,
+                ImplicitGrant::class          => ImplicitGrantFactory::class,
+                RefreshTokenGrant::class      => RefreshTokenGrantFactory::class,
+            ],
         ];
     }
 
-    public function getRoutes() : array
+    public function getRoutes(): array
     {
         return [
             [
                 'name'            => 'oauth',
                 'path'            => '/oauth',
                 'middleware'      => AuthorizationMiddleware::class,
-                'allowed_methods' => ['GET', 'POST']
+                'allowed_methods' => ['GET', 'POST'],
             ],
         ];
     }

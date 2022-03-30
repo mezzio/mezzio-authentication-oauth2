@@ -1,15 +1,10 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2;
 
+use Exception;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
@@ -34,20 +29,16 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class AuthorizationMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var AuthorizationServer
-     */
+    /** @var AuthorizationServer */
     protected $server;
 
-    /**
-     * @var callable
-     */
+    /** @var callable */
     protected $responseFactory;
 
     public function __construct(AuthorizationServer $server, callable $responseFactory)
     {
-        $this->server = $server;
-        $this->responseFactory = function () use ($responseFactory) : ResponseInterface {
+        $this->server          = $server;
+        $this->responseFactory = function () use ($responseFactory): ResponseInterface {
             return $responseFactory();
         };
     }
@@ -55,7 +46,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = ($this->responseFactory)();
 
@@ -71,7 +62,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
             // The validation throws this exception if the request is not valid
             // for example when the client id is invalid
             return $exception->generateHttpResponse($response);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return (new OAuthServerException($exception->getMessage(), 0, 'unknown_error', 500))
                 ->generateHttpResponse($response);
         }

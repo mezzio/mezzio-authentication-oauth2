@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2\Repository\Pdo;
@@ -18,6 +12,12 @@ use function password_verify;
 
 class UserRepository extends AbstractRepository implements UserRepositoryInterface
 {
+    /**
+     * @param string $username
+     * @param string $password
+     * @param string $grantType
+     * @return UserEntity|void
+     */
     public function getUserEntityByUserCredentials(
         $username,
         $password,
@@ -38,7 +38,5 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
         if (! empty($row) && password_verify($password, $row['password'])) {
             return new UserEntity($username);
         }
-
-        return;
     }
 }

@@ -1,14 +1,18 @@
 <?php
+
  /**
- * To generate a private key run this command:
- * openssl genrsa -out private.key 1024
- *
- * To generate the encryption key use this command:
- * php -r 'echo base64_encode(random_bytes(32)), PHP_EOL;'
- *
- * The expire values must be a valid DateInterval format
- * @see http://php.net/manual/en/class.dateinterval.php
- */
+  * To generate a private key run this command:
+  * openssl genrsa -out private.key 1024
+  *
+  * To generate the encryption key use this command:
+  * php -r 'echo base64_encode(random_bytes(32)), PHP_EOL;'
+  *
+  * The expire values must be a valid DateInterval format
+  *
+  * @see http://php.net/manual/en/class.dateinterval.php
+  */
+
+declare(strict_types=1);
 
 $config = [
     'private_key'          => getcwd() . '/data/oauth/private.key',
@@ -16,10 +20,10 @@ $config = [
     'access_token_expire'  => 'P1D', // 1 day in DateInterval format
     'refresh_token_expire' => 'P1M', // 1 month in DateInterval format
     'auth_code_expire'     => 'PT10M', // 10 minutes in DateInterval format
-    'pdo' => [
+    'pdo'                  => [
         'dsn'      => '',
         'username' => '',
-        'password' => ''
+        'password' => '',
     ],
 
     // Set value to null to disable a grant
@@ -33,7 +37,7 @@ $config = [
         League\OAuth2\Server\Grant\ImplicitGrant::class
             => League\OAuth2\Server\Grant\ImplicitGrant::class,
         League\OAuth2\Server\Grant\RefreshTokenGrant::class
-            => League\OAuth2\Server\Grant\RefreshTokenGrant::class
+            => League\OAuth2\Server\Grant\RefreshTokenGrant::class,
     ],
 ];
 

@@ -1,24 +1,14 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
-use Mezzio\Authentication\OAuth2\Entity\UserEntity;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-
-use function strtoupper;
 
 /**
  * Provides an OAuth2 token endpoint implementation
@@ -32,19 +22,15 @@ use function strtoupper;
  */
 class TokenEndpointHandler implements RequestHandlerInterface
 {
-    /**
-     * @var AuthorizationServer
-     */
+    /** @var AuthorizationServer */
     protected $server;
 
-    /**
-     * @var callable
-     */
+    /** @var callable */
     protected $responseFactory;
 
     public function __construct(AuthorizationServer $server, callable $responseFactory)
     {
-        $this->server = $server;
+        $this->server          = $server;
         $this->responseFactory = $responseFactory;
     }
 

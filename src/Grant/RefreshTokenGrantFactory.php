@@ -1,15 +1,10 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2\Grant;
 
+use DateInterval;
 use League\OAuth2\Server\Grant\RefreshTokenGrant;
 use Mezzio\Authentication\OAuth2\ConfigTrait;
 use Mezzio\Authentication\OAuth2\RepositoryTrait;
@@ -21,14 +16,14 @@ class RefreshTokenGrantFactory
 
     use RepositoryTrait;
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): RefreshTokenGrant
     {
         $grant = new RefreshTokenGrant(
             $this->getRefreshTokenRepository($container)
         );
 
         $grant->setRefreshTokenTTL(
-            new \DateInterval($this->getRefreshTokenExpire($container))
+            new DateInterval($this->getRefreshTokenExpire($container))
         );
 
         return $grant;

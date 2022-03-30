@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2\Grant;
@@ -24,14 +18,14 @@ class PasswordGrantFactoryTest extends TestCase
 
     public function testInvoke()
     {
-        $mockContainer = $this->prophesize(ContainerInterface::class);
-        $mockUserRepo = $this->prophesize(UserRepositoryInterface::class);
+        $mockContainer        = $this->prophesize(ContainerInterface::class);
+        $mockUserRepo         = $this->prophesize(UserRepositoryInterface::class);
         $mockRefreshTokenRepo = $this->prophesize(RefreshTokenRepositoryInterface::class);
 
         $config = [
             'authentication' => [
-                'refresh_token_expire' => 'P1M'
-            ]
+                'refresh_token_expire' => 'P1M',
+            ],
         ];
 
         $mockContainer->has(UserRepositoryInterface::class)->willReturn(true);

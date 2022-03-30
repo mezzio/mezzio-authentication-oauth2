@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2\Repository\Pdo;
@@ -15,6 +9,8 @@ use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationExcep
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Entity\AuthCodeEntity;
 
+use function date;
+
 class AuthCodeRepository extends AbstractRepository implements AuthCodeRepositoryInterface
 {
     /**
@@ -22,7 +18,7 @@ class AuthCodeRepository extends AbstractRepository implements AuthCodeRepositor
      */
     public function getNewAuthCode()
     {
-        return new AuthCodeEntity;
+        return new AuthCodeEntity();
     }
 
     /**
@@ -31,8 +27,8 @@ class AuthCodeRepository extends AbstractRepository implements AuthCodeRepositor
     public function persistNewAuthCode(AuthCodeEntityInterface $authCodeEntity)
     {
         $sth = $this->pdo->prepare(
-            'INSERT INTO oauth_auth_codes (id, user_id, client_id, scopes, revoked, expires_at) ' .
-            'VALUES (:id, :user_id, :client_id, :scopes, :revoked, :expires_at)'
+            'INSERT INTO oauth_auth_codes (id, user_id, client_id, scopes, revoked, expires_at) '
+            . 'VALUES (:id, :user_id, :client_id, :scopes, :revoked, :expires_at)'
         );
 
         $sth->bindValue(':id', $authCodeEntity->getIdentifier());

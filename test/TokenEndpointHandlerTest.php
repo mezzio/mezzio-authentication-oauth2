@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2;
@@ -27,7 +21,7 @@ class TokenEndpointHandlerTest extends TestCase
 {
     use ProphecyTrait;
 
-    private function createResponseFactory(ResponseInterface $response = null): callable
+    private function createResponseFactory(?ResponseInterface $response = null): callable
     {
         return function () use ($response): ResponseInterface {
             return $response ?? $this->prophesize(ResponseInterface::class)->reveal();
@@ -36,9 +30,9 @@ class TokenEndpointHandlerTest extends TestCase
 
     public function testHandleUsesAuthorizationServer()
     {
-        $server = $this->prophesize(AuthorizationServer::class);
-        $request = $this->prophesize(ServerRequestInterface::class);
-        $response = $this->prophesize(ResponseInterface::class);
+        $server           = $this->prophesize(AuthorizationServer::class);
+        $request          = $this->prophesize(ServerRequestInterface::class);
+        $response         = $this->prophesize(ResponseInterface::class);
         $expectedResponse = $response->reveal();
 
         $server->respondToAccessTokenRequest($request->reveal(), $expectedResponse)
@@ -51,10 +45,10 @@ class TokenEndpointHandlerTest extends TestCase
 
     public function testOAuthExceptionProducesResult()
     {
-        $server = $this->prophesize(AuthorizationServer::class);
-        $request = $this->prophesize(ServerRequestInterface::class);
-        $response = $this->prophesize(ResponseInterface::class);
-        $exception = $this->prophesize(OAuthServerException::class);
+        $server           = $this->prophesize(AuthorizationServer::class);
+        $request          = $this->prophesize(ServerRequestInterface::class);
+        $response         = $this->prophesize(ResponseInterface::class);
+        $exception        = $this->prophesize(OAuthServerException::class);
         $expectedResponse = $response->reveal();
 
         $server->respondToAccessTokenRequest(Argument::cetera())
@@ -70,8 +64,8 @@ class TokenEndpointHandlerTest extends TestCase
 
     public function testGenericExceptionsFallsThrough()
     {
-        $server = $this->prophesize(AuthorizationServer::class);
-        $request = $this->prophesize(ServerRequestInterface::class);
+        $server    = $this->prophesize(AuthorizationServer::class);
+        $request   = $this->prophesize(ServerRequestInterface::class);
         $exception = new RuntimeException();
 
         $server->respondToAccessTokenRequest(Argument::cetera())

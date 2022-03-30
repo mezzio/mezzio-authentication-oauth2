@@ -1,15 +1,10 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2;
 
+use Generator;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use League\OAuth2\Server\ResourceServer;
 use Mezzio\Authentication\OAuth2\Exception;
@@ -22,17 +17,17 @@ class ResourceServerFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    const PUBLIC_KEY = __DIR__ . '/TestAsset/public.key';
+    private const PUBLIC_KEY = __DIR__ . '/TestAsset/public.key';
 
-    const PUBLIC_KEY_EXTENDED = [
-        'key_or_path' => self::PUBLIC_KEY,
-        'pass_phrase' => 'test',
+    private const PUBLIC_KEY_EXTENDED = [
+        'key_or_path'           => self::PUBLIC_KEY,
+        'pass_phrase'           => 'test',
         'key_permissions_check' => false,
     ];
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->container  = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->prophesize(ContainerInterface::class);
     }
 
     public function testConstructor()
@@ -56,8 +51,8 @@ class ResourceServerFactoryTest extends TestCase
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
             'authentication' => [
-                'public_key' => self::PUBLIC_KEY
-            ]
+                'public_key' => self::PUBLIC_KEY,
+            ],
         ]);
         $this->container
             ->has(AccessTokenRepositoryInterface::class)
@@ -74,8 +69,8 @@ class ResourceServerFactoryTest extends TestCase
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
             'authentication' => [
-                'public_key' => self::PUBLIC_KEY
-            ]
+                'public_key' => self::PUBLIC_KEY,
+            ],
         ]);
         $this->container
             ->has(AccessTokenRepositoryInterface::class)
@@ -86,12 +81,12 @@ class ResourceServerFactoryTest extends TestCase
                 $this->prophesize(AccessTokenRepositoryInterface::class)->reveal()
             );
 
-        $factory = new ResourceServerFactory();
+        $factory        = new ResourceServerFactory();
         $resourceServer = $factory($this->container->reveal());
         $this->assertInstanceOf(ResourceServer::class, $resourceServer);
     }
 
-    public function getExtendedKeyConfigs(): \Generator
+    public function getExtendedKeyConfigs(): Generator
     {
         $extendedConfig = self::PUBLIC_KEY_EXTENDED;
 
@@ -112,8 +107,8 @@ class ResourceServerFactoryTest extends TestCase
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
             'authentication' => [
-                'public_key' => $keyConfig
-            ]
+                'public_key' => $keyConfig,
+            ],
         ]);
         $this->container
             ->has(AccessTokenRepositoryInterface::class)
@@ -124,12 +119,12 @@ class ResourceServerFactoryTest extends TestCase
                 $this->prophesize(AccessTokenRepositoryInterface::class)->reveal()
             );
 
-        $factory = new ResourceServerFactory();
+        $factory        = new ResourceServerFactory();
         $resourceServer = $factory($this->container->reveal());
         $this->assertInstanceOf(ResourceServer::class, $resourceServer);
     }
 
-    public function getInvalidExtendedKeyConfigs(): \Generator
+    public function getInvalidExtendedKeyConfigs(): Generator
     {
         $extendedConfig = self::PUBLIC_KEY_EXTENDED;
 
@@ -145,8 +140,8 @@ class ResourceServerFactoryTest extends TestCase
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
             'authentication' => [
-                'public_key' => $keyConfig
-            ]
+                'public_key' => $keyConfig,
+            ],
         ]);
         $this->container
             ->has(AccessTokenRepositoryInterface::class)

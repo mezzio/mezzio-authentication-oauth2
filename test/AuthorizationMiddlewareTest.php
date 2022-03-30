@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2;
@@ -47,7 +41,7 @@ class AuthorizationMiddlewareTest extends TestCase
     /** @var ServerRequestInterface|ObjectProphecy */
     private $serverRequest;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->authServer      = $this->prophesize(AuthorizationServer::class);
         $this->response        = $this->prophesize(ResponseInterface::class);
@@ -98,12 +92,11 @@ class AuthorizationMiddlewareTest extends TestCase
             ->handle($newRequest->reveal())
             ->willReturn($handlerResponse);
 
-
         $middleware = new AuthorizationMiddleware(
             $this->authServer->reveal(),
             $this->responseFactory
         );
-        $response = $middleware->process(
+        $response   = $middleware->process(
             $this->serverRequest->reveal(),
             $this->handler->reveal()
         );
@@ -113,7 +106,7 @@ class AuthorizationMiddlewareTest extends TestCase
 
     public function testAuthorizationRequestRaisingOAuthServerExceptionGeneratesResponseFromException()
     {
-        $response = $this->prophesize(ResponseInterface::class);
+        $response             = $this->prophesize(ResponseInterface::class);
         $oauthServerException = $this->prophesize(OAuthServerException::class);
         $oauthServerException
             ->generateHttpResponse(Argument::type(ResponseInterface::class))

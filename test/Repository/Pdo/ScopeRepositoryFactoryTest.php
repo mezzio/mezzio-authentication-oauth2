@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2\Repository\Pdo;
@@ -21,15 +15,13 @@ class ScopeRepositoryFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var ContainerInterface
-     */
+    /** @var ContainerInterface */
     private $container;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->container = $this->prophesize(ContainerInterface::class);
-        $this->pdo = $this->prophesize(PdoService::class);
+        $this->pdo       = $this->prophesize(PdoService::class);
     }
 
     public function testFactory()
@@ -38,7 +30,7 @@ class ScopeRepositoryFactoryTest extends TestCase
             ->get(PdoService::class)
             ->willReturn($this->pdo->reveal());
 
-        $factory = (new ScopeRepositoryFactory)($this->container->reveal());
+        $factory = (new ScopeRepositoryFactory())($this->container->reveal());
         $this->assertInstanceOf(ScopeRepository::class, $factory);
     }
 }

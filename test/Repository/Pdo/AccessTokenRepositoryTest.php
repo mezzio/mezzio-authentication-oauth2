@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2\Repository\Pdo;
@@ -14,7 +8,6 @@ use DateTime;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
-use League\OAuth2\Server\Entities\Traits\AccessTokenTrait;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
 use Mezzio\Authentication\OAuth2\Entity\AccessTokenEntity;
@@ -23,22 +16,21 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PDOStatement;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-
 use Prophecy\PhpUnit\ProphecyTrait;
+
+use function date;
 use function time;
 
 class AccessTokenRepositoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var AccessTokenRepository
-     */
+    /** @var AccessTokenRepository */
     private $repo;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->pdo = $this->prophesize(PdoService::class);
+        $this->pdo  = $this->prophesize(PdoService::class);
         $this->repo = new AccessTokenRepository($this->pdo->reveal());
     }
 
@@ -168,7 +160,7 @@ class AccessTokenRepositoryTest extends TestCase
 
     public function testGetNewToken()
     {
-        $client = $this->prophesize(ClientEntityInterface::class)->reveal();
+        $client      = $this->prophesize(ClientEntityInterface::class)->reveal();
         $accessToken = $this->repo->getNewToken($client, []);
         $this->assertInstanceOf(AccessTokenEntity::class, $accessToken);
         $this->assertEquals($client, $accessToken->getClient());
@@ -177,8 +169,8 @@ class AccessTokenRepositoryTest extends TestCase
 
     public function testGetNewTokenWithScopeAndIndentifier()
     {
-        $client = $this->prophesize(ClientEntityInterface::class)->reveal();
-        $scopes = [ $this->prophesize(ScopeEntityInterface::class)->reveal() ];
+        $client         = $this->prophesize(ClientEntityInterface::class)->reveal();
+        $scopes         = [$this->prophesize(ScopeEntityInterface::class)->reveal()];
         $userIdentifier = 'foo';
 
         $accessToken = $this->repo->getNewToken($client, $scopes, $userIdentifier);

@@ -1,19 +1,15 @@
 <?php
 
-/**
- * @see       https://github.com/mezzio/mezzio-authentication-oauth2 for the canonical source repository
- * @copyright https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/COPYRIGHT.md
- * @license   https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/LICENSE.md New BSD License
- */
-
 declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2;
 
 use DateInterval;
-use League\Event\ListenerProviderInterface;
 use League\OAuth2\Server\AuthorizationServer;
 use Psr\Container\ContainerInterface;
+
+use function is_string;
+use function sprintf;
 
 /**
  * Factory for OAuth AuthorizationServer
@@ -29,20 +25,15 @@ class AuthorizationServerFactory
     use CryptKeyTrait;
     use RepositoryTrait;
 
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return AuthorizationServer
-     */
-    public function __invoke(ContainerInterface $container) : AuthorizationServer
+    public function __invoke(ContainerInterface $container): AuthorizationServer
     {
-        $clientRepository = $this->getClientRepository($container);
+        $clientRepository      = $this->getClientRepository($container);
         $accessTokenRepository = $this->getAccessTokenRepository($container);
-        $scopeRepository = $this->getScopeRepository($container);
+        $scopeRepository       = $this->getScopeRepository($container);
 
         $privateKey = $this->getCryptKey($this->getPrivateKey($container), 'authentication.private_key');
         $encryptKey = $this->getEncryptionKey($container);
-        $grants = $this->getGrantsConfig($container);
+        $grants     = $this->getGrantsConfig($container);
 
         $authServer = new AuthorizationServer(
             $clientRepository,
@@ -77,9 +68,6 @@ class AuthorizationServerFactory
 
     /**
      * Optionally add event listeners
-     *
-     * @param AuthorizationServer $authServer
-     * @param ContainerInterface  $container
      */
     private function addListeners(
         AuthorizationServer $authServer,
@@ -88,16 +76,16 @@ class AuthorizationServerFactory
         $listeners = $this->getListenersConfig($container);
 
         foreach ($listeners as $idx => $listenerConfig) {
-            $event = $listenerConfig[0];
+            $event    = $listenerConfig[0];
             $listener = $listenerConfig[1];
             $priority = $listenerConfig[2] ?? null;
             if (is_string($listener)) {
                 if (! $container->has($listener)) {
                     throw new Exception\InvalidConfigException(sprintf(
-                        'The second element of event_listeners config at ' .
-                            'index "%s" is a string and therefore expected to ' .
-                            'be available as a service key in the container. ' .
-                            'A service named "%s" was not found.',
+                        'The second element of event_listeners config at '
+                            . 'index "%s" is a string and therefore expected to '
+                            . 'be available as a service key in the container. '
+                            . 'A service named "%s" was not found.',
                         $idx,
                         $listener
                     ));
@@ -111,9 +99,6 @@ class AuthorizationServerFactory
 
     /**
      * Optionally add event listener providers
-     *
-     * @param AuthorizationServer       $authServer
-     * @param ContainerInterface $container
      */
     private function addListenerProviders(
         AuthorizationServer $authServer,
@@ -125,10 +110,10 @@ class AuthorizationServerFactory
             if (is_string($provider)) {
                 if (! $container->has($provider)) {
                     throw new Exception\InvalidConfigException(sprintf(
-                        'The event_listener_providers config at ' .
-                            'index "%s" is a string and therefore expected to ' .
-                            'be available as a service key in the container. ' .
-                            'A service named "%s" was not found.',
+                        'The event_listener_providers config at '
+                            . 'index "%s" is a string and therefore expected to '
+                            . 'be available as a service key in the container. '
+                            . 'A service named "%s" was not found.',
                         $idx,
                         $provider
                     ));
