@@ -186,7 +186,7 @@ class ConfigTraitTest extends TestCase
                     'event_listeners' => $expected = [['xxx']],
                 ],
             ]);
-        $result                                    = $this->trait
+        $result = $this->trait
             ->proxy('getListenersConfig', $this->container->reveal());
         $this->assertEquals($expected, $result);
     }
@@ -224,7 +224,7 @@ class ConfigTraitTest extends TestCase
                     'event_listener_providers' => $expected = ['xxx'],
                 ],
             ]);
-        $result                                             = $this->trait
+        $result = $this->trait
             ->proxy('getListenerProvidersConfig', $this->container->reveal());
         $this->assertEquals($expected, $result);
     }
