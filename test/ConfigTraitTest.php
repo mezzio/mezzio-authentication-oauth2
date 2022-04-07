@@ -59,6 +59,26 @@ class ConfigTraitTest extends TestCase
         $this->assertEquals($this->config['authentication']['private_key'], $result);
     }
 
+    public function testGetPrivateKeyArray()
+    {
+        $config = [
+            'authentication' => [
+                'private_key' => [
+                    'key_or_path'           => 'xxx',
+                    'pass_phrase'           => 'test',
+                    'key_permissions_check' => false,
+                ],
+            ],
+        ];
+
+        $this->container
+            ->get('config')
+            ->willReturn($config);
+
+        $result = $this->trait->proxy('getPrivateKey', $this->container->reveal());
+        $this->assertEquals($config['authentication']['private_key'], $result);
+    }
+
     public function testGetEncryptionKeyNoConfig()
     {
         $this->container
