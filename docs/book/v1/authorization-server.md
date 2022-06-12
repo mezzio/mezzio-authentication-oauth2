@@ -6,7 +6,6 @@ for your application.
 Since there are authorization flows that require user interaction,
 **your application is expected to provide the middleware to handle this**.
 
-
 ## Add the token endpoint
 
 Adding the token endpoint involves routing to the provided
@@ -31,6 +30,17 @@ use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
 
 $app->pipe(BodyParamsMiddleware::class);
 ```
+Generally speaking, we recommend AGAINST piping the body parsing middleware as generic middleware; instead, we recommend piping it into a route-specific pipeline:
+```php
+use Mezzio\Authentication\OAuth2;
+use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
+
+$app->post('/oauth2/token', [
+    BodyParamsMiddleware::class,
+    OAuth2\TokenEndpointHandler::class
+], 'auth.token');
+```
+This ensures we only parse it when we are actually expecting a content body.
 
 ## Add the authorization endpoint
 
