@@ -26,12 +26,6 @@ To enable the token endpoint to handle the POST requests in JSON, the [Body Pars
 For example:
 
 ```php
-use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
-
-$app->pipe(BodyParamsMiddleware::class);
-```
-Generally speaking, we recommend AGAINST piping the body parsing middleware as generic middleware; instead, we recommend piping it into a route-specific pipeline:
-```php
 use Mezzio\Authentication\OAuth2;
 use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
 
@@ -40,7 +34,8 @@ $app->post('/oauth2/token', [
     OAuth2\TokenEndpointHandler::class
 ], 'auth.token');
 ```
-This ensures we only parse it when we are actually expecting a content body.
+WARNING: Do not pipe the body parsing middleware as generic middleware.
+This ensures that the content body is only parsed when it is actually expected.
 
 ## Add the authorization endpoint
 
