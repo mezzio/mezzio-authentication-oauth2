@@ -1,0 +1,1692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+  <file src="config/oauth2.php">
+    <MixedAssignment occurrences="1">
+      <code>$config['encryption_key']</code>
+    </MixedAssignment>
+    <UnresolvableInclude occurrences="1">
+      <code>require $encryptionKeyFile</code>
+    </UnresolvableInclude>
+  </file>
+  <file src="src/AuthorizationHandler.php">
+    <DeprecatedClass occurrences="1"/>
+    <MixedArgument occurrences="1">
+      <code>$authRequest</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$authRequest</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/AuthorizationHandlerFactory.php">
+    <DeprecatedTrait occurrences="1">
+      <code>Psr17ResponseFactoryTrait</code>
+    </DeprecatedTrait>
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get(AuthorizationServer::class)</code>
+    </MixedArgument>
+  </file>
+  <file src="src/AuthorizationMiddleware.php">
+    <DeprecatedClass occurrences="1"/>
+  </file>
+  <file src="src/AuthorizationMiddlewareFactory.php">
+    <DeprecatedTrait occurrences="1">
+      <code>Psr17ResponseFactoryTrait</code>
+    </DeprecatedTrait>
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get(AuthorizationServer::class)</code>
+    </MixedArgument>
+  </file>
+  <file src="src/AuthorizationServerFactory.php">
+    <MixedArgument occurrences="6">
+      <code>$container-&gt;get($grant)</code>
+      <code>$event</code>
+      <code>$grant</code>
+      <code>$listener</code>
+      <code>$priority</code>
+      <code>$provider</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="3">
+      <code>$listenerConfig[0]</code>
+      <code>$listenerConfig[1]</code>
+      <code>$listenerConfig[2]</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="8">
+      <code>$event</code>
+      <code>$grant</code>
+      <code>$listener</code>
+      <code>$listener</code>
+      <code>$listenerConfig</code>
+      <code>$priority</code>
+      <code>$provider</code>
+      <code>$provider</code>
+    </MixedAssignment>
+    <PossiblyNullArgument occurrences="1">
+      <code>$priority</code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/ConfigProvider.php">
+    <MixedArrayOffset occurrences="1"/>
+    <UndefinedClass occurrences="13">
+      <code>\Zend\Expressive\Authentication\AuthenticationInterface</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\AuthorizationHandler</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\AuthorizationMiddleware</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\OAuth2Adapter</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\PasswordGrant</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AccessTokenRepository</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ClientRepository</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\PdoService</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ScopeRepository</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\UserRepository</code>
+      <code>\Zend\Expressive\Authentication\OAuth2\TokenEndpointHandler</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/ConfigTrait.php">
+    <MixedInferredReturnType occurrences="5">
+      <code>non-empty-string|non-empty-array</code>
+      <code>string</code>
+      <code>string</code>
+      <code>string</code>
+      <code>string</code>
+    </MixedInferredReturnType>
+  </file>
+  <file src="src/CryptKeyTrait.php">
+    <MixedArgument occurrences="4">
+      <code>$keyConfig['key_or_path']</code>
+      <code>$keyConfig['key_or_path']</code>
+      <code>$passPhrase</code>
+      <code>$passPhrase</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$passPhrase</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Entity/ClientEntity.php">
+    <PropertyNotSetInConstructor occurrences="6">
+      <code>$passwordClient</code>
+      <code>$personalAccessClient</code>
+      <code>$secret</code>
+      <code>ClientEntity</code>
+      <code>ClientEntity</code>
+      <code>ClientEntity</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Entity/RevokableTrait.php">
+    <MissingConstructor occurrences="3">
+      <code>$revoked</code>
+      <code>$revoked</code>
+      <code>$revoked</code>
+    </MissingConstructor>
+  </file>
+  <file src="src/Entity/TimestampableTrait.php">
+    <DocblockTypeContradiction occurrences="2">
+      <code>! $this-&gt;createdAt</code>
+      <code>$this-&gt;createdAt</code>
+    </DocblockTypeContradiction>
+    <InvalidPropertyAssignmentValue occurrences="4">
+      <code>$createdAt</code>
+      <code>$updatedAt</code>
+      <code>new DateTimeImmutable('now', new DateTimeZone($this-&gt;getTimezone()-&gt;getValue()))</code>
+      <code>new DateTimeImmutable()</code>
+    </InvalidPropertyAssignmentValue>
+    <InvalidReturnType occurrences="2">
+      <code>DateTimeInterface</code>
+      <code>DateTimeInterface</code>
+    </InvalidReturnType>
+    <MissingConstructor occurrences="2">
+      <code>$createdAt</code>
+      <code>$updatedAt</code>
+    </MissingConstructor>
+    <MixedArgument occurrences="1">
+      <code>$this-&gt;getTimezone()-&gt;getValue()</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="1">
+      <code>getValue</code>
+    </MixedMethodCall>
+    <UndefinedDocblockClass occurrences="2">
+      <code>DateTime</code>
+      <code>DateTime</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/OAuth2Adapter.php">
+    <DeprecatedClass occurrences="1"/>
+    <InvalidFunctionCall occurrences="1"/>
+    <InvalidMethodCall occurrences="1">
+      <code>createResponse</code>
+    </InvalidMethodCall>
+    <InvalidPropertyAssignmentValue occurrences="2">
+      <code>$responseFactory</code>
+    </InvalidPropertyAssignmentValue>
+    <MixedAssignment occurrences="1">
+      <code>$clientId</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="3">
+      <code>?UserInterface</code>
+      <code>ResponseInterface</code>
+      <code>UserInterface</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="1">
+      <code>withHeader</code>
+    </MixedMethodCall>
+    <MixedReturnStatement occurrences="3">
+      <code>$userFactory($identity, $roles, $details)</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/OAuth2AdapterFactory.php">
+    <DeprecatedTrait occurrences="1">
+      <code>Psr17ResponseFactoryTrait</code>
+    </DeprecatedTrait>
+    <MixedArgument occurrences="2">
+      <code>$container-&gt;get(UserInterface::class)</code>
+      <code>$resourceServer</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$resourceServer</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Psr17ResponseFactoryTrait.php">
+    <DeprecatedClass occurrences="1">
+      <code>new CallableResponseFactoryDecorator($responseFactory)</code>
+    </DeprecatedClass>
+    <InternalClass occurrences="1">
+      <code>new CallableResponseFactoryDecorator($responseFactory)</code>
+    </InternalClass>
+    <UndefinedClass occurrences="1">
+      <code>ResponseFactoryFactory</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Repository/Pdo/AbstractRepository.php">
+    <MixedMethodCall occurrences="1">
+      <code>getIdentifier</code>
+    </MixedMethodCall>
+    <MixedOperand occurrences="2">
+      <code>$item-&gt;getIdentifier()</code>
+      <code>$result</code>
+    </MixedOperand>
+    <PropertyTypeCoercion occurrences="1">
+      <code>$pdo</code>
+    </PropertyTypeCoercion>
+  </file>
+  <file src="src/Repository/Pdo/AccessTokenRepository.php">
+    <MissingReturnType occurrences="2">
+      <code>persistNewAccessToken</code>
+      <code>revokeAccessToken</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$userIdentifier</code>
+    </MixedArgument>
+  </file>
+  <file src="src/Repository/Pdo/AccessTokenRepositoryFactory.php">
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get(PdoService::class)</code>
+    </MixedArgument>
+  </file>
+  <file src="src/Repository/Pdo/AuthCodeRepository.php">
+    <MissingReturnType occurrences="2">
+      <code>persistNewAuthCode</code>
+      <code>revokeAuthCode</code>
+    </MissingReturnType>
+    <MixedArrayAccess occurrences="1">
+      <code>$row['revoked']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$row</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Repository/Pdo/AuthCodeRepositoryFactory.php">
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get(PdoService::class)</code>
+    </MixedArgument>
+  </file>
+  <file src="src/Repository/Pdo/ClientRepository.php">
+    <MixedArgument occurrences="3">
+      <code>$clientData['name'] ?? ''</code>
+      <code>$clientData['redirect'] ?? ''</code>
+      <code>$clientData['secret']</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$row</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>?array</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>$row</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Repository/Pdo/ClientRepositoryFactory.php">
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get(PdoService::class)</code>
+    </MixedArgument>
+  </file>
+  <file src="src/Repository/Pdo/PdoServiceFactory.php">
+    <MixedArgument occurrences="3">
+      <code>$config['dsn']</code>
+      <code>$password</code>
+      <code>$username</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="4">
+      <code>$config['authentication']</code>
+      <code>$config['dsn']</code>
+      <code>$config['password']</code>
+      <code>$config['username']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="4">
+      <code>$config</code>
+      <code>$config</code>
+      <code>$password</code>
+      <code>$username</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>PDO</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>$container-&gt;get($config)</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Repository/Pdo/RefreshTokenRepository.php">
+    <MissingReturnType occurrences="2">
+      <code>persistNewRefreshToken</code>
+      <code>revokeRefreshToken</code>
+    </MissingReturnType>
+    <MixedArrayAccess occurrences="1">
+      <code>$row['revoked']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$row</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Repository/Pdo/RefreshTokenRepositoryFactory.php">
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get(PdoService::class)</code>
+    </MixedArgument>
+  </file>
+  <file src="src/Repository/Pdo/ScopeRepository.php">
+    <MixedArrayAccess occurrences="1">
+      <code>$row['id']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$row</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Repository/Pdo/ScopeRepositoryFactory.php">
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get(PdoService::class)</code>
+    </MixedArgument>
+  </file>
+  <file src="src/Repository/Pdo/UserRepository.php">
+    <MixedArgument occurrences="2">
+      <code>$row['password']</code>
+      <code>$username</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$row['password']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$row</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Repository/Pdo/UserRepositoryFactory.php">
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get(PdoService::class)</code>
+    </MixedArgument>
+  </file>
+  <file src="src/RepositoryTrait.php">
+    <MixedInferredReturnType occurrences="6">
+      <code>AccessTokenRepositoryInterface</code>
+      <code>AuthCodeRepositoryInterface</code>
+      <code>ClientRepositoryInterface</code>
+      <code>RefreshTokenRepositoryInterface</code>
+      <code>ScopeRepositoryInterface</code>
+      <code>UserRepositoryInterface</code>
+    </MixedInferredReturnType>
+  </file>
+  <file src="src/ResourceServerFactory.php">
+    <MixedArgument occurrences="1">
+      <code>$config['public_key']</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$config['authentication']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$config</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/TokenEndpointHandler.php">
+    <DeprecatedClass occurrences="1"/>
+  </file>
+  <file src="src/TokenEndpointHandlerFactory.php">
+    <DeprecatedTrait occurrences="1">
+      <code>Psr17ResponseFactoryTrait</code>
+    </DeprecatedTrait>
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get(AuthorizationServer::class)</code>
+    </MixedArgument>
+  </file>
+  <file src="test/AuthorizationHandlerFactoryTest.php">
+    <MissingClosureReturnType occurrences="1">
+      <code>function () {</code>
+    </MissingClosureReturnType>
+    <MissingReturnType occurrences="6">
+      <code>testConfigProvider</code>
+      <code>testConstructor</code>
+      <code>testFactoryRaisesTypeErrorForNonCallableResponseFactory</code>
+      <code>testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance</code>
+      <code>testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer</code>
+      <code>testRaisesTypeErrorForInvalidAuthorizationServer</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="4">
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>(new ConfigProvider())-&gt;getDependencies()</code>
+    </MixedArgumentTypeCoercion>
+    <MixedMethodCall occurrences="9">
+      <code>shouldBeCalled</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <PossiblyUndefinedMethod occurrences="7">
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="test/AuthorizationHandlerTest.php">
+    <InvalidArgument occurrences="1"/>
+    <MissingReturnType occurrences="1">
+      <code>testInvalidResponseFactoryThrowsTypeError</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/AuthorizationMiddlewareFactoryTest.php">
+    <MissingReturnType occurrences="5">
+      <code>testConstructor</code>
+      <code>testFactoryRaisesTypeErrorForNonCallableResponseFactory</code>
+      <code>testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance</code>
+      <code>testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer</code>
+      <code>testRaisesTypeErrorForInvalidAuthorizationServer</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="4">
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="9">
+      <code>shouldBeCalled</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <PossiblyUndefinedMethod occurrences="7">
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="test/AuthorizationMiddlewareTest.php">
+    <InvalidArgument occurrences="1">
+      <code>Argument::any()</code>
+    </InvalidArgument>
+    <InvalidPropertyAssignmentValue occurrences="4">
+      <code>$this-&gt;prophesize(AuthorizationRequest::class)</code>
+      <code>$this-&gt;prophesize(AuthorizationServer::class)</code>
+      <code>$this-&gt;prophesize(RequestHandlerInterface::class)</code>
+      <code>$this-&gt;prophesize(ServerRequestInterface::class)</code>
+    </InvalidPropertyAssignmentValue>
+    <MissingClosureReturnType occurrences="1">
+      <code>function () {</code>
+    </MissingClosureReturnType>
+    <MissingReturnType occurrences="4">
+      <code>testAuthorizationRequestRaisingOAuthServerExceptionGeneratesResponseFromException</code>
+      <code>testAuthorizationRequestRaisingUnknownExceptionGeneratesResponseFromException</code>
+      <code>testConstructor</code>
+      <code>testProcess</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="13">
+      <code>$this-&gt;authServer-&gt;reveal()</code>
+      <code>$this-&gt;authServer-&gt;reveal()</code>
+      <code>$this-&gt;authServer-&gt;reveal()</code>
+      <code>$this-&gt;authServer-&gt;reveal()</code>
+      <code>$this-&gt;handler-&gt;reveal()</code>
+      <code>$this-&gt;handler-&gt;reveal()</code>
+      <code>$this-&gt;handler-&gt;reveal()</code>
+      <code>$this-&gt;serverRequest-&gt;reveal()</code>
+      <code>$this-&gt;serverRequest-&gt;reveal()</code>
+      <code>$this-&gt;serverRequest-&gt;reveal()</code>
+      <code>$this-&gt;serverRequest-&gt;reveal()</code>
+      <code>$this-&gt;serverRequest-&gt;reveal()</code>
+      <code>$this-&gt;serverRequest-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="4">
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+    </MixedArgumentTypeCoercion>
+  </file>
+  <file src="test/AuthorizationServerFactoryTest.php">
+    <MissingClosureReturnType occurrences="1">
+      <code>function (RequestEvent $event) {</code>
+    </MissingClosureReturnType>
+    <MissingReturnType occurrences="6">
+      <code>testInvoke</code>
+      <code>testInvokeWithListenerConfig</code>
+      <code>testInvokeWithListenerConfigMissingServiceThrowsException</code>
+      <code>testInvokeWithListenerProviderConfig</code>
+      <code>testInvokeWithListenerProviderConfigMissingServiceThrowsException</code>
+      <code>testInvokeWithNullGrant</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="5">
+      <code>$mockContainer-&gt;reveal()</code>
+      <code>$mockContainer-&gt;reveal()</code>
+      <code>$mockContainer-&gt;reveal()</code>
+      <code>$mockContainer-&gt;reveal()</code>
+      <code>$mockContainer-&gt;reveal()</code>
+    </MixedArgument>
+    <UnusedClosureParam occurrences="1">
+      <code>$event</code>
+    </UnusedClosureParam>
+    <UnusedVariable occurrences="3">
+      <code>$mockListener</code>
+      <code>$mockProvider</code>
+      <code>$result</code>
+    </UnusedVariable>
+  </file>
+  <file src="test/ConfigTraitTest.php">
+    <MissingReturnType occurrences="20">
+      <code>testGetAccessTokenExpire</code>
+      <code>testGetAccessTokenExpireNoConfig</code>
+      <code>testGetAuthCodeExpire</code>
+      <code>testGetAuthCodeExpireNoConfig</code>
+      <code>testGetEncryptionKey</code>
+      <code>testGetEncryptionKeyNoConfig</code>
+      <code>testGetGrantsConfig</code>
+      <code>testGetGrantsConfigNoArrayValue</code>
+      <code>testGetGrantsConfigNoConfig</code>
+      <code>testGetListenerProvidersConfig</code>
+      <code>testGetListenerProvidersConfigNoArrayValue</code>
+      <code>testGetListenerProvidersConfigNoConfig</code>
+      <code>testGetListenersConfig</code>
+      <code>testGetListenersConfigNoArrayValue</code>
+      <code>testGetListenersConfigNoConfig</code>
+      <code>testGetPrivateKey</code>
+      <code>testGetPrivateKeyArray</code>
+      <code>testGetPrivateKeyWhenNoConfigPresentWillResultInAnException</code>
+      <code>testGetRefreshTokenExpire</code>
+      <code>testGetRefreshTokenExpireNoConfig</code>
+    </MissingReturnType>
+    <MixedArrayAccess occurrences="6">
+      <code>$this-&gt;config['authentication']</code>
+      <code>$this-&gt;config['authentication']</code>
+      <code>$this-&gt;config['authentication']</code>
+      <code>$this-&gt;config['authentication']</code>
+      <code>$this-&gt;config['authentication']</code>
+      <code>$this-&gt;config['authentication']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="9">
+      <code>$result</code>
+      <code>$result</code>
+      <code>$result</code>
+      <code>$result</code>
+      <code>$result</code>
+      <code>$result</code>
+      <code>$result</code>
+      <code>$result</code>
+      <code>$result</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>array|string</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="68">
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <MixedReturnStatement occurrences="1">
+      <code>$this-&gt;$name($container)</code>
+    </MixedReturnStatement>
+    <UndefinedThisPropertyAssignment occurrences="3">
+      <code>$this-&gt;config</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;trait</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="46">
+      <code>$this-&gt;config</code>
+      <code>$this-&gt;config</code>
+      <code>$this-&gt;config</code>
+      <code>$this-&gt;config</code>
+      <code>$this-&gt;config</code>
+      <code>$this-&gt;config</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+    </UndefinedThisPropertyFetch>
+    <UnusedVariable occurrences="1">
+      <code>$trait</code>
+    </UnusedVariable>
+  </file>
+  <file src="test/Entity/AccessTokenEntityTest.php">
+    <MissingReturnType occurrences="1">
+      <code>testImplementsInstanceAccessTokenEntityInterface</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Entity/AuthCodeEntityTest.php">
+    <MissingReturnType occurrences="1">
+      <code>testImplementsInstanceAuthCodeEntityInterface</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Entity/ClientEntityTest.php">
+    <MissingReturnType occurrences="7">
+      <code>testConstructorSetsIdentifier</code>
+      <code>testConstructorSetsName</code>
+      <code>testConstructorSetsRedirectUri</code>
+      <code>testImplementsAuthCodeEntityInterface</code>
+      <code>testPasswordClient</code>
+      <code>testPersonalAccessClient</code>
+      <code>testSecret</code>
+    </MissingReturnType>
+    <MixedMethodCall occurrences="13">
+      <code>getIdentifier</code>
+      <code>getName</code>
+      <code>getRedirectUri</code>
+      <code>getSecret</code>
+      <code>hasPasswordClient</code>
+      <code>hasPasswordClient</code>
+      <code>hasPersonalAccessClient</code>
+      <code>hasPersonalAccessClient</code>
+      <code>setPasswordClient</code>
+      <code>setPasswordClient</code>
+      <code>setPersonalAccessClient</code>
+      <code>setPersonalAccessClient</code>
+      <code>setSecret</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;entity</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="7">
+      <code>$this-&gt;entity</code>
+      <code>$this-&gt;entity</code>
+      <code>$this-&gt;entity</code>
+      <code>$this-&gt;entity</code>
+      <code>$this-&gt;entity</code>
+      <code>$this-&gt;entity</code>
+      <code>$this-&gt;entity</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Entity/RefreshTokenEntityTest.php">
+    <MissingReturnType occurrences="1">
+      <code>testImplementsRefreshTokenEntityInterface</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Entity/RevokableTraitTest.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>RevokableTrait::class</code>
+    </InvalidScalarArgument>
+    <MissingReturnType occurrences="2">
+      <code>testSetRevokedToFalse</code>
+      <code>testSetRevokedToTrue</code>
+    </MissingReturnType>
+    <MixedMethodCall occurrences="4">
+      <code>isRevoked</code>
+      <code>isRevoked</code>
+      <code>setRevoked</code>
+      <code>setRevoked</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;trait</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="2">
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Entity/ScopeEntityTest.php">
+    <MissingReturnType occurrences="2">
+      <code>testEntityIsJsonSerializable</code>
+      <code>testImplementsScopeEntityInterface</code>
+    </MissingReturnType>
+    <MixedMethodCall occurrences="1">
+      <code>setIdentifier</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;entity</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="2">
+      <code>$this-&gt;entity</code>
+      <code>$this-&gt;entity</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Entity/TimestampableTraitTest.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>TimestampableTrait::class</code>
+    </InvalidScalarArgument>
+    <MissingReturnType occurrences="3">
+      <code>testCreatedAt</code>
+      <code>testTimestampOnCreate</code>
+      <code>testUpdatedAt</code>
+    </MissingReturnType>
+    <MixedMethodCall occurrences="6">
+      <code>getCreatedAt</code>
+      <code>getCreatedAt</code>
+      <code>getUpdatedAt</code>
+      <code>setCreatedAt</code>
+      <code>setUpdatedAt</code>
+      <code>timestampOnCreate</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;trait</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="3">
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Entity/UserEntityTest.php">
+    <MissingReturnType occurrences="3">
+      <code>testConstructorWithoutParamWillResultInAnException</code>
+      <code>testGetIdentifier</code>
+      <code>testImplementsUserEntityInterface</code>
+    </MissingReturnType>
+    <TooFewArguments occurrences="1">
+      <code>new UserEntity()</code>
+    </TooFewArguments>
+    <UnusedVariable occurrences="1">
+      <code>$entity</code>
+    </UnusedVariable>
+  </file>
+  <file src="test/Grant/AuthCodeGrantFactoryTest.php">
+    <MissingReturnType occurrences="1">
+      <code>testInvoke</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Grant/ClientCredentialsGrantFactoryTest.php">
+    <MissingReturnType occurrences="1">
+      <code>testInvoke</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Grant/ImplicitGrantFactoryTest.php">
+    <MissingReturnType occurrences="1">
+      <code>testInvoke</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Grant/PasswordGrantFactoryTest.php">
+    <MissingReturnType occurrences="1">
+      <code>testInvoke</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Grant/RefreshTokenGrantFactoryTest.php">
+    <MissingReturnType occurrences="1">
+      <code>testInvoke</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/OAuth2AdapterFactoryTest.php">
+    <MissingClosureReturnType occurrences="2">
+      <code>function (</code>
+      <code>function () {</code>
+    </MissingClosureReturnType>
+    <MissingReturnType occurrences="5">
+      <code>testConstructor</code>
+      <code>testFactoryRaisesTypeErrorForNonCallableResponseFactory</code>
+      <code>testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance</code>
+      <code>testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer</code>
+      <code>testInvokeWithEmptyContainer</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="4">
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="9">
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <PossiblyInvalidMethodCall occurrences="5">
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </PossiblyInvalidMethodCall>
+    <PossiblyUndefinedMethod occurrences="8">
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="test/OAuth2AdapterTest.php">
+    <InvalidArgument occurrences="4">
+      <code>Argument::that([$request, 'reveal'])</code>
+      <code>Argument::that([$request, 'reveal'])</code>
+      <code>Argument::that([$request, 'reveal'])</code>
+      <code>Argument::that([$request, 'reveal'])</code>
+    </InvalidArgument>
+    <MissingClosureReturnType occurrences="1">
+      <code>function (</code>
+    </MissingClosureReturnType>
+    <MissingReturnType occurrences="6">
+      <code>testAuthenticateReturnsAUserIfTheResourceServerProducesAUserId</code>
+      <code>testAuthenticateReturnsNullIfResourceServerDoesNotProduceAUserIdOrClientId</code>
+      <code>testAuthenticateReturnsNullIfTheResourceServerProducesAClientIdOnly</code>
+      <code>testConstructor</code>
+      <code>testOAuthServerExceptionRaisedDuringAuthenticateResultsInInvalidAuthentication</code>
+      <code>testUnauthorizedResponseProducesAResponseWithAWwwAuthenticateHeader</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="6">
+      <code>$this-&gt;resourceServer-&gt;reveal()</code>
+      <code>$this-&gt;resourceServer-&gt;reveal()</code>
+      <code>$this-&gt;resourceServer-&gt;reveal()</code>
+      <code>$this-&gt;resourceServer-&gt;reveal()</code>
+      <code>$this-&gt;resourceServer-&gt;reveal()</code>
+      <code>$this-&gt;resourceServer-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="12">
+      <code>$details</code>
+      <code>$roles</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>[$request, 'reveal']</code>
+      <code>[$request, 'reveal']</code>
+      <code>[$request, 'reveal']</code>
+      <code>[$request, 'reveal']</code>
+    </MixedArgumentTypeCoercion>
+    <PossiblyUndefinedMethod occurrences="10">
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>willThrow</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="test/Pdo/OAuth2PdoMiddlewareTest.php">
+    <ArgumentTypeCoercion occurrences="2">
+      <code>$consumerHandler</code>
+      <code>$consumerHandler</code>
+    </ArgumentTypeCoercion>
+    <MissingClosureReturnType occurrences="1">
+      <code>function () {</code>
+    </MissingClosureReturnType>
+    <MissingReturnType occurrences="5">
+      <code>testProcessClientCredentialGrantConfidential</code>
+      <code>testProcessClientCredentialGrantNotConfidential</code>
+      <code>testProcessImplicitGrant</code>
+      <code>testProcessPasswordGrant</code>
+      <code>testProcessRefreshTokenGrant</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$data['token_type']</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="9">
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+      <code>$this-&gt;responseFactory</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="4">
+      <code>$content</code>
+      <code>$content</code>
+      <code>$content</code>
+      <code>$content</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="2">
+      <code>string</code>
+      <code>string</code>
+    </MixedInferredReturnType>
+    <MixedPropertyFetch occurrences="15">
+      <code>$content-&gt;access_token</code>
+      <code>$content-&gt;access_token</code>
+      <code>$content-&gt;access_token</code>
+      <code>$content-&gt;access_token</code>
+      <code>$content-&gt;expires_in</code>
+      <code>$content-&gt;expires_in</code>
+      <code>$content-&gt;expires_in</code>
+      <code>$content-&gt;expires_in</code>
+      <code>$content-&gt;refresh_token</code>
+      <code>$content-&gt;refresh_token</code>
+      <code>$content-&gt;refresh_token</code>
+      <code>$content-&gt;token_type</code>
+      <code>$content-&gt;token_type</code>
+      <code>$content-&gt;token_type</code>
+      <code>$content-&gt;token_type</code>
+    </MixedPropertyFetch>
+    <MixedReturnStatement occurrences="2">
+      <code>$content-&gt;refresh_token</code>
+      <code>$data['code']</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="test/Psr17ResponseFactoryTraitTest.php">
+    <DeprecatedClass occurrences="1">
+      <code>CallableResponseFactoryDecorator::class</code>
+    </DeprecatedClass>
+    <InternalMethod occurrences="1">
+      <code>getResponseFromCallable</code>
+    </InternalMethod>
+    <UndefinedClass occurrences="1">
+      <code>ResponseFactoryFactory</code>
+    </UndefinedClass>
+  </file>
+  <file src="test/Repository/Pdo/AbstractRepositoryTest.php">
+    <MissingReturnType occurrences="2">
+      <code>testConstructor</code>
+      <code>testScopesToStringWithEmptyArray</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="2">
+      <code>$this-&gt;pdo-&gt;reveal()</code>
+      <code>$this-&gt;pdo-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="2">
+      <code>reveal</code>
+      <code>reveal</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="2">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/AccessTokenRepositoryFactoryTest.php">
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$this-&gt;prophesize(ContainerInterface::class)</code>
+    </InvalidPropertyAssignmentValue>
+    <MissingReturnType occurrences="1">
+      <code>testFactory</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="2">
+      <code>reveal</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>reveal</code>
+    </UndefinedInterfaceMethod>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/AccessTokenRepositoryTest.php">
+    <MissingReturnType occurrences="9">
+      <code>testGetNewToken</code>
+      <code>testGetNewTokenWithScopeAndIndentifier</code>
+      <code>testIsAccessTokenRevokedReturnsFalseWhenRowDoesNotContainRevokedFlag</code>
+      <code>testIsAccessTokenRevokedReturnsFalseWhenRowRevokedFlagIsFalse</code>
+      <code>testIsAccessTokenRevokedReturnsFalseWhenStatementFailsExecution</code>
+      <code>testIsAccessTokenRevokedReturnsTrueWhenRowRevokedFlagIsTrue</code>
+      <code>testIsAcessTokenRevokedRaisesExceptionWhenTokenIdDontExists</code>
+      <code>testPersistNewAccessTokenRaisesExceptionWhenStatementExecutionFails</code>
+      <code>testRevokeAccessToken</code>
+    </MissingReturnType>
+    <MixedMethodCall occurrences="14">
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="7">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/AuthCodeRepositoryFactoryTest.php">
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$this-&gt;prophesize(ContainerInterface::class)</code>
+    </InvalidPropertyAssignmentValue>
+    <MissingReturnType occurrences="1">
+      <code>testFactory</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="2">
+      <code>reveal</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>reveal</code>
+    </UndefinedInterfaceMethod>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/AuthCodeRepositoryTest.php">
+    <MissingReturnType occurrences="5">
+      <code>testIsAuthCodeRevokedReturnsFalseForStatementExecutionFailure</code>
+      <code>testIsAuthCodeRevokedReturnsTrue</code>
+      <code>testNewAuthCode</code>
+      <code>testPersistNewAuthCodeRaisesExceptionWhenStatementExecutionFails</code>
+      <code>testRevokeAuthCode</code>
+    </MissingReturnType>
+    <MixedMethodCall occurrences="13">
+      <code>getNewAuthCode</code>
+      <code>isAuthCodeRevoked</code>
+      <code>isAuthCodeRevoked</code>
+      <code>persistNewAuthCode</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>revokeAuthCode</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;repo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="9">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/ClientRepositoryFactoryTest.php">
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$this-&gt;prophesize(ContainerInterface::class)</code>
+    </InvalidPropertyAssignmentValue>
+    <MissingReturnType occurrences="1">
+      <code>testFactory</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="2">
+      <code>reveal</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>reveal</code>
+    </UndefinedInterfaceMethod>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/ClientRepositoryTest.php">
+    <MissingReturnType occurrences="6">
+      <code>testGetClientEntityReturnsCorrectEntity</code>
+      <code>testGetClientEntityReturnsNullIfNoRowReturned</code>
+      <code>testGetClientEntityReturnsNullIfStatementExecutionReturnsFalse</code>
+      <code>testValidateClientReturnsFalseForEmptyClientSecret</code>
+      <code>testValidateClientReturnsFalseForNonMatchingClientSecret</code>
+      <code>testValidateClientReturnsFalseIfRowIndicatesNotGranted</code>
+    </MissingReturnType>
+    <MixedInferredReturnType occurrences="1">
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="21">
+      <code>getClientEntity</code>
+      <code>getClientEntity</code>
+      <code>getClientEntity</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>validateClient</code>
+      <code>validateClient</code>
+      <code>validateClient</code>
+      <code>validateClient</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;repo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="14">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+    </UndefinedThisPropertyFetch>
+    <UnusedVariable occurrences="3">
+      <code>$client</code>
+      <code>$client</code>
+      <code>$client</code>
+    </UnusedVariable>
+  </file>
+  <file src="test/Repository/Pdo/PdoServiceFactoryTest.php">
+    <MissingReturnType occurrences="4">
+      <code>testRaisesExceptionIfPdoConfigurationIsMissing</code>
+      <code>testRaisesExceptionIfPdoServiceIsInvalid</code>
+      <code>testValidConfigurationResultsInReturnedPdoServiceInstance</code>
+      <code>testValidServiceInConfigurationReturnsPdoService</code>
+    </MissingReturnType>
+    <MixedFunctionCall occurrences="4">
+      <code>($this-&gt;factory)($this-&gt;container-&gt;reveal())</code>
+      <code>($this-&gt;factory)($this-&gt;container-&gt;reveal())</code>
+      <code>($this-&gt;factory)($this-&gt;container-&gt;reveal())</code>
+      <code>($this-&gt;factory)($this-&gt;container-&gt;reveal())</code>
+    </MixedFunctionCall>
+    <MixedInferredReturnType occurrences="1">
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="29">
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>shouldBeCalled</code>
+      <code>shouldNotBeCalled</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;factory</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="8">
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;factory</code>
+      <code>$this-&gt;factory</code>
+      <code>$this-&gt;factory</code>
+      <code>$this-&gt;factory</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/RefreshTokenRepositoryFactoryTest.php">
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$this-&gt;prophesize(ContainerInterface::class)</code>
+    </InvalidPropertyAssignmentValue>
+    <MissingReturnType occurrences="1">
+      <code>testFactory</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="2">
+      <code>reveal</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>reveal</code>
+    </UndefinedInterfaceMethod>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/RefreshTokenRepositoryTest.php">
+    <MissingReturnType occurrences="5">
+      <code>testGetNewRefreshToken</code>
+      <code>testIsRefreshTokenRevokedReturnsFalseWhenStatementFailsExecution</code>
+      <code>testIsRefreshTokenRevokedReturnsTrue</code>
+      <code>testPersistNewRefreshTokenRaisesExceptionWhenStatementExecutionFails</code>
+      <code>testRevokeRefreshToken</code>
+    </MissingReturnType>
+    <MixedMethodCall occurrences="13">
+      <code>getNewRefreshToken</code>
+      <code>isRefreshTokenRevoked</code>
+      <code>isRefreshTokenRevoked</code>
+      <code>persistNewRefreshToken</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>revokeRefreshToken</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;repo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="9">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/ScopeRepositoryFactoryTest.php">
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$this-&gt;prophesize(ContainerInterface::class)</code>
+    </InvalidPropertyAssignmentValue>
+    <MissingReturnType occurrences="1">
+      <code>testFactory</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="2">
+      <code>reveal</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>reveal</code>
+    </UndefinedInterfaceMethod>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="1">
+      <code>$this-&gt;pdo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/ScopeRepositoryTest.php">
+    <MissingReturnType occurrences="4">
+      <code>testFinalizeScopesWithEmptyScopes</code>
+      <code>testGetScopeEntityByIdentifierReturnsNullWhenReturnedRowDoesNotHaveIdentifier</code>
+      <code>testGetScopeEntityByIdentifierReturnsNullWhenStatementExecutionFails</code>
+      <code>testGetScopeEntityByIndentifierReturnsScopes</code>
+    </MissingReturnType>
+    <MixedAssignment occurrences="1">
+      <code>$scopes</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="10">
+      <code>finalizeScopes</code>
+      <code>getScopeEntityByIdentifier</code>
+      <code>getScopeEntityByIdentifier</code>
+      <code>getScopeEntityByIdentifier</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;repo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="7">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Repository/Pdo/UserRepositoryTest.php">
+    <MissingReturnType occurrences="4">
+      <code>testGetUserEntityByCredentialsReturnsEntity</code>
+      <code>testGetUserEntityByCredentialsReturnsNullIfPasswordVerificationFails</code>
+      <code>testGetUserEntityByCredentialsReturnsNullIfStatementExecutionReturnsFalse</code>
+      <code>testGetUserEntityByCredentialsReturnsNullIfUserIsNotFound</code>
+    </MissingReturnType>
+    <MixedMethodCall occurrences="12">
+      <code>getUserEntityByUserCredentials</code>
+      <code>getUserEntityByUserCredentials</code>
+      <code>getUserEntityByUserCredentials</code>
+      <code>getUserEntityByUserCredentials</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>prepare</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;repo</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="8">
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;pdo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+      <code>$this-&gt;repo</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/RepositoryTraitTest.php">
+    <MissingReturnType occurrences="12">
+      <code>testGetAccessTokenRepository</code>
+      <code>testGetAccessTokenRepositoryWithoutService</code>
+      <code>testGetAuthCodeRepository</code>
+      <code>testGetAuthCodeRepositoryWithoutService</code>
+      <code>testGetClientRepository</code>
+      <code>testGetClientRepositoryWithoutService</code>
+      <code>testGetRefreshTokenRepository</code>
+      <code>testGetRefreshTokenRepositoryWithoutService</code>
+      <code>testGetScopeRepository</code>
+      <code>testGetScopeRepositoryWithoutService</code>
+      <code>testGetUserRepository</code>
+      <code>testGetUserRepositoryWithoutService</code>
+    </MissingReturnType>
+    <MixedInferredReturnType occurrences="1">
+      <code>RepositoryInterface</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="60">
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>proxy</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <MixedReturnStatement occurrences="1">
+      <code>$this-&gt;$name($container)</code>
+    </MixedReturnStatement>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;trait</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="24">
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+      <code>$this-&gt;trait</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/ResourceServerFactoryTest.php">
+    <MissingReturnType occurrences="6">
+      <code>testConstructor</code>
+      <code>testInvokeWithConfigAndRepository</code>
+      <code>testInvokeWithConfigWithoutRepository</code>
+      <code>testInvokeWithEmptyConfig</code>
+      <code>testInvokeWithInvalidExtendedKey</code>
+      <code>testInvokeWithValidExtendedKey</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="5">
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedInferredReturnType occurrences="2">
+      <code>Generator</code>
+      <code>Generator</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="39">
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;container</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="5">
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+      <code>$this-&gt;container</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/TestAsset/Psr17ResponseFactoryTraitImplementation.php">
+    <DeprecatedTrait occurrences="1">
+      <code>Psr17ResponseFactoryTrait</code>
+    </DeprecatedTrait>
+  </file>
+  <file src="test/TokenEndpointHandlerFactoryTest.php">
+    <InvalidArgument occurrences="1">
+      <code>$container</code>
+    </InvalidArgument>
+    <MissingClosureReturnType occurrences="1">
+      <code>function () {</code>
+    </MissingClosureReturnType>
+    <MissingReturnType occurrences="3">
+      <code>testCreatesTokenEndpointHandler</code>
+      <code>testDirectResponseInstanceFromContainerThrowsTypeError</code>
+      <code>testEmptyContainerThrowsTypeError</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/TokenEndpointHandlerTest.php">
+    <MissingReturnType occurrences="3">
+      <code>testGenericExceptionsFallsThrough</code>
+      <code>testHandleUsesAuthorizationServer</code>
+      <code>testOAuthExceptionProducesResult</code>
+    </MissingReturnType>
+    <MixedArgumentTypeCoercion occurrences="3">
+      <code>$this-&gt;createResponseFactory($expectedResponse)</code>
+      <code>$this-&gt;createResponseFactory($expectedResponse)</code>
+      <code>$this-&gt;createResponseFactory()</code>
+    </MixedArgumentTypeCoercion>
+  </file>
+</files>
