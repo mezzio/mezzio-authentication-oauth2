@@ -16,9 +16,10 @@ final class InMemoryContainer implements ContainerInterface
     private $services = [];
 
     /**
+     * @param string $id
      * @return mixed
      */
-    public function get(string $id)
+    public function get($id)
     {
         if (! $this->has($id)) {
             throw new class ($id . ' was not found') extends RuntimeException implements NotFoundExceptionInterface {
@@ -28,7 +29,8 @@ final class InMemoryContainer implements ContainerInterface
         return $this->services[$id];
     }
 
-    public function has(string $id): bool
+    /** @param string $id */
+    public function has($id): bool
     {
         return array_key_exists($id, $this->services);
     }
