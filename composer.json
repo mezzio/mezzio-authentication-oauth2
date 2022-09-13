@@ -45,7 +45,7 @@
         "webmozart/assert": "^1.10"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "~2.3.0",
+        "laminas/laminas-coding-standard": "~2.4.0",
         "laminas/laminas-diactoros": "^2.17",
         "laminas/laminas-servicemanager": "^3.16.0",
         "phpspec/prophecy-phpunit": "^2.0",
