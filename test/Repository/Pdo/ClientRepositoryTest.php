@@ -41,7 +41,7 @@ class ClientRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
-        $statement->execute()->will(function () use ($statement) {
+        $statement->execute()->will(function () use ($statement): bool {
             $statement->fetch()->willReturn([]);
             return true;
         });
@@ -62,7 +62,7 @@ class ClientRepositoryTest extends TestCase
 
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
-        $statement->execute()->will(function () use ($statement, $name, $redirect) {
+        $statement->execute()->will(function () use ($statement, $name, $redirect): bool {
             $statement->fetch()->willReturn([
                 'name'     => $name,
                 'redirect' => $redirect,
@@ -122,7 +122,7 @@ class ClientRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
-        $statement->execute()->will(function () use ($statement) {
+        $statement->execute()->will(function () use ($statement): bool {
             $statement->fetch()->willReturn([]);
             return true;
         });
@@ -149,7 +149,7 @@ class ClientRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
-        $statement->execute()->will(function () use ($statement, $rowReturned) {
+        $statement->execute()->will(function () use ($statement, $rowReturned): bool {
             $statement->fetch()->willReturn($rowReturned);
             return true;
         });
@@ -171,7 +171,7 @@ class ClientRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
-        $statement->execute()->will(function () use ($statement) {
+        $statement->execute()->will(function () use ($statement): bool {
             $statement->fetch()->willReturn([
                 'password_client' => true,
                 'secret'          => 'bar',
@@ -198,7 +198,7 @@ class ClientRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
-        $statement->execute()->will(function () use ($statement) {
+        $statement->execute()->will(function () use ($statement): bool {
             $statement->fetch()->willReturn([
                 'password_client' => true,
                 'secret'          => null,

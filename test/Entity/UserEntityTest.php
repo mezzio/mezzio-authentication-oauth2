@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserEntityTest extends TestCase
 {
-    /** @var UserEntity */
-    private $entity;
+    private UserEntity $entity;
 
     protected function setUp(): void
     {

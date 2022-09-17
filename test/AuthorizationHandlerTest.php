@@ -39,9 +39,7 @@ class AuthorizationHandlerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn($expectedResponse);
 
-        $subject = new AuthorizationHandler($server->reveal(), function () use ($expectedResponse): ResponseInterface {
-            return $expectedResponse;
-        });
+        $subject = new AuthorizationHandler($server->reveal(), static fn(): ResponseInterface => $expectedResponse);
 
         self::assertSame($expectedResponse, $subject->handle($request->reveal()));
     }
@@ -58,9 +56,7 @@ class AuthorizationHandlerTest extends TestCase
         $server->completeAuthorizationRequest(Argument::any())
             ->shouldNotBeCalled();
 
-        $subject = new AuthorizationHandler($server->reveal(), function () {
-            return new stdClass();
-        });
+        $subject = new AuthorizationHandler($server->reveal(), static fn(): stdClass => new stdClass());
 
         $this->expectException(TypeError::class);
         $subject->handle($request->reveal());

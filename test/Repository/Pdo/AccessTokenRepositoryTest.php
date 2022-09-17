@@ -25,8 +25,7 @@ class AccessTokenRepositoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var AccessTokenRepository */
-    private $repo;
+    private AccessTokenRepository $repo;
 
     protected function setUp(): void
     {

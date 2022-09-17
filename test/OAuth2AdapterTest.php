@@ -38,16 +38,9 @@ class OAuth2AdapterTest extends TestCase
     {
         $this->resourceServer  = $this->prophesize(ResourceServer::class);
         $this->response        = $this->createMock(ResponseInterface::class);
-        $this->responseFactory = function (): ResponseInterface {
-            return $this->response;
-        };
-        $this->userFactory     = function (
-            string $identity,
-            array $roles = [],
-            array $details = []
-        ) {
-            return new DefaultUser($identity, $roles, $details);
-        };
+        $this->responseFactory = fn(): ResponseInterface => $this->response;
+        $this->userFactory     = static fn(string $identity, array $roles = [], array $details = []): DefaultUser
+                => new DefaultUser($identity, $roles, $details);
     }
 
     public function testConstructor()

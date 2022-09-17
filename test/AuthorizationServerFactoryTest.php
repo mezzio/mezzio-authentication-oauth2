@@ -128,7 +128,7 @@ class AuthorizationServerFactoryTest extends TestCase
                 'event_listeners'     => [
                     [
                         RequestEvent::CLIENT_AUTHENTICATION_FAILED,
-                        function (RequestEvent $event) {
+                        static function (RequestEvent $event): void {
                             // do something
                         },
                     ],

@@ -38,20 +38,13 @@ class OAuth2Adapter implements AuthenticationInterface
 
         if (is_callable($responseFactory)) {
             $responseFactory = new CallableResponseFactoryDecorator(
-                static function () use ($responseFactory): ResponseInterface {
-                    return $responseFactory();
-                }
+                static fn(): ResponseInterface => $responseFactory()
             );
         }
 
         $this->responseFactory = $responseFactory;
-        $this->userFactory     = function (
-            string $identity,
-            array $roles = [],
-            array $details = []
-        ) use ($userFactory): UserInterface {
-            return $userFactory($identity, $roles, $details);
-        };
+        $this->userFactory     = static fn(string $identity, array $roles = [], array $details = []): UserInterface
+                => $userFactory($identity, $roles, $details);
     }
 
     /**

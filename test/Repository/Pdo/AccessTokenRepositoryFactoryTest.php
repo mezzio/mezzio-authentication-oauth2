@@ -9,14 +9,14 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\AccessTokenRepositoryFactory;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class AccessTokenRepositoryFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var ContainerInterface */
-    private $container;
+    private ObjectProphecy $container;
 
     protected function setUp(): void
     {

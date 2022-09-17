@@ -25,11 +25,9 @@ use function is_callable;
  */
 class AuthorizationHandler implements RequestHandlerInterface
 {
-    /** @var AuthorizationServer */
-    private $server;
+    private AuthorizationServer $server;
 
-    /** @var ResponseFactoryInterface */
-    private $responseFactory;
+    private ResponseFactoryInterface $responseFactory;
 
     /**
      * @param (callable():ResponseInterface)|ResponseFactoryInterface $responseFactory
@@ -39,9 +37,7 @@ class AuthorizationHandler implements RequestHandlerInterface
         $this->server = $server;
         if (is_callable($responseFactory)) {
             $responseFactory = new CallableResponseFactoryDecorator(
-                static function () use ($responseFactory): ResponseInterface {
-                    return $responseFactory();
-                }
+                static fn(): ResponseInterface => $responseFactory()
             );
         }
 
