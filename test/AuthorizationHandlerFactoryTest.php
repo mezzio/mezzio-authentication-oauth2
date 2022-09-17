@@ -58,7 +58,7 @@ class AuthorizationHandlerFactoryTest extends TestCase
             ->willReturn(new stdClass());
         $this->container
             ->get(ResponseInterface::class)
-            ->willReturn(function () {
+            ->willReturn(static function (): void {
             });
 
         $factory = new AuthorizationHandlerFactory();
@@ -104,9 +104,7 @@ class AuthorizationHandlerFactoryTest extends TestCase
             ->willReturn($this->authServer->reveal());
         $this->container
             ->get(ResponseInterface::class)
-            ->willReturn(function () {
-                return $this->response;
-            })->shouldBeCalled();
+            ->willReturn(fn(): MockObject => $this->response)->shouldBeCalled();
 
         $factory = new AuthorizationHandlerFactory();
         $factory($this->container->reveal());
@@ -115,9 +113,7 @@ class AuthorizationHandlerFactoryTest extends TestCase
     public function testConfigProvider()
     {
         $authServer      = $this->prophesize(AuthorizationServer::class)->reveal();
-        $responseFactory = function () {
-            return $this->prophesize(ResponseInterface::class)->reveal();
-        };
+        $responseFactory = fn(): object => $this->prophesize(ResponseInterface::class)->reveal();
 
         $container = new ServiceManager((new ConfigProvider())->getDependencies());
         $container->setService(AuthorizationServer::class, $authServer);

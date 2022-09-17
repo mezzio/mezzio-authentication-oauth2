@@ -40,9 +40,7 @@ class TokenEndpointHandler implements RequestHandlerInterface
         $this->server = $server;
         if (is_callable($responseFactory)) {
             $responseFactory = new CallableResponseFactoryDecorator(
-                static function () use ($responseFactory): ResponseInterface {
-                    return $responseFactory();
-                }
+                static fn(): ResponseInterface => $responseFactory()
             );
         }
         $this->responseFactory = $responseFactory;

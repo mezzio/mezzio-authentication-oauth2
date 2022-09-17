@@ -9,14 +9,14 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepositoryFactory;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class RefreshTokenRepositoryFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var ContainerInterface */
-    private $container;
+    private ObjectProphecy $container;
 
     protected function setUp(): void
     {

@@ -49,9 +49,7 @@ class AuthorizationMiddlewareTest extends TestCase
         $this->serverRequest   = $this->prophesize(ServerRequestInterface::class);
         $this->authRequest     = $this->prophesize(AuthorizationRequest::class);
         $this->handler         = $this->prophesize(RequestHandlerInterface::class);
-        $this->responseFactory = function () {
-            return $this->response;
-        };
+        $this->responseFactory = fn(): MockObject => $this->response;
     }
 
     public function testConstructor()

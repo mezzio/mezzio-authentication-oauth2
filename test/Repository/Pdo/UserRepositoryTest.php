@@ -53,7 +53,7 @@ class UserRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':username', 'username')->shouldBeCalled();
-        $statement->execute()->will(function () use ($statement) {
+        $statement->execute()->will(function () use ($statement): bool {
             $statement->fetch()->willReturn([
                 'password' => 'not-the-same-password',
             ]);
@@ -80,7 +80,7 @@ class UserRepositoryTest extends TestCase
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':username', 'username')->shouldBeCalled();
-        $statement->execute()->will(function () use ($statement) {
+        $statement->execute()->will(function () use ($statement): bool {
             $statement->fetch()->willReturn(null);
             return true;
         });

@@ -848,8 +848,7 @@
   </file>
   <file src="test/OAuth2AdapterFactoryTest.php">
     <MissingClosureReturnType occurrences="2">
-      <code>function (</code>
-      <code>function () {</code>
+      <code>fn()</code>
     </MissingClosureReturnType>
     <MissingReturnType occurrences="5">
       <code>testConstructor</code>
@@ -892,6 +891,11 @@
       <code>reveal</code>
       <code>reveal</code>
     </PossiblyUndefinedMethod>
+    <UnusedClosureParam occurrences="3">
+      <code>$identity</code>
+      <code>$roles</code>
+      <code>$details</code>
+    </UnusedClosureParam>
   </file>
   <file src="test/OAuth2AdapterTest.php">
     <InvalidArgument occurrences="4">

@@ -9,14 +9,14 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\ScopeRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\ScopeRepositoryFactory;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class ScopeRepositoryFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var ContainerInterface */
-    private $container;
+    private ObjectProphecy $container;
 
     protected function setUp(): void
     {

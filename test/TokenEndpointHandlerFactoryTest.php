@@ -20,8 +20,7 @@ class TokenEndpointHandlerFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var TokenEndpointHandlerFactory */
-    private $subject;
+    private TokenEndpointHandlerFactory $subject;
 
     protected function setUp(): void
     {
@@ -40,7 +39,7 @@ class TokenEndpointHandlerFactoryTest extends TestCase
     public function testCreatesTokenEndpointHandler()
     {
         $server          = $this->prophesize(AuthorizationServer::class);
-        $responseFactory = function () {
+        $responseFactory = static function (): void {
         };
         $container       = $this->prophesize(ContainerInterface::class);
 

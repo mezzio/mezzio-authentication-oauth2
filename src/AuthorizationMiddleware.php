@@ -47,9 +47,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
         $this->server = $server;
         if (is_callable($responseFactory)) {
             $responseFactory = new CallableResponseFactoryDecorator(
-                static function () use ($responseFactory): ResponseInterface {
-                    return $responseFactory();
-                }
+                static fn(): ResponseInterface => $responseFactory()
             );
         }
 

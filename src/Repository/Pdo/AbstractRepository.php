@@ -35,8 +35,6 @@ class AbstractRepository
             return '';
         }
 
-        return trim(array_reduce($scopes, function ($result, $item) {
-            return $result . ' ' . $item->getIdentifier();
-        }));
+        return trim(array_reduce($scopes, static fn($result, $item): string => $result . ' ' . $item->getIdentifier()));
     }
 }

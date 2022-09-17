@@ -55,7 +55,7 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
             ->willReturn(new stdClass());
         $this->container
             ->get(ResponseInterface::class)
-            ->willReturn(function () {
+            ->willReturn(static function (): void {
             });
 
         $factory = new AuthorizationMiddlewareFactory();
@@ -101,9 +101,7 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
             ->willReturn($this->authServer->reveal());
         $this->container
             ->get(ResponseInterface::class)
-            ->willReturn(function () {
-                return $this->response;
-            })
+            ->willReturn(fn(): MockObject => $this->response)
             ->shouldBeCalled();
 
         $factory = new AuthorizationMiddlewareFactory();

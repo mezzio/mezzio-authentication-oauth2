@@ -70,38 +70,29 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
     private const CODE_VERIFIER = 'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk';
 
-    /** @var AccessTokenRepository */
-    private $accessTokenRepository;
+    private AccessTokenRepository $accessTokenRepository;
 
-    /** @var AuthCodeRepository */
-    private $authCodeRepository;
+    private AuthCodeRepository $authCodeRepository;
 
-    /** @var AuthorizationServer */
-    private $authServer;
+    private AuthorizationServer $authServer;
 
-    /** @var ClientRepository */
-    private $clientRepository;
+    private ClientRepository $clientRepository;
 
     /** @var RequestHandlerInterface|ObjectProphecy */
     private $handler;
 
-    /** @var PdoService */
-    private $pdoService;
+    private PdoService $pdoService;
 
-    /** @var RefreshTokenRepository */
-    private $refreshTokenRepository;
+    private RefreshTokenRepository $refreshTokenRepository;
 
-    /** @var Response */
-    private $response;
+    private Response $response;
 
     /** @var callable */
     private $responseFactory;
 
-    /** @var ScopeRepository */
-    private $scopeRepository;
+    private ScopeRepository $scopeRepository;
 
-    /** @var UserRepository */
-    private $userRepository;
+    private UserRepository $userRepository;
 
     public static function setUpBeforeClass(): void
     {
@@ -151,9 +142,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
         );
 
         $this->handler         = $this->prophesize(RequestHandlerInterface::class);
-        $this->responseFactory = function () {
-            return $this->response;
-        };
+        $this->responseFactory = fn(): Response => $this->response;
     }
 
     /**
@@ -511,8 +500,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
     {
         return new class ($authHandler) implements RequestHandlerInterface
         {
-            /** @var AuthorizationHandler */
-            private $handler;
+            private AuthorizationHandler $handler;
 
             public function __construct(AuthorizationHandler $handler)
             {
