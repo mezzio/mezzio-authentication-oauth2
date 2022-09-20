@@ -521,16 +521,16 @@
         },
         {
             "name": "mezzio/mezzio-authentication",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mezzio/mezzio-authentication.git",
-                "reference": "4d80e67569caf75135f3685673b621cf6fac2d41"
+                "reference": "9c5608bc6a1ce653bc6d2bb93abc5014777304aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mezzio/mezzio-authentication/zipball/4d80e67569caf75135f3685673b621cf6fac2d41",
-                "reference": "4d80e67569caf75135f3685673b621cf6fac2d41",
+                "url": "https://api.github.com/repos/mezzio/mezzio-authentication/zipball/9c5608bc6a1ce653bc6d2bb93abc5014777304aa",
+                "reference": "9c5608bc6a1ce653bc6d2bb93abc5014777304aa",
                 "shasum": ""
             },
             "require": {
@@ -549,9 +549,9 @@
                 "laminas/laminas-coding-standard": "~2.4.0",
                 "phpspec/prophecy": "^1.14",
                 "phpspec/prophecy-phpunit": "^v2.0.1",
-                "phpunit/phpunit": "^9.5.11",
+                "phpunit/phpunit": "^9.5.24",
                 "psalm/plugin-phpunit": "^0.17.0",
-                "vimeo/psalm": "^4.17.0"
+                "vimeo/psalm": "^4.27.0"
             },
             "suggest": {
                 "ext-pdo": "*: for use with the PDO-backed UserRepositoryInterface implementation",
@@ -599,7 +599,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-09-14T14:20:44+00:00"
+            "time": "2022-09-18T15:02:36+00:00"
         },
         {
             "name": "paragonie/random_compat",
