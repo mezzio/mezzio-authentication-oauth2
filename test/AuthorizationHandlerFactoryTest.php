@@ -11,8 +11,6 @@ use Mezzio\Authentication\OAuth2\AuthorizationHandlerFactory;
 use Mezzio\Authentication\OAuth2\ConfigProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -24,102 +22,99 @@ use TypeError;
  */
 class AuthorizationHandlerFactoryTest extends TestCase
 {
-    use ProphecyTrait;
+    /** @var AuthorizationServer&MockObject */
+    private AuthorizationServer $authServer;
 
-    /** @var AuthorizationServer|ObjectProphecy */
-    private $authServer;
-
-    /** @var ContainerInterface|ObjectProphecy */
-    private $container;
+    /** @var ContainerInterface&MockObject */
+    private ContainerInterface $container;
 
     /** @var ResponseInterface&MockObject */
-    private $response;
+    private ResponseInterface $response;
 
     protected function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
         $this->container
-            ->has(ResponseFactoryInterface::class)
+            ->method('has')
+            ->with(ResponseFactoryInterface::class)
             ->willReturn(false);
-        $this->authServer = $this->prophesize(AuthorizationServer::class);
+        $this->authServer = $this->createMock(AuthorizationServer::class);
         $this->response   = $this->createMock(ResponseInterface::class);
     }
 
     public function testConstructor(): void
     {
         $factory = new AuthorizationHandlerFactory();
-        $this->assertInstanceOf(AuthorizationHandlerFactory::class, $factory);
+        self::assertInstanceOf(AuthorizationHandlerFactory::class, $factory);
     }
 
     public function testRaisesTypeErrorForInvalidAuthorizationServer(): void
     {
-        $this->container
-            ->get(AuthorizationServer::class)
-            ->willReturn(new stdClass());
-        $this->container
-            ->get(ResponseInterface::class)
-            ->willReturn(static function (): void {
-            });
+        $this->container->expects(self::exactly(2))
+            ->method('get')
+            ->willReturnMap([
+                [AuthorizationServer::class, new stdClass()],
+                [ResponseInterface::class, fn () => null],
+            ]);
 
         $factory = new AuthorizationHandlerFactory();
 
         $this->expectException(TypeError::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testFactoryRaisesTypeErrorForNonCallableResponseFactory(): void
     {
-        $this->container
-            ->get(AuthorizationServer::class)
-            ->willReturn($this->authServer->reveal());
-        $this->container
-            ->get(ResponseInterface::class)
-            ->willReturn(new stdClass());
+        $this->container->expects(self::exactly(2))
+            ->method('get')
+            ->willReturnMap([
+                [AuthorizationServer::class, $this->authServer],
+                [ResponseInterface::class, new stdClass()],
+            ]);
 
         $factory = new AuthorizationHandlerFactory();
 
         $this->expectException(TypeError::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance(): void
     {
-        $this->container
-            ->get(AuthorizationServer::class)
-            ->willReturn($this->authServer->reveal());
-        $this->container
-            ->get(ResponseInterface::class)
-            ->willReturn($this->response);
+        $this->container->expects(self::exactly(2))
+            ->method('get')
+            ->willReturnMap([
+                [AuthorizationServer::class, $this->authServer],
+                [ResponseInterface::class, $this->response],
+            ]);
 
         $factory = new AuthorizationHandlerFactory();
 
         $this->expectException(TypeError::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer(): void
     {
-        $this->container
-            ->get(AuthorizationServer::class)
-            ->willReturn($this->authServer->reveal());
-        $this->container
-            ->get(ResponseInterface::class)
-            ->willReturn(fn(): MockObject => $this->response)->shouldBeCalled();
+        $this->container->expects(self::exactly(2))
+            ->method('get')
+            ->willReturnMap([
+                [AuthorizationServer::class, $this->authServer],
+                [ResponseInterface::class, fn (): ResponseInterface => $this->response],
+            ]);
 
         $factory = new AuthorizationHandlerFactory();
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testConfigProvider(): void
     {
-        $authServer      = $this->prophesize(AuthorizationServer::class)->reveal();
-        $responseFactory = fn(): object => $this->prophesize(ResponseInterface::class)->reveal();
+        $responseFactory = fn(): ResponseInterface => $this->response;
 
         $container = new ServiceManager((new ConfigProvider())->getDependencies());
-        $container->setService(AuthorizationServer::class, $authServer);
+        $container->setService(AuthorizationServer::class, $this->authServer);
         $container->setService(ResponseInterface::class, $responseFactory);
 
         $authHandler = $container->get(AuthorizationHandler::class);
-        $this->assertInstanceOf(AuthorizationHandler::class, $authHandler);
+        self::assertInstanceOf(AuthorizationHandler::class, $authHandler);
     }
 }

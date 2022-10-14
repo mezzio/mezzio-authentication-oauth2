@@ -8,30 +8,19 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepositoryFactory;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class RefreshTokenRepositoryFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    private ObjectProphecy $container;
-    private ObjectProphecy $pdo;
-
-    protected function setUp(): void
-    {
-        $this->container = $this->prophesize(ContainerInterface::class);
-        $this->pdo       = $this->prophesize(PdoService::class);
-    }
-
     public function testFactory(): void
     {
-        $this->container
-            ->get(PdoService::class)
-            ->willReturn($this->pdo->reveal());
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects(self::once())
+            ->method('get')
+            ->with(PdoService::class)
+            ->willReturn($this->createMock(PdoService::class));
 
-        $factory = (new RefreshTokenRepositoryFactory())($this->container->reveal());
-        $this->assertInstanceOf(RefreshTokenRepository::class, $factory);
+        $factory = (new RefreshTokenRepositoryFactory())($container);
+        self::assertInstanceOf(RefreshTokenRepository::class, $factory);
     }
 }

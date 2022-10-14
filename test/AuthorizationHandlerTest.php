@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mezzio\Authentication\OAuth2;
+namespace MezzioTest\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use Mezzio\Authentication\OAuth2\AuthorizationHandler;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -23,42 +23,46 @@ class AuthorizationHandlerTest extends TestCase
 
     public function testHandleUsesAuthorizationServerService(): void
     {
-        $server           = $this->prophesize(AuthorizationServer::class);
+        $server           = $this->createMock(AuthorizationServer::class);
         $response         = $this->createMock(ResponseInterface::class);
-        $authRequest      = $this->prophesize(AuthorizationRequest::class);
-        $request          = $this->prophesize(ServerRequestInterface::class);
+        $authRequest      = $this->createMock(AuthorizationRequest::class);
+        $request          = $this->createMock(ServerRequestInterface::class);
         $expectedResponse = $response;
         $response
             ->method('withStatus')
             ->willReturnSelf();
 
-        $request->getAttribute(AuthorizationRequest::class)
-            ->willReturn($authRequest->reveal());
+        $request->method('getAttribute')
+            ->with(AuthorizationRequest::class)
+            ->willReturn($authRequest);
 
-        $server->completeAuthorizationRequest($authRequest->reveal(), $expectedResponse)
-            ->shouldBeCalled()
+        $server->expects(self::once())
+            ->method('completeAuthorizationRequest')
+            ->with($authRequest, $expectedResponse)
             ->willReturn($expectedResponse);
 
-        $subject = new AuthorizationHandler($server->reveal(), static fn(): ResponseInterface => $expectedResponse);
+        $subject = new AuthorizationHandler($server, static fn(): ResponseInterface => $expectedResponse);
 
-        self::assertSame($expectedResponse, $subject->handle($request->reveal()));
+        self::assertSame($expectedResponse, $subject->handle($request));
     }
 
     public function testInvalidResponseFactoryThrowsTypeError(): void
     {
-        $server      = $this->prophesize(AuthorizationServer::class);
-        $authRequest = $this->prophesize(AuthorizationRequest::class);
-        $request     = $this->prophesize(ServerRequestInterface::class);
+        $server      = $this->createMock(AuthorizationServer::class);
+        $authRequest = $this->createMock(AuthorizationRequest::class);
+        $request     = $this->createMock(ServerRequestInterface::class);
 
-        $request->getAttribute(AuthorizationRequest::class)
-            ->willReturn($authRequest->reveal());
+        $request->method('getAttribute')
+            ->with(AuthorizationRequest::class)
+            ->willReturn($authRequest);
 
-        $server->completeAuthorizationRequest(Argument::any())
-            ->shouldNotBeCalled();
+        $server->expects(self::never())
+            ->method('completeAuthorizationRequest');
 
-        $subject = new AuthorizationHandler($server->reveal(), static fn(): stdClass => new stdClass());
+        /** @psalm-suppress InvalidArgument */
+        $subject = new AuthorizationHandler($server, static fn(): stdClass => new stdClass());
 
         $this->expectException(TypeError::class);
-        $subject->handle($request->reveal());
+        $subject->handle($request);
     }
 }

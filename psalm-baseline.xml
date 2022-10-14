@@ -354,99 +354,8 @@
     </MixedArgument>
   </file>
   <file src="test/AuthorizationHandlerFactoryTest.php">
-    <MixedArgument occurrences="4">
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-    </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>(new ConfigProvider())-&gt;getDependencies()</code>
-    </MixedArgumentTypeCoercion>
-    <MixedMethodCall occurrences="9">
-      <code>shouldBeCalled</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-    </MixedMethodCall>
-    <PossiblyUndefinedMethod occurrences="7">
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-    </PossiblyUndefinedMethod>
-  </file>
-  <file src="test/AuthorizationHandlerTest.php">
-    <InvalidArgument occurrences="1">
-      <code>static fn(): stdClass =&gt; new stdClass()</code>
-    </InvalidArgument>
-  </file>
-  <file src="test/AuthorizationMiddlewareFactoryTest.php">
-    <MixedArgument occurrences="4">
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-    </MixedArgument>
-    <MixedMethodCall occurrences="9">
-      <code>shouldBeCalled</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-    </MixedMethodCall>
-    <PossiblyUndefinedMethod occurrences="7">
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-    </PossiblyUndefinedMethod>
-  </file>
-  <file src="test/AuthorizationMiddlewareTest.php">
-    <InvalidArgument occurrences="1">
-      <code>Argument::any()</code>
-    </InvalidArgument>
-    <InvalidPropertyAssignmentValue occurrences="4">
-      <code>$this-&gt;prophesize(AuthorizationRequest::class)</code>
-      <code>$this-&gt;prophesize(AuthorizationServer::class)</code>
-      <code>$this-&gt;prophesize(RequestHandlerInterface::class)</code>
-      <code>$this-&gt;prophesize(ServerRequestInterface::class)</code>
-    </InvalidPropertyAssignmentValue>
-    <MixedArgument occurrences="13">
-      <code>$this-&gt;authServer-&gt;reveal()</code>
-      <code>$this-&gt;authServer-&gt;reveal()</code>
-      <code>$this-&gt;authServer-&gt;reveal()</code>
-      <code>$this-&gt;authServer-&gt;reveal()</code>
-      <code>$this-&gt;handler-&gt;reveal()</code>
-      <code>$this-&gt;handler-&gt;reveal()</code>
-      <code>$this-&gt;handler-&gt;reveal()</code>
-      <code>$this-&gt;serverRequest-&gt;reveal()</code>
-      <code>$this-&gt;serverRequest-&gt;reveal()</code>
-      <code>$this-&gt;serverRequest-&gt;reveal()</code>
-      <code>$this-&gt;serverRequest-&gt;reveal()</code>
-      <code>$this-&gt;serverRequest-&gt;reveal()</code>
-      <code>$this-&gt;serverRequest-&gt;reveal()</code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="4">
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
     </MixedArgumentTypeCoercion>
   </file>
   <file src="test/AuthorizationServerFactoryTest.php">
@@ -663,21 +572,6 @@
       <code>ResponseFactoryFactory</code>
     </UndefinedClass>
   </file>
-  <file src="test/Repository/Pdo/AccessTokenRepositoryFactoryTest.php">
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;container-&gt;reveal()</code>
-    </MixedArgument>
-  </file>
-  <file src="test/Repository/Pdo/AuthCodeRepositoryFactoryTest.php">
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;container-&gt;reveal()</code>
-    </MixedArgument>
-  </file>
-  <file src="test/Repository/Pdo/ClientRepositoryFactoryTest.php">
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;container-&gt;reveal()</code>
-    </MixedArgument>
-  </file>
   <file src="test/Repository/Pdo/ClientRepositoryTest.php">
     <MixedInferredReturnType occurrences="1">
       <code>array</code>
@@ -701,16 +595,6 @@
     <MixedInferredReturnType occurrences="1">
       <code>array</code>
     </MixedInferredReturnType>
-  </file>
-  <file src="test/Repository/Pdo/RefreshTokenRepositoryFactoryTest.php">
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;container-&gt;reveal()</code>
-    </MixedArgument>
-  </file>
-  <file src="test/Repository/Pdo/ScopeRepositoryFactoryTest.php">
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;container-&gt;reveal()</code>
-    </MixedArgument>
   </file>
   <file src="test/RepositoryTraitTest.php">
     <MixedInferredReturnType occurrences="1">
