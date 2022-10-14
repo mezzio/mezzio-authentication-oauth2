@@ -3,6 +3,6 @@
          "pdo-sqlite"
     ],
     "ignore_php_platform_requirements": {
-        "8.0": false
+        "8.2": true
     }
 }
