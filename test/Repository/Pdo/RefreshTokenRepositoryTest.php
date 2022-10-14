@@ -33,7 +33,7 @@ class RefreshTokenRepositoryTest extends TestCase
         $this->repo = new RefreshTokenRepository($this->pdo->reveal());
     }
 
-    public function testPersistNewRefreshTokenRaisesExceptionWhenStatementExecutionFails()
+    public function testPersistNewRefreshTokenRaisesExceptionWhenStatementExecutionFails(): void
     {
         $accessToken = $this->prophesize(AccessTokenEntityInterface::class);
         $accessToken->getIdentifier()->willReturn('access_token_id');
@@ -63,7 +63,7 @@ class RefreshTokenRepositoryTest extends TestCase
         $this->repo->persistNewRefreshToken($refreshToken->reveal());
     }
 
-    public function testIsRefreshTokenRevokedReturnsFalseWhenStatementFailsExecution()
+    public function testIsRefreshTokenRevokedReturnsFalseWhenStatementFailsExecution(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
@@ -77,7 +77,7 @@ class RefreshTokenRepositoryTest extends TestCase
         $this->assertFalse($this->repo->isRefreshTokenRevoked('token_id'));
     }
 
-    public function testIsRefreshTokenRevokedReturnsTrue()
+    public function testIsRefreshTokenRevokedReturnsTrue(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
@@ -91,13 +91,13 @@ class RefreshTokenRepositoryTest extends TestCase
         $this->assertTrue($this->repo->isRefreshTokenRevoked('token_id'));
     }
 
-    public function testGetNewRefreshToken()
+    public function testGetNewRefreshToken(): void
     {
         $result = $this->repo->getNewRefreshToken();
         $this->assertInstanceOf(RefreshTokenEntity::class, $result);
     }
 
-    public function testRevokeRefreshToken()
+    public function testRevokeRefreshToken(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();

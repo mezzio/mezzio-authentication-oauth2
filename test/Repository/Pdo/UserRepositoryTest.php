@@ -31,7 +31,7 @@ class UserRepositoryTest extends TestCase
         $this->repo = new UserRepository($this->pdo->reveal());
     }
 
-    public function testGetUserEntityByCredentialsReturnsNullIfStatementExecutionReturnsFalse()
+    public function testGetUserEntityByCredentialsReturnsNullIfStatementExecutionReturnsFalse(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':username', 'username')->shouldBeCalled();
@@ -53,7 +53,7 @@ class UserRepositoryTest extends TestCase
         );
     }
 
-    public function testGetUserEntityByCredentialsReturnsNullIfPasswordVerificationFails()
+    public function testGetUserEntityByCredentialsReturnsNullIfPasswordVerificationFails(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':username', 'username')->shouldBeCalled();
@@ -80,7 +80,7 @@ class UserRepositoryTest extends TestCase
         );
     }
 
-    public function testGetUserEntityByCredentialsReturnsNullIfUserIsNotFound()
+    public function testGetUserEntityByCredentialsReturnsNullIfUserIsNotFound(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':username', 'username')->shouldBeCalled();
@@ -105,7 +105,7 @@ class UserRepositoryTest extends TestCase
         );
     }
 
-    public function testGetUserEntityByCredentialsReturnsEntity()
+    public function testGetUserEntityByCredentialsReturnsEntity(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':username', 'username')->shouldBeCalled();

@@ -19,13 +19,13 @@ class AbstractRepositoryTest extends TestCase
         $this->pdo = $this->createMock(PdoService::class);
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $abstract = new AbstractRepository($this->pdo);
         $this->assertInstanceOf(AbstractRepository::class, $abstract);
     }
 
-    public function testScopesToStringWithEmptyArray()
+    public function testScopesToStringWithEmptyArray(): void
     {
         $proxy  = new class ($this->pdo) extends AbstractRepository {
             public function scopesToString(array $scopes): string

@@ -15,7 +15,7 @@ class RefreshTokenGrantFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $mockContainer        = $this->prophesize(ContainerInterface::class);
         $mockRefreshTokenRepo = $this->prophesize(RefreshTokenRepositoryInterface::class);

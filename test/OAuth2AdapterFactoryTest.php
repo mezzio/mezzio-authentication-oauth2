@@ -57,13 +57,13 @@ class OAuth2AdapterFactoryTest extends TestCase
         $this->userFactory     = fn(string $identity, array $roles = [], array $details = []) => $this->user->reveal();
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $factory = new OAuth2AdapterFactory();
         $this->assertInstanceOf(OAuth2AdapterFactory::class, $factory);
     }
 
-    public function testInvokeWithEmptyContainer()
+    public function testInvokeWithEmptyContainer(): void
     {
         $factory = new OAuth2AdapterFactory();
         $this->container
@@ -74,7 +74,7 @@ class OAuth2AdapterFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryRaisesTypeErrorForNonCallableResponseFactory()
+    public function testFactoryRaisesTypeErrorForNonCallableResponseFactory(): void
     {
         $this->container
             ->has(ResourceServer::class)
@@ -97,7 +97,7 @@ class OAuth2AdapterFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance()
+    public function testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance(): void
     {
         $this->container
             ->has(ResourceServer::class)
@@ -120,7 +120,7 @@ class OAuth2AdapterFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer()
+    public function testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer(): void
     {
         $this->container
             ->has(ResourceServer::class)

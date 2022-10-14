@@ -52,7 +52,7 @@ class AuthorizationMiddlewareTest extends TestCase
         $this->responseFactory = fn(): MockObject => $this->response;
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $middleware = new AuthorizationMiddleware(
             $this->authServer->reveal(),
@@ -63,7 +63,7 @@ class AuthorizationMiddlewareTest extends TestCase
         $this->assertInstanceOf(MiddlewareInterface::class, $middleware);
     }
 
-    public function testProcess()
+    public function testProcess(): void
     {
         $this->authRequest
             ->setUser(Argument::any())
@@ -103,7 +103,7 @@ class AuthorizationMiddlewareTest extends TestCase
         $this->assertSame($handlerResponse, $response);
     }
 
-    public function testAuthorizationRequestRaisingOAuthServerExceptionGeneratesResponseFromException()
+    public function testAuthorizationRequestRaisingOAuthServerExceptionGeneratesResponseFromException(): void
     {
         $oauthServerException = $this->createMock(OAuthServerException::class);
         $oauthServerException
@@ -132,7 +132,7 @@ class AuthorizationMiddlewareTest extends TestCase
         $this->assertSame($this->response, $result);
     }
 
-    public function testAuthorizationRequestRaisingUnknownExceptionGeneratesResponseFromException()
+    public function testAuthorizationRequestRaisingUnknownExceptionGeneratesResponseFromException(): void
     {
         $body = $this->prophesize(StreamInterface::class);
         $body

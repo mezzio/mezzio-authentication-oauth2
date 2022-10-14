@@ -24,7 +24,7 @@ class AuthorizationServerFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $mockContainer       = $this->prophesize(ContainerInterface::class);
         $mockClientRepo      = $this->prophesize(ClientRepositoryInterface::class);
@@ -85,7 +85,7 @@ class AuthorizationServerFactoryTest extends TestCase
         return $mockContainer;
     }
 
-    public function testInvokeWithNullGrant()
+    public function testInvokeWithNullGrant(): void
     {
         $mockContainer = $this->getContainerMock();
 
@@ -110,7 +110,7 @@ class AuthorizationServerFactoryTest extends TestCase
         $this->assertInstanceOf(AuthorizationServer::class, $result);
     }
 
-    public function testInvokeWithListenerConfig()
+    public function testInvokeWithListenerConfig(): void
     {
         $mockContainer = $this->getContainerMock();
         $mockListener  = $this->prophesize(ListenerInterface::class);
@@ -149,7 +149,7 @@ class AuthorizationServerFactoryTest extends TestCase
         $this->assertInstanceOf(AuthorizationServer::class, $result);
     }
 
-    public function testInvokeWithListenerConfigMissingServiceThrowsException()
+    public function testInvokeWithListenerConfigMissingServiceThrowsException(): void
     {
         $mockContainer = $this->getContainerMock();
         $mockListener  = $this->prophesize(ListenerInterface::class);
@@ -181,7 +181,7 @@ class AuthorizationServerFactoryTest extends TestCase
         $result = $factory($mockContainer->reveal());
     }
 
-    public function testInvokeWithListenerProviderConfig()
+    public function testInvokeWithListenerProviderConfig(): void
     {
         $mockContainer = $this->getContainerMock();
         $mockProvider  = $this->prophesize(ListenerProviderInterface::class);
@@ -211,7 +211,7 @@ class AuthorizationServerFactoryTest extends TestCase
         $this->assertInstanceOf(AuthorizationServer::class, $result);
     }
 
-    public function testInvokeWithListenerProviderConfigMissingServiceThrowsException()
+    public function testInvokeWithListenerProviderConfigMissingServiceThrowsException(): void
     {
         $mockContainer = $this->getContainerMock();
         $mockProvider  = $this->prophesize(ListenerProviderInterface::class);

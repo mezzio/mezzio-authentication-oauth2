@@ -33,7 +33,7 @@ class TokenEndpointHandlerTest extends TestCase
         };
     }
 
-    public function testHandleUsesAuthorizationServer()
+    public function testHandleUsesAuthorizationServer(): void
     {
         $server   = $this->prophesize(AuthorizationServer::class);
         $request  = $this->prophesize(ServerRequestInterface::class);
@@ -51,7 +51,7 @@ class TokenEndpointHandlerTest extends TestCase
         self::assertSame($expectedResponse, $subject->handle($request->reveal()));
     }
 
-    public function testOAuthExceptionProducesResult()
+    public function testOAuthExceptionProducesResult(): void
     {
         $server   = $this->prophesize(AuthorizationServer::class);
         $request  = $this->prophesize(ServerRequestInterface::class);
@@ -73,7 +73,7 @@ class TokenEndpointHandlerTest extends TestCase
         self::assertSame($expectedResponse, $subject->handle($request->reveal()));
     }
 
-    public function testGenericExceptionsFallsThrough()
+    public function testGenericExceptionsFallsThrough(): void
     {
         $server    = $this->prophesize(AuthorizationServer::class);
         $request   = $this->prophesize(ServerRequestInterface::class);

@@ -25,7 +25,7 @@ class AccessTokenRepositoryFactoryTest extends TestCase
         $this->pdo       = $this->prophesize(PdoService::class);
     }
 
-    public function testFactory()
+    public function testFactory(): void
     {
         $this->container
             ->get(PdoService::class)

@@ -19,12 +19,12 @@ class ScopeEntityTest extends TestCase
         $this->entity = new ScopeEntity();
     }
 
-    public function testImplementsScopeEntityInterface()
+    public function testImplementsScopeEntityInterface(): void
     {
         $this->assertInstanceOf(ScopeEntityInterface::class, $this->entity);
     }
 
-    public function testEntityIsJsonSerializable()
+    public function testEntityIsJsonSerializable(): void
     {
         $this->entity->setIdentifier('foo');
         $this->assertEquals('"foo"', json_encode($this->entity));

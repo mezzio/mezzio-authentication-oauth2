@@ -45,13 +45,13 @@ class AuthorizationHandlerFactoryTest extends TestCase
         $this->response   = $this->createMock(ResponseInterface::class);
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $factory = new AuthorizationHandlerFactory();
         $this->assertInstanceOf(AuthorizationHandlerFactory::class, $factory);
     }
 
-    public function testRaisesTypeErrorForInvalidAuthorizationServer()
+    public function testRaisesTypeErrorForInvalidAuthorizationServer(): void
     {
         $this->container
             ->get(AuthorizationServer::class)
@@ -67,7 +67,7 @@ class AuthorizationHandlerFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryRaisesTypeErrorForNonCallableResponseFactory()
+    public function testFactoryRaisesTypeErrorForNonCallableResponseFactory(): void
     {
         $this->container
             ->get(AuthorizationServer::class)
@@ -82,7 +82,7 @@ class AuthorizationHandlerFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance()
+    public function testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance(): void
     {
         $this->container
             ->get(AuthorizationServer::class)
@@ -97,7 +97,7 @@ class AuthorizationHandlerFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer()
+    public function testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer(): void
     {
         $this->container
             ->get(AuthorizationServer::class)
@@ -110,7 +110,7 @@ class AuthorizationHandlerFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testConfigProvider()
+    public function testConfigProvider(): void
     {
         $authServer      = $this->prophesize(AuthorizationServer::class)->reveal();
         $responseFactory = fn(): object => $this->prophesize(ResponseInterface::class)->reveal();

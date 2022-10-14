@@ -33,7 +33,7 @@ class AuthCodeRepositoryTest extends TestCase
         $this->repo = new AuthCodeRepository($this->pdo->reveal());
     }
 
-    public function testPersistNewAuthCodeRaisesExceptionWhenStatementExecutionFails()
+    public function testPersistNewAuthCodeRaisesExceptionWhenStatementExecutionFails(): void
     {
         $client = $this->prophesize(ClientEntityInterface::class);
         $client->getIdentifier()->willReturn('client_id');
@@ -70,7 +70,7 @@ class AuthCodeRepositoryTest extends TestCase
         $this->repo->persistNewAuthCode($authCode->reveal());
     }
 
-    public function testIsAuthCodeRevokedReturnsFalseForStatementExecutionFailure()
+    public function testIsAuthCodeRevokedReturnsFalseForStatementExecutionFailure(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':codeId', 'code_identifier')->shouldBeCalled();
@@ -84,7 +84,7 @@ class AuthCodeRepositoryTest extends TestCase
         $this->assertFalse($this->repo->isAuthCodeRevoked('code_identifier'));
     }
 
-    public function testIsAuthCodeRevokedReturnsTrue()
+    public function testIsAuthCodeRevokedReturnsTrue(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':codeId', 'code_identifier')->shouldBeCalled();
@@ -98,13 +98,13 @@ class AuthCodeRepositoryTest extends TestCase
         $this->assertTrue($this->repo->isAuthCodeRevoked('code_identifier'));
     }
 
-    public function testNewAuthCode()
+    public function testNewAuthCode(): void
     {
         $result = $this->repo->getNewAuthCode();
         $this->assertInstanceOf(AuthCodeEntity::class, $result);
     }
 
-    public function testRevokeAuthCode()
+    public function testRevokeAuthCode(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':codeId', 'code_identifier')->shouldBeCalled();

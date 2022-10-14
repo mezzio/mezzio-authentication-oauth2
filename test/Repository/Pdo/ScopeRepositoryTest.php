@@ -27,7 +27,7 @@ class ScopeRepositoryTest extends TestCase
         $this->repo = new ScopeRepository($this->pdo->reveal());
     }
 
-    public function testGetScopeEntityByIdentifierReturnsNullWhenStatementExecutionFails()
+    public function testGetScopeEntityByIdentifierReturnsNullWhenStatementExecutionFails(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':identifier', 'id')->shouldBeCalled();
@@ -41,7 +41,7 @@ class ScopeRepositoryTest extends TestCase
         $this->assertNull($this->repo->getScopeEntityByIdentifier('id'));
     }
 
-    public function testGetScopeEntityByIdentifierReturnsNullWhenReturnedRowDoesNotHaveIdentifier()
+    public function testGetScopeEntityByIdentifierReturnsNullWhenReturnedRowDoesNotHaveIdentifier(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':identifier', 'id')->shouldBeCalled();
@@ -55,7 +55,7 @@ class ScopeRepositoryTest extends TestCase
         $this->assertNull($this->repo->getScopeEntityByIdentifier('id'));
     }
 
-    public function testGetScopeEntityByIndentifierReturnsScopes()
+    public function testGetScopeEntityByIndentifierReturnsScopes(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':identifier', 'id')->shouldBeCalled();
@@ -73,7 +73,7 @@ class ScopeRepositoryTest extends TestCase
         $this->assertEquals('foo', $scope->getIdentifier());
     }
 
-    public function testFinalizeScopesWithEmptyScopes()
+    public function testFinalizeScopesWithEmptyScopes(): void
     {
         $clientEntity = $this->prophesize(ClientEntityInterface::class);
         $scopes       = $this->repo->finalizeScopes([], 'foo', $clientEntity->reveal());

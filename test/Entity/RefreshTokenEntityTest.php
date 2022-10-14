@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class RefreshTokenEntityTest extends TestCase
 {
-    public function testImplementsRefreshTokenEntityInterface()
+    public function testImplementsRefreshTokenEntityInterface(): void
     {
         $entity = new RefreshTokenEntity();
         $this->assertInstanceOf(RefreshTokenEntityInterface::class, $entity);

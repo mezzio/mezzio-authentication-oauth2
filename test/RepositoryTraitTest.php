@@ -38,7 +38,7 @@ class RepositoryTraitTest extends TestCase
         $this->container = $this->prophesize(ContainerInterface::class);
     }
 
-    public function testGetUserRepositoryWithoutService()
+    public function testGetUserRepositoryWithoutService(): void
     {
         $this->container
             ->has(UserRepositoryInterface::class)
@@ -48,7 +48,7 @@ class RepositoryTraitTest extends TestCase
         $this->trait->proxy('getUserRepository', $this->container->reveal());
     }
 
-    public function testGetUserRepository()
+    public function testGetUserRepository(): void
     {
         $this->container
             ->has(UserRepositoryInterface::class)
@@ -61,7 +61,7 @@ class RepositoryTraitTest extends TestCase
         $this->assertInstanceOf(UserRepositoryInterface::class, $result);
     }
 
-    public function testGetScopeRepositoryWithoutService()
+    public function testGetScopeRepositoryWithoutService(): void
     {
         $this->container
             ->has(ScopeRepositoryInterface::class)
@@ -71,7 +71,7 @@ class RepositoryTraitTest extends TestCase
         $this->trait->proxy('getScopeRepository', $this->container->reveal());
     }
 
-    public function testGetScopeRepository()
+    public function testGetScopeRepository(): void
     {
         $this->container
             ->has(ScopeRepositoryInterface::class)
@@ -84,7 +84,7 @@ class RepositoryTraitTest extends TestCase
         $this->assertInstanceOf(ScopeRepositoryInterface::class, $result);
     }
 
-    public function testGetAccessTokenRepositoryWithoutService()
+    public function testGetAccessTokenRepositoryWithoutService(): void
     {
         $this->container
             ->has(AccessTokenRepositoryInterface::class)
@@ -94,7 +94,7 @@ class RepositoryTraitTest extends TestCase
         $this->trait->proxy('getAccessTokenRepository', $this->container->reveal());
     }
 
-    public function testGetAccessTokenRepository()
+    public function testGetAccessTokenRepository(): void
     {
         $this->container
             ->has(AccessTokenRepositoryInterface::class)
@@ -107,7 +107,7 @@ class RepositoryTraitTest extends TestCase
         $this->assertInstanceOf(AccessTokenRepositoryInterface::class, $result);
     }
 
-    public function testGetClientRepositoryWithoutService()
+    public function testGetClientRepositoryWithoutService(): void
     {
         $this->container
             ->has(ClientRepositoryInterface::class)
@@ -117,7 +117,7 @@ class RepositoryTraitTest extends TestCase
         $this->trait->proxy('getClientRepository', $this->container->reveal());
     }
 
-    public function testGetClientRepository()
+    public function testGetClientRepository(): void
     {
         $this->container
             ->has(ClientRepositoryInterface::class)
@@ -130,7 +130,7 @@ class RepositoryTraitTest extends TestCase
         $this->assertInstanceOf(ClientRepositoryInterface::class, $result);
     }
 
-    public function testGetRefreshTokenRepositoryWithoutService()
+    public function testGetRefreshTokenRepositoryWithoutService(): void
     {
         $this->container
             ->has(RefreshTokenRepositoryInterface::class)
@@ -140,7 +140,7 @@ class RepositoryTraitTest extends TestCase
         $this->trait->proxy('getRefreshTokenRepository', $this->container->reveal());
     }
 
-    public function testGetRefreshTokenRepository()
+    public function testGetRefreshTokenRepository(): void
     {
         $this->container
             ->has(RefreshTokenRepositoryInterface::class)
@@ -153,7 +153,7 @@ class RepositoryTraitTest extends TestCase
         $this->assertInstanceOf(RefreshTokenRepositoryInterface::class, $result);
     }
 
-    public function testGetAuthCodeRepositoryWithoutService()
+    public function testGetAuthCodeRepositoryWithoutService(): void
     {
         $this->container
             ->has(AuthCodeRepositoryInterface::class)
@@ -163,7 +163,7 @@ class RepositoryTraitTest extends TestCase
         $this->trait->proxy('getAuthCodeRepository', $this->container->reveal());
     }
 
-    public function testGetAuthCodeRepository()
+    public function testGetAuthCodeRepository(): void
     {
         $this->container
             ->has(AuthCodeRepositoryInterface::class)

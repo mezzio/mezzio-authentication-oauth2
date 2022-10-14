@@ -14,7 +14,7 @@ class ClientCredentialsGrantFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $mockContainer = $this->prophesize(ContainerInterface::class);
 

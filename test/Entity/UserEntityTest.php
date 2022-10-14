@@ -18,18 +18,18 @@ class UserEntityTest extends TestCase
         $this->entity = new UserEntity('foo');
     }
 
-    public function testConstructorWithoutParamWillResultInAnException()
+    public function testConstructorWithoutParamWillResultInAnException(): void
     {
         $this->expectException(ArgumentCountError::class);
         $entity = new UserEntity();
     }
 
-    public function testImplementsUserEntityInterface()
+    public function testImplementsUserEntityInterface(): void
     {
         $this->assertInstanceOf(UserEntityInterface::class, $this->entity);
     }
 
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('foo', $this->entity->getIdentifier());
     }

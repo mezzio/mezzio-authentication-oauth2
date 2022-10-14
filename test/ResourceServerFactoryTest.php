@@ -33,13 +33,13 @@ class ResourceServerFactoryTest extends TestCase
         $this->container = $this->prophesize(ContainerInterface::class);
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $factory = new ResourceServerFactory();
         $this->assertInstanceOf(ResourceServerFactory::class, $factory);
     }
 
-    public function testInvokeWithEmptyConfig()
+    public function testInvokeWithEmptyConfig(): void
     {
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([]);
@@ -49,7 +49,7 @@ class ResourceServerFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testInvokeWithConfigWithoutRepository()
+    public function testInvokeWithConfigWithoutRepository(): void
     {
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
@@ -67,7 +67,7 @@ class ResourceServerFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testInvokeWithConfigAndRepository()
+    public function testInvokeWithConfigAndRepository(): void
     {
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
@@ -105,7 +105,7 @@ class ResourceServerFactoryTest extends TestCase
     /**
      * @dataProvider getExtendedKeyConfigs
      */
-    public function testInvokeWithValidExtendedKey(array $keyConfig)
+    public function testInvokeWithValidExtendedKey(array $keyConfig): void
     {
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
@@ -138,7 +138,7 @@ class ResourceServerFactoryTest extends TestCase
     /**
      * @dataProvider getInvalidExtendedKeyConfigs
      */
-    public function testInvokeWithInvalidExtendedKey(array $keyConfig)
+    public function testInvokeWithInvalidExtendedKey(array $keyConfig): void
     {
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([

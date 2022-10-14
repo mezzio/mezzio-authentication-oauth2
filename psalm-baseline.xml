@@ -354,14 +354,6 @@
     </MixedArgument>
   </file>
   <file src="test/AuthorizationHandlerFactoryTest.php">
-    <MissingReturnType occurrences="6">
-      <code>testConfigProvider</code>
-      <code>testConstructor</code>
-      <code>testFactoryRaisesTypeErrorForNonCallableResponseFactory</code>
-      <code>testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance</code>
-      <code>testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer</code>
-      <code>testRaisesTypeErrorForInvalidAuthorizationServer</code>
-    </MissingReturnType>
     <MixedArgument occurrences="4">
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
@@ -396,18 +388,8 @@
     <InvalidArgument occurrences="1">
       <code>static fn(): stdClass =&gt; new stdClass()</code>
     </InvalidArgument>
-    <MissingReturnType occurrences="1">
-      <code>testInvalidResponseFactoryThrowsTypeError</code>
-    </MissingReturnType>
   </file>
   <file src="test/AuthorizationMiddlewareFactoryTest.php">
-    <MissingReturnType occurrences="5">
-      <code>testConstructor</code>
-      <code>testFactoryRaisesTypeErrorForNonCallableResponseFactory</code>
-      <code>testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance</code>
-      <code>testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer</code>
-      <code>testRaisesTypeErrorForInvalidAuthorizationServer</code>
-    </MissingReturnType>
     <MixedArgument occurrences="4">
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
@@ -445,12 +427,6 @@
       <code>$this-&gt;prophesize(RequestHandlerInterface::class)</code>
       <code>$this-&gt;prophesize(ServerRequestInterface::class)</code>
     </InvalidPropertyAssignmentValue>
-    <MissingReturnType occurrences="4">
-      <code>testAuthorizationRequestRaisingOAuthServerExceptionGeneratesResponseFromException</code>
-      <code>testAuthorizationRequestRaisingUnknownExceptionGeneratesResponseFromException</code>
-      <code>testConstructor</code>
-      <code>testProcess</code>
-    </MissingReturnType>
     <MixedArgument occurrences="13">
       <code>$this-&gt;authServer-&gt;reveal()</code>
       <code>$this-&gt;authServer-&gt;reveal()</code>
@@ -474,14 +450,6 @@
     </MixedArgumentTypeCoercion>
   </file>
   <file src="test/AuthorizationServerFactoryTest.php">
-    <MissingReturnType occurrences="6">
-      <code>testInvoke</code>
-      <code>testInvokeWithListenerConfig</code>
-      <code>testInvokeWithListenerConfigMissingServiceThrowsException</code>
-      <code>testInvokeWithListenerProviderConfig</code>
-      <code>testInvokeWithListenerProviderConfigMissingServiceThrowsException</code>
-      <code>testInvokeWithNullGrant</code>
-    </MissingReturnType>
     <MixedArgument occurrences="5">
       <code>$mockContainer-&gt;reveal()</code>
       <code>$mockContainer-&gt;reveal()</code>
@@ -539,57 +507,7 @@
       <code>$this-&gt;$name($container)</code>
     </MixedReturnStatement>
   </file>
-  <file src="test/Entity/AccessTokenEntityTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testImplementsInstanceAccessTokenEntityInterface</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Entity/AuthCodeEntityTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testImplementsInstanceAuthCodeEntityInterface</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Entity/ClientEntityTest.php">
-    <MissingReturnType occurrences="7">
-      <code>testConstructorSetsIdentifier</code>
-      <code>testConstructorSetsName</code>
-      <code>testConstructorSetsRedirectUri</code>
-      <code>testImplementsAuthCodeEntityInterface</code>
-      <code>testPasswordClient</code>
-      <code>testPersonalAccessClient</code>
-      <code>testSecret</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Entity/RefreshTokenEntityTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testImplementsRefreshTokenEntityInterface</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Entity/RevokableTraitTest.php">
-    <MissingReturnType occurrences="2">
-      <code>testSetRevokedToFalse</code>
-      <code>testSetRevokedToTrue</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Entity/ScopeEntityTest.php">
-    <MissingReturnType occurrences="2">
-      <code>testEntityIsJsonSerializable</code>
-      <code>testImplementsScopeEntityInterface</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Entity/TimestampableTraitTest.php">
-    <MissingReturnType occurrences="3">
-      <code>testCreatedAt</code>
-      <code>testTimestampOnCreate</code>
-      <code>testUpdatedAt</code>
-    </MissingReturnType>
-  </file>
   <file src="test/Entity/UserEntityTest.php">
-    <MissingReturnType occurrences="3">
-      <code>testConstructorWithoutParamWillResultInAnException</code>
-      <code>testGetIdentifier</code>
-      <code>testImplementsUserEntityInterface</code>
-    </MissingReturnType>
     <TooFewArguments occurrences="1">
       <code>new UserEntity()</code>
     </TooFewArguments>
@@ -597,42 +515,10 @@
       <code>$entity</code>
     </UnusedVariable>
   </file>
-  <file src="test/Grant/AuthCodeGrantFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testInvoke</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Grant/ClientCredentialsGrantFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testInvoke</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Grant/ImplicitGrantFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testInvoke</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Grant/PasswordGrantFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testInvoke</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Grant/RefreshTokenGrantFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testInvoke</code>
-    </MissingReturnType>
-  </file>
   <file src="test/OAuth2AdapterFactoryTest.php">
     <MissingClosureReturnType occurrences="1">
       <code>fn(string $identity, array $roles = [], array $details = []) =&gt; $this-&gt;user-&gt;reveal()</code>
     </MissingClosureReturnType>
-    <MissingReturnType occurrences="5">
-      <code>testConstructor</code>
-      <code>testFactoryRaisesTypeErrorForNonCallableResponseFactory</code>
-      <code>testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance</code>
-      <code>testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer</code>
-      <code>testInvokeWithEmptyContainer</code>
-    </MissingReturnType>
     <MixedArgument occurrences="4">
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
@@ -680,14 +566,6 @@
       <code>Argument::that([$request, 'reveal'])</code>
       <code>Argument::that([$request, 'reveal'])</code>
     </InvalidArgument>
-    <MissingReturnType occurrences="6">
-      <code>testAuthenticateReturnsAUserIfTheResourceServerProducesAUserId</code>
-      <code>testAuthenticateReturnsNullIfResourceServerDoesNotProduceAUserIdOrClientId</code>
-      <code>testAuthenticateReturnsNullIfTheResourceServerProducesAClientIdOnly</code>
-      <code>testConstructor</code>
-      <code>testOAuthServerExceptionRaisedDuringAuthenticateResultsInInvalidAuthentication</code>
-      <code>testUnauthorizedResponseProducesAResponseWithAWwwAuthenticateHeader</code>
-    </MissingReturnType>
     <MixedArgument occurrences="6">
       <code>$this-&gt;resourceServer-&gt;reveal()</code>
       <code>$this-&gt;resourceServer-&gt;reveal()</code>
@@ -728,13 +606,6 @@
       <code>$consumerHandler</code>
       <code>$consumerHandler</code>
     </ArgumentTypeCoercion>
-    <MissingReturnType occurrences="5">
-      <code>testProcessClientCredentialGrantConfidential</code>
-      <code>testProcessClientCredentialGrantNotConfidential</code>
-      <code>testProcessImplicitGrant</code>
-      <code>testProcessPasswordGrant</code>
-      <code>testProcessRefreshTokenGrant</code>
-    </MissingReturnType>
     <MixedArgument occurrences="1">
       <code>$data['token_type']</code>
     </MixedArgument>
@@ -792,67 +663,22 @@
       <code>ResponseFactoryFactory</code>
     </UndefinedClass>
   </file>
-  <file src="test/Repository/Pdo/AbstractRepositoryTest.php">
-    <MissingReturnType occurrences="2">
-      <code>testConstructor</code>
-      <code>testScopesToStringWithEmptyArray</code>
-    </MissingReturnType>
-  </file>
   <file src="test/Repository/Pdo/AccessTokenRepositoryFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testFactory</code>
-    </MissingReturnType>
     <MixedArgument occurrences="1">
       <code>$this-&gt;container-&gt;reveal()</code>
     </MixedArgument>
-  </file>
-  <file src="test/Repository/Pdo/AccessTokenRepositoryTest.php">
-    <MissingReturnType occurrences="9">
-      <code>testGetNewToken</code>
-      <code>testGetNewTokenWithScopeAndIndentifier</code>
-      <code>testIsAccessTokenRevokedReturnsFalseWhenRowDoesNotContainRevokedFlag</code>
-      <code>testIsAccessTokenRevokedReturnsFalseWhenRowRevokedFlagIsFalse</code>
-      <code>testIsAccessTokenRevokedReturnsFalseWhenStatementFailsExecution</code>
-      <code>testIsAccessTokenRevokedReturnsTrueWhenRowRevokedFlagIsTrue</code>
-      <code>testIsAcessTokenRevokedRaisesExceptionWhenTokenIdDontExists</code>
-      <code>testPersistNewAccessTokenRaisesExceptionWhenStatementExecutionFails</code>
-      <code>testRevokeAccessToken</code>
-    </MissingReturnType>
   </file>
   <file src="test/Repository/Pdo/AuthCodeRepositoryFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testFactory</code>
-    </MissingReturnType>
     <MixedArgument occurrences="1">
       <code>$this-&gt;container-&gt;reveal()</code>
     </MixedArgument>
   </file>
-  <file src="test/Repository/Pdo/AuthCodeRepositoryTest.php">
-    <MissingReturnType occurrences="5">
-      <code>testIsAuthCodeRevokedReturnsFalseForStatementExecutionFailure</code>
-      <code>testIsAuthCodeRevokedReturnsTrue</code>
-      <code>testNewAuthCode</code>
-      <code>testPersistNewAuthCodeRaisesExceptionWhenStatementExecutionFails</code>
-      <code>testRevokeAuthCode</code>
-    </MissingReturnType>
-  </file>
   <file src="test/Repository/Pdo/ClientRepositoryFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testFactory</code>
-    </MissingReturnType>
     <MixedArgument occurrences="1">
       <code>$this-&gt;container-&gt;reveal()</code>
     </MixedArgument>
   </file>
   <file src="test/Repository/Pdo/ClientRepositoryTest.php">
-    <MissingReturnType occurrences="6">
-      <code>testGetClientEntityReturnsCorrectEntity</code>
-      <code>testGetClientEntityReturnsNullIfNoRowReturned</code>
-      <code>testGetClientEntityReturnsNullIfStatementExecutionReturnsFalse</code>
-      <code>testValidateClientReturnsFalseForEmptyClientSecret</code>
-      <code>testValidateClientReturnsFalseForNonMatchingClientSecret</code>
-      <code>testValidateClientReturnsFalseIfRowIndicatesNotGranted</code>
-    </MissingReturnType>
     <MixedInferredReturnType occurrences="1">
       <code>array</code>
     </MixedInferredReturnType>
@@ -863,11 +689,8 @@
     </UnusedVariable>
   </file>
   <file src="test/Repository/Pdo/PdoServiceFactoryTest.php">
-    <MissingReturnType occurrences="4">
+    <MissingReturnType occurrences="1">
       <code>testRaisesExceptionIfPdoConfigurationIsMissing</code>
-      <code>testRaisesExceptionIfPdoServiceIsInvalid</code>
-      <code>testValidConfigurationResultsInReturnedPdoServiceInstance</code>
-      <code>testValidServiceInConfigurationReturnsPdoService</code>
     </MissingReturnType>
     <MixedArgument occurrences="4">
       <code>$this-&gt;container-&gt;reveal()</code>
@@ -880,61 +703,16 @@
     </MixedInferredReturnType>
   </file>
   <file src="test/Repository/Pdo/RefreshTokenRepositoryFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testFactory</code>
-    </MissingReturnType>
     <MixedArgument occurrences="1">
       <code>$this-&gt;container-&gt;reveal()</code>
     </MixedArgument>
-  </file>
-  <file src="test/Repository/Pdo/RefreshTokenRepositoryTest.php">
-    <MissingReturnType occurrences="5">
-      <code>testGetNewRefreshToken</code>
-      <code>testIsRefreshTokenRevokedReturnsFalseWhenStatementFailsExecution</code>
-      <code>testIsRefreshTokenRevokedReturnsTrue</code>
-      <code>testPersistNewRefreshTokenRaisesExceptionWhenStatementExecutionFails</code>
-      <code>testRevokeRefreshToken</code>
-    </MissingReturnType>
   </file>
   <file src="test/Repository/Pdo/ScopeRepositoryFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testFactory</code>
-    </MissingReturnType>
     <MixedArgument occurrences="1">
       <code>$this-&gt;container-&gt;reveal()</code>
     </MixedArgument>
   </file>
-  <file src="test/Repository/Pdo/ScopeRepositoryTest.php">
-    <MissingReturnType occurrences="4">
-      <code>testFinalizeScopesWithEmptyScopes</code>
-      <code>testGetScopeEntityByIdentifierReturnsNullWhenReturnedRowDoesNotHaveIdentifier</code>
-      <code>testGetScopeEntityByIdentifierReturnsNullWhenStatementExecutionFails</code>
-      <code>testGetScopeEntityByIndentifierReturnsScopes</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Repository/Pdo/UserRepositoryTest.php">
-    <MissingReturnType occurrences="4">
-      <code>testGetUserEntityByCredentialsReturnsEntity</code>
-      <code>testGetUserEntityByCredentialsReturnsNullIfPasswordVerificationFails</code>
-      <code>testGetUserEntityByCredentialsReturnsNullIfStatementExecutionReturnsFalse</code>
-      <code>testGetUserEntityByCredentialsReturnsNullIfUserIsNotFound</code>
-    </MissingReturnType>
-  </file>
   <file src="test/RepositoryTraitTest.php">
-    <MissingReturnType occurrences="12">
-      <code>testGetAccessTokenRepository</code>
-      <code>testGetAccessTokenRepositoryWithoutService</code>
-      <code>testGetAuthCodeRepository</code>
-      <code>testGetAuthCodeRepositoryWithoutService</code>
-      <code>testGetClientRepository</code>
-      <code>testGetClientRepositoryWithoutService</code>
-      <code>testGetRefreshTokenRepository</code>
-      <code>testGetRefreshTokenRepositoryWithoutService</code>
-      <code>testGetScopeRepository</code>
-      <code>testGetScopeRepositoryWithoutService</code>
-      <code>testGetUserRepository</code>
-      <code>testGetUserRepositoryWithoutService</code>
-    </MissingReturnType>
     <MixedInferredReturnType occurrences="1">
       <code>RepositoryInterface</code>
     </MixedInferredReturnType>
@@ -957,14 +735,6 @@
     </MixedReturnStatement>
   </file>
   <file src="test/ResourceServerFactoryTest.php">
-    <MissingReturnType occurrences="6">
-      <code>testConstructor</code>
-      <code>testInvokeWithConfigAndRepository</code>
-      <code>testInvokeWithConfigWithoutRepository</code>
-      <code>testInvokeWithEmptyConfig</code>
-      <code>testInvokeWithInvalidExtendedKey</code>
-      <code>testInvokeWithValidExtendedKey</code>
-    </MissingReturnType>
     <MixedArgument occurrences="5">
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
@@ -986,18 +756,8 @@
     <InvalidArgument occurrences="1">
       <code>$container</code>
     </InvalidArgument>
-    <MissingReturnType occurrences="3">
-      <code>testCreatesTokenEndpointHandler</code>
-      <code>testDirectResponseInstanceFromContainerThrowsTypeError</code>
-      <code>testEmptyContainerThrowsTypeError</code>
-    </MissingReturnType>
   </file>
   <file src="test/TokenEndpointHandlerTest.php">
-    <MissingReturnType occurrences="3">
-      <code>testGenericExceptionsFallsThrough</code>
-      <code>testHandleUsesAuthorizationServer</code>
-      <code>testOAuthExceptionProducesResult</code>
-    </MissingReturnType>
     <MixedArgumentTypeCoercion occurrences="3">
       <code>$this-&gt;createResponseFactory($expectedResponse)</code>
       <code>$this-&gt;createResponseFactory($expectedResponse)</code>

@@ -28,7 +28,7 @@ class TokenEndpointHandlerFactoryTest extends TestCase
         parent::setUp();
     }
 
-    public function testEmptyContainerThrowsTypeError()
+    public function testEmptyContainerThrowsTypeError(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -36,7 +36,7 @@ class TokenEndpointHandlerFactoryTest extends TestCase
         ($this->subject)($container);
     }
 
-    public function testCreatesTokenEndpointHandler()
+    public function testCreatesTokenEndpointHandler(): void
     {
         $server          = $this->prophesize(AuthorizationServer::class);
         $responseFactory = static function (): void {
@@ -59,7 +59,7 @@ class TokenEndpointHandlerFactoryTest extends TestCase
         ($this->subject)($container->reveal());
     }
 
-    public function testDirectResponseInstanceFromContainerThrowsTypeError()
+    public function testDirectResponseInstanceFromContainerThrowsTypeError(): void
     {
         $server    = $this->prophesize(AuthorizationServer::class);
         $container = $this->prophesize(ContainerInterface::class);

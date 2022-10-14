@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class AuthCodeEntityTest extends TestCase
 {
-    public function testImplementsInstanceAuthCodeEntityInterface()
+    public function testImplementsInstanceAuthCodeEntityInterface(): void
     {
         $entity = new AuthCodeEntity();
         $this->assertInstanceOf(AuthCodeEntityInterface::class, $entity);

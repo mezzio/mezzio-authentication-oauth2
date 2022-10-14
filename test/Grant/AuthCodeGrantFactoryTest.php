@@ -16,7 +16,7 @@ class AuthCodeGrantFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $mockContainer        = $this->prophesize(ContainerInterface::class);
         $mockAuthRepo         = $this->prophesize(AuthCodeRepositoryInterface::class);

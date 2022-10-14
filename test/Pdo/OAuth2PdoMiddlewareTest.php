@@ -150,7 +150,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
      *
      * @see https://oauth2.thephpleague.com/authorization-server/client-credentials-grant/
      */
-    public function testProcessClientCredentialGrantNotConfidential()
+    public function testProcessClientCredentialGrantNotConfidential(): void
     {
         // Enable the client credentials grant on the server
         $this->authServer->enableGrantType(
@@ -188,7 +188,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
      *
      * @see https://oauth2.thephpleague.com/authorization-server/client-credentials-grant/
      */
-    public function testProcessClientCredentialGrantConfidential()
+    public function testProcessClientCredentialGrantConfidential(): void
     {
         // Enable the client credentials grant on the server
         $this->authServer->enableGrantType(
@@ -230,7 +230,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
      *
      * @see https://oauth2.thephpleague.com/authorization-server/resource-owner-password-credentials-grant/
      */
-    public function testProcessPasswordGrant()
+    public function testProcessPasswordGrant(): void
     {
         $grant = new PasswordGrant(
             $this->userRepository,
@@ -403,7 +403,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
      *
      * @see https://oauth2.thephpleague.com/authorization-server/implicit-grant/
      */
-    public function testProcessImplicitGrant()
+    public function testProcessImplicitGrant(): void
     {
         // Enable the implicit grant on the server
         $this->authServer->enableGrantType(
@@ -455,7 +455,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
      *
      * @depends testProcessFromAuthorizationCode
      */
-    public function testProcessRefreshTokenGrant(string $refreshToken)
+    public function testProcessRefreshTokenGrant(string $refreshToken): void
     {
         $grant = new RefreshTokenGrant($this->refreshTokenRepository);
         $grant->setRefreshTokenTTL(new DateInterval('P1M')); // new refresh tokens will expire after 1 month

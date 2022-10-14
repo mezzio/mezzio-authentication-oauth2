@@ -32,7 +32,7 @@ class AccessTokenRepositoryTest extends TestCase
         $this->repo = new AccessTokenRepository($this->pdo);
     }
 
-    public function testPersistNewAccessTokenRaisesExceptionWhenStatementExecutionFails()
+    public function testPersistNewAccessTokenRaisesExceptionWhenStatementExecutionFails(): void
     {
         $client = $this->createMock(ClientEntityInterface::class);
         $client->expects(self::once())
@@ -80,7 +80,7 @@ class AccessTokenRepositoryTest extends TestCase
         $this->repo->persistNewAccessToken($accessToken);
     }
 
-    public function testIsAccessTokenRevokedReturnsFalseWhenStatementFailsExecution()
+    public function testIsAccessTokenRevokedReturnsFalseWhenStatementFailsExecution(): void
     {
         $statement = $this->createMock(PDOStatement::class);
         $statement->expects(self::once())
@@ -103,7 +103,7 @@ class AccessTokenRepositoryTest extends TestCase
         $this->assertFalse($this->repo->isAccessTokenRevoked('token_id'));
     }
 
-    public function testIsAccessTokenRevokedReturnsFalseWhenRowDoesNotContainRevokedFlag()
+    public function testIsAccessTokenRevokedReturnsFalseWhenRowDoesNotContainRevokedFlag(): void
     {
         $statement = $this->createMock(PDOStatement::class);
         $statement->expects(self::once())
@@ -127,7 +127,7 @@ class AccessTokenRepositoryTest extends TestCase
         $this->assertFalse($this->repo->isAccessTokenRevoked('token_id'));
     }
 
-    public function testIsAccessTokenRevokedReturnsFalseWhenRowRevokedFlagIsFalse()
+    public function testIsAccessTokenRevokedReturnsFalseWhenRowRevokedFlagIsFalse(): void
     {
         $statement = $this->createMock(PDOStatement::class);
         $statement->expects(self::once())
@@ -151,7 +151,7 @@ class AccessTokenRepositoryTest extends TestCase
         $this->assertFalse($this->repo->isAccessTokenRevoked('token_id'));
     }
 
-    public function testIsAccessTokenRevokedReturnsTrueWhenRowRevokedFlagIsTrue()
+    public function testIsAccessTokenRevokedReturnsTrueWhenRowRevokedFlagIsTrue(): void
     {
         $statement = $this->createMock(PDOStatement::class);
         $statement->expects(self::once())
@@ -175,7 +175,7 @@ class AccessTokenRepositoryTest extends TestCase
         $this->assertTrue($this->repo->isAccessTokenRevoked('token_id'));
     }
 
-    public function testIsAcessTokenRevokedRaisesExceptionWhenTokenIdDontExists()
+    public function testIsAcessTokenRevokedRaisesExceptionWhenTokenIdDontExists(): void
     {
         $statement = $this->createMock(PDOStatement::class);
         $statement->expects(self::once())
@@ -200,7 +200,7 @@ class AccessTokenRepositoryTest extends TestCase
         $this->repo->isAccessTokenRevoked('token_id');
     }
 
-    public function testRevokeAccessToken()
+    public function testRevokeAccessToken(): void
     {
         $statement = $this->createMock(PDOStatement::class);
         $statement->expects(self::once())
@@ -224,7 +224,7 @@ class AccessTokenRepositoryTest extends TestCase
         $this->repo->revokeAccessToken('token_id');
     }
 
-    public function testGetNewToken()
+    public function testGetNewToken(): void
     {
         $client      = $this->createMock(ClientEntityInterface::class);
         $accessToken = $this->repo->getNewToken($client, []);
@@ -233,7 +233,7 @@ class AccessTokenRepositoryTest extends TestCase
         $this->assertEquals([], $accessToken->getScopes());
     }
 
-    public function testGetNewTokenWithScopeAndIndentifier()
+    public function testGetNewTokenWithScopeAndIndentifier(): void
     {
         $client         = $this->createMock(ClientEntityInterface::class);
         $scopes         = [$this->createMock(ScopeEntityInterface::class)];

@@ -60,7 +60,7 @@ class PdoServiceFactoryTest extends TestCase
         ($this->factory)($this->container->reveal());
     }
 
-    public function testValidConfigurationResultsInReturnedPdoServiceInstance()
+    public function testValidConfigurationResultsInReturnedPdoServiceInstance(): void
     {
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
@@ -76,7 +76,7 @@ class PdoServiceFactoryTest extends TestCase
         $this->assertInstanceOf(PdoService::class, $pdo);
     }
 
-    public function testValidServiceInConfigurationReturnsPdoService()
+    public function testValidServiceInConfigurationReturnsPdoService(): void
     {
         $mockPdo = $this->prophesize(PDO::class);
 
@@ -95,7 +95,7 @@ class PdoServiceFactoryTest extends TestCase
         $this->assertInstanceOf(PDO::class, $pdo);
     }
 
-    public function testRaisesExceptionIfPdoServiceIsInvalid()
+    public function testRaisesExceptionIfPdoServiceIsInvalid(): void
     {
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([

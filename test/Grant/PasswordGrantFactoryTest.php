@@ -16,7 +16,7 @@ class PasswordGrantFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $mockContainer        = $this->prophesize(ContainerInterface::class);
         $mockUserRepo         = $this->prophesize(UserRepositoryInterface::class);

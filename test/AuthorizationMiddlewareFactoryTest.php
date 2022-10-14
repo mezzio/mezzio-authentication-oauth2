@@ -42,13 +42,13 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
             ->willReturn(false);
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $factory = new AuthorizationMiddlewareFactory();
         $this->assertInstanceOf(AuthorizationMiddlewareFactory::class, $factory);
     }
 
-    public function testRaisesTypeErrorForInvalidAuthorizationServer()
+    public function testRaisesTypeErrorForInvalidAuthorizationServer(): void
     {
         $this->container
             ->get(AuthorizationServer::class)
@@ -64,7 +64,7 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryRaisesTypeErrorForNonCallableResponseFactory()
+    public function testFactoryRaisesTypeErrorForNonCallableResponseFactory(): void
     {
         $this->container
             ->get(AuthorizationServer::class)
@@ -79,7 +79,7 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance()
+    public function testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance(): void
     {
         $this->container
             ->get(AuthorizationServer::class)
@@ -94,7 +94,7 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer()
+    public function testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer(): void
     {
         $this->container
             ->get(AuthorizationServer::class)

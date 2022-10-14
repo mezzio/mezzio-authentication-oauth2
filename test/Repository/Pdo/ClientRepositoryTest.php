@@ -26,7 +26,7 @@ class ClientRepositoryTest extends TestCase
         $this->repo = new ClientRepository($this->pdo->reveal());
     }
 
-    public function testGetClientEntityReturnsNullIfStatementExecutionReturnsFalse()
+    public function testGetClientEntityReturnsNullIfStatementExecutionReturnsFalse(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
@@ -41,7 +41,7 @@ class ClientRepositoryTest extends TestCase
         );
     }
 
-    public function testGetClientEntityReturnsNullIfNoRowReturned()
+    public function testGetClientEntityReturnsNullIfNoRowReturned(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
@@ -59,7 +59,7 @@ class ClientRepositoryTest extends TestCase
         );
     }
 
-    public function testGetClientEntityReturnsCorrectEntity()
+    public function testGetClientEntityReturnsCorrectEntity(): void
     {
         $name     = 'foo';
         $redirect = 'bar';
@@ -149,7 +149,7 @@ class ClientRepositoryTest extends TestCase
     /**
      * @dataProvider invalidGrants
      */
-    public function testValidateClientReturnsFalseIfRowIndicatesNotGranted(string $grantType, array $rowReturned)
+    public function testValidateClientReturnsFalseIfRowIndicatesNotGranted(string $grantType, array $rowReturned): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
@@ -171,7 +171,7 @@ class ClientRepositoryTest extends TestCase
         );
     }
 
-    public function testValidateClientReturnsFalseForNonMatchingClientSecret()
+    public function testValidateClientReturnsFalseForNonMatchingClientSecret(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();
@@ -198,7 +198,7 @@ class ClientRepositoryTest extends TestCase
         );
     }
 
-    public function testValidateClientReturnsFalseForEmptyClientSecret()
+    public function testValidateClientReturnsFalseForEmptyClientSecret(): void
     {
         $statement = $this->prophesize(PDOStatement::class);
         $statement->bindParam(':clientIdentifier', 'client_id')->shouldBeCalled();

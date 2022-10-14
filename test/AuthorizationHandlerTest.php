@@ -44,7 +44,7 @@ class AuthorizationHandlerTest extends TestCase
         self::assertSame($expectedResponse, $subject->handle($request->reveal()));
     }
 
-    public function testInvalidResponseFactoryThrowsTypeError()
+    public function testInvalidResponseFactoryThrowsTypeError(): void
     {
         $server      = $this->prophesize(AuthorizationServer::class);
         $authRequest = $this->prophesize(AuthorizationRequest::class);
