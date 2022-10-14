@@ -17,6 +17,7 @@ class AuthCodeRepositoryFactoryTest extends TestCase
     use ProphecyTrait;
 
     private ObjectProphecy $container;
+    private ObjectProphecy $pdo;
 
     protected function setUp(): void
     {

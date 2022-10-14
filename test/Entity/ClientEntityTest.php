@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class ClientEntityTest extends TestCase
 {
+    private ClientEntity $entity;
+
     protected function setUp(): void
     {
         $this->entity = new ClientEntity('foo', 'bar', 'http://localhost');

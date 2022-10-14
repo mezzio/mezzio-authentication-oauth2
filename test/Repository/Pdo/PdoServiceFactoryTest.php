@@ -10,11 +10,15 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoServiceFactory;
 use PDO;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class PdoServiceFactoryTest extends TestCase
 {
     use ProphecyTrait;
+
+    private ObjectProphecy $container;
+    private PdoServiceFactory $factory;
 
     protected function setUp(): void
     {

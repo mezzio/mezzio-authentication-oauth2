@@ -11,6 +11,7 @@ use Mezzio\Authentication\OAuth2\Exception;
 use Mezzio\Authentication\OAuth2\ResourceServerFactory;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class ResourceServerFactoryTest extends TestCase
@@ -24,6 +25,8 @@ class ResourceServerFactoryTest extends TestCase
         'pass_phrase'           => 'test',
         'key_permissions_check' => false,
     ];
+
+    private ObjectProphecy $container;
 
     protected function setUp(): void
     {

@@ -12,10 +12,14 @@ use PDOStatement;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 
 class ScopeRepositoryTest extends TestCase
 {
     use ProphecyTrait;
+
+    private ObjectProphecy $pdo;
+    private ScopeRepository $repo;
 
     protected function setUp(): void
     {

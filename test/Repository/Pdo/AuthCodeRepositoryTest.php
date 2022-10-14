@@ -15,6 +15,7 @@ use PDOStatement;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 
 use function date;
 use function time;
@@ -22,6 +23,9 @@ use function time;
 class AuthCodeRepositoryTest extends TestCase
 {
     use ProphecyTrait;
+
+    private ObjectProphecy $pdo;
+    private AuthCodeRepository $repo;
 
     protected function setUp(): void
     {

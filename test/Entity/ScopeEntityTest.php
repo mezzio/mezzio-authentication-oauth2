@@ -12,6 +12,8 @@ use function json_encode;
 
 class ScopeEntityTest extends TestCase
 {
+    private ScopeEntity $entity;
+
     protected function setUp(): void
     {
         $this->entity = new ScopeEntity();

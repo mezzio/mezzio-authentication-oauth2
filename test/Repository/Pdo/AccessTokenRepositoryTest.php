@@ -14,47 +14,50 @@ use Mezzio\Authentication\OAuth2\Entity\AccessTokenEntity;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\AccessTokenRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PDOStatement;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 use function date;
 use function time;
 
 class AccessTokenRepositoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     private AccessTokenRepository $repo;
+    /** @var PdoService&MockObject */
+    private PdoService $pdo;
 
     protected function setUp(): void
     {
-        $this->pdo  = $this->prophesize(PdoService::class);
-        $this->repo = new AccessTokenRepository($this->pdo->reveal());
+        $this->pdo  = $this->createMock(PdoService::class);
+        $this->repo = new AccessTokenRepository($this->pdo);
     }
 
     public function testPersistNewAccessTokenRaisesExceptionWhenStatementExecutionFails()
     {
-        $client = $this->prophesize(ClientEntityInterface::class);
-        $client->getIdentifier()->willReturn('client_id');
+        $client = $this->createMock(ClientEntityInterface::class);
+        $client->expects(self::once())
+            ->method('getIdentifier')
+            ->willReturn('client_id');
 
-        $scope = $this->prophesize(ScopeEntityInterface::class);
-        $scope->getIdentifier()->willReturn('authentication');
+        $scope = $this->createMock(ScopeEntityInterface::class);
+        $scope->expects(self::once())
+            ->method('getIdentifier')
+            ->willReturn('authentication');
 
         $time = time();
-        $date = $this->prophesize(DateTime::class);
-        $date->getTimestamp()->willReturn($time);
+        $date = DateTime::createFromFormat('U', (string) $time);
 
-        $accessToken = $this->prophesize(AccessTokenEntityInterface::class);
-        $accessToken->getIdentifier()->willReturn('id');
-        $accessToken->getUserIdentifier()->willReturn('user_id');
-        $accessToken->getClient()->will([$client, 'reveal']);
-        $accessToken->getScopes()->willReturn([$scope->reveal()]);
-        $accessToken->getExpiryDateTime()->will([$date, 'reveal']);
+        $accessToken = $this->createMock(AccessTokenEntityInterface::class);
+        $accessToken->method('getIdentifier')->willReturn('id');
+        $accessToken->method('getUserIdentifier')->willReturn('user_id');
+        $accessToken->method('getClient')->willReturn($client);
+        $accessToken->method('getScopes')->willReturn([$scope]);
+        $accessToken->method('getExpiryDateTime')->willReturn($date);
 
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement
-            ->execute([
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())
+            ->method('execute')
+            ->with([
                 ':id'         => 'id',
                 ':user_id'    => 'user_id',
                 ':client_id'  => 'client_id',
@@ -64,80 +67,134 @@ class AccessTokenRepositoryTest extends TestCase
             ])
             ->willReturn(false);
 
-        $this->pdo
-            ->prepare(Argument::containingString('INSERT INTO oauth_access_tokens'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::callback(function (string $arg): bool {
+                self::assertStringContainsString('INSERT INTO oauth_access_tokens', $arg);
+
+                return true;
+            }))
+            ->willReturn($statement);
 
         $this->expectException(UniqueTokenIdentifierConstraintViolationException::class);
-        $this->repo->persistNewAccessToken($accessToken->reveal());
+        $this->repo->persistNewAccessToken($accessToken);
     }
 
     public function testIsAccessTokenRevokedReturnsFalseWhenStatementFailsExecution()
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
-        $statement->execute()->willReturn(false)->shouldBeCalled();
-        $statement->fetch()->shouldNotBeCalled();
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())
+            ->method('bindParam')
+            ->with(':tokenId', 'token_id');
+        $statement->expects(self::once())
+            ->method('execute')
+            ->willReturn(false);
+        $statement->expects(self::never())
+            ->method('fetch');
 
-        $this->pdo
-            ->prepare(Argument::containingString('SELECT revoked FROM oauth_access_tokens'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::callback(function (string $sql): bool {
+                self::assertStringContainsString('SELECT revoked FROM oauth_access_tokens', $sql);
+
+                return true;
+            }))->willReturn($statement);
 
         $this->assertFalse($this->repo->isAccessTokenRevoked('token_id'));
     }
 
     public function testIsAccessTokenRevokedReturnsFalseWhenRowDoesNotContainRevokedFlag()
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
-        $statement->execute()->willReturn(true)->shouldBeCalled();
-        $statement->fetch()->willReturn([])->shouldBeCalled();
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())
+            ->method('bindParam')
+            ->with(':tokenId', 'token_id');
+        $statement->expects(self::once())
+            ->method('execute')
+            ->willReturn(true);
+        $statement->expects(self::once())
+            ->method('fetch')
+            ->willReturn([]);
 
-        $this->pdo
-            ->prepare(Argument::containingString('SELECT revoked FROM oauth_access_tokens'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::callback(function (string $sql): bool {
+                self::assertStringContainsString('SELECT revoked FROM oauth_access_tokens', $sql);
+
+                return true;
+            }))->willReturn($statement);
 
         $this->assertFalse($this->repo->isAccessTokenRevoked('token_id'));
     }
 
     public function testIsAccessTokenRevokedReturnsFalseWhenRowRevokedFlagIsFalse()
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
-        $statement->execute()->willReturn(true)->shouldBeCalled();
-        $statement->fetch()->willReturn(['revoked' => 0])->shouldBeCalled();
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())
+            ->method('bindParam')
+            ->with(':tokenId', 'token_id');
+        $statement->expects(self::once())
+            ->method('execute')
+            ->willReturn(true);
+        $statement->expects(self::once())
+            ->method('fetch')
+            ->willReturn(['revoked' => 0]);
 
-        $this->pdo
-            ->prepare(Argument::containingString('SELECT revoked FROM oauth_access_tokens'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::callback(function (string $sql): bool {
+                self::assertStringContainsString('SELECT revoked FROM oauth_access_tokens', $sql);
+
+                return true;
+            }))->willReturn($statement);
 
         $this->assertFalse($this->repo->isAccessTokenRevoked('token_id'));
     }
 
     public function testIsAccessTokenRevokedReturnsTrueWhenRowRevokedFlagIsTrue()
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
-        $statement->execute()->willReturn(true)->shouldBeCalled();
-        $statement->fetch()->willReturn(['revoked' => 1])->shouldBeCalled();
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())
+            ->method('bindParam')
+            ->with(':tokenId', 'token_id');
+        $statement->expects(self::once())
+            ->method('execute')
+            ->willReturn(true);
+        $statement->expects(self::once())
+            ->method('fetch')
+            ->willReturn(['revoked' => 1]);
 
-        $this->pdo
-            ->prepare(Argument::containingString('SELECT revoked FROM oauth_access_tokens'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::callback(function (string $sql): bool {
+                self::assertStringContainsString('SELECT revoked FROM oauth_access_tokens', $sql);
+
+                return true;
+            }))->willReturn($statement);
 
         $this->assertTrue($this->repo->isAccessTokenRevoked('token_id'));
     }
 
     public function testIsAcessTokenRevokedRaisesExceptionWhenTokenIdDontExists()
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
-        $statement->execute()->willReturn(true)->shouldBeCalled();
-        $statement->fetch()->willReturn(false)->shouldBeCalled();
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())
+            ->method('bindParam')
+            ->with(':tokenId', 'token_id');
+        $statement->expects(self::once())
+            ->method('execute')
+            ->willReturn(true);
+        $statement->expects(self::once())
+            ->method('fetch')
+            ->willReturn(false);
 
-        $this->pdo
-            ->prepare(Argument::containingString('SELECT revoked FROM oauth_access_tokens'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::callback(function (string $sql): bool {
+                self::assertStringContainsString('SELECT revoked FROM oauth_access_tokens', $sql);
+
+                return true;
+            }))->willReturn($statement);
 
         $this->expectException(OAuthServerException::class);
         $this->repo->isAccessTokenRevoked('token_id');
@@ -145,21 +202,31 @@ class AccessTokenRepositoryTest extends TestCase
 
     public function testRevokeAccessToken()
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':tokenId', 'token_id')->shouldBeCalled();
-        $statement->bindValue(':revoked', 1)->shouldBeCalled();
-        $statement->execute()->willReturn(true)->shouldBeCalled();
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())
+            ->method('bindParam')
+            ->with(':tokenId', 'token_id');
+        $statement->expects(self::once())
+            ->method('bindValue')
+            ->with(':revoked', 1);
+        $statement->expects(self::once())
+            ->method('execute')
+            ->willReturn(true);
 
-        $this->pdo
-            ->prepare(Argument::containingString('UPDATE oauth_access_tokens SET revoked=:revoked'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::callback(function (string $sql): bool {
+                self::assertStringContainsString('UPDATE oauth_access_tokens SET revoked=:revoked', $sql);
+
+                return true;
+            }))->willReturn($statement);
 
         $this->repo->revokeAccessToken('token_id');
     }
 
     public function testGetNewToken()
     {
-        $client      = $this->prophesize(ClientEntityInterface::class)->reveal();
+        $client      = $this->createMock(ClientEntityInterface::class);
         $accessToken = $this->repo->getNewToken($client, []);
         $this->assertInstanceOf(AccessTokenEntity::class, $accessToken);
         $this->assertEquals($client, $accessToken->getClient());
@@ -168,8 +235,8 @@ class AccessTokenRepositoryTest extends TestCase
 
     public function testGetNewTokenWithScopeAndIndentifier()
     {
-        $client         = $this->prophesize(ClientEntityInterface::class)->reveal();
-        $scopes         = [$this->prophesize(ScopeEntityInterface::class)->reveal()];
+        $client         = $this->createMock(ClientEntityInterface::class);
+        $scopes         = [$this->createMock(ScopeEntityInterface::class)];
         $userIdentifier = 'foo';
 
         $accessToken = $this->repo->getNewToken($client, $scopes, $userIdentifier);

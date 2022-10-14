@@ -12,6 +12,7 @@ use PDOStatement;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 
 use function password_hash;
 
@@ -20,6 +21,9 @@ use const PASSWORD_DEFAULT;
 class UserRepositoryTest extends TestCase
 {
     use ProphecyTrait;
+
+    private ObjectProphecy $pdo;
+    private UserRepository $repo;
 
     protected function setUp(): void
     {

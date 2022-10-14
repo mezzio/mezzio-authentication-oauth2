@@ -15,11 +15,15 @@ use Mezzio\Authentication\OAuth2\Exception;
 use Mezzio\Authentication\OAuth2\RepositoryTrait;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class RepositoryTraitTest extends TestCase
 {
     use ProphecyTrait;
+
+    private object $trait;
+    private ObjectProphecy $container;
 
     protected function setUp(): void
     {
