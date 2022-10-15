@@ -7,21 +7,18 @@ namespace MezzioTest\Authentication\OAuth2\Grant;
 use League\OAuth2\Server\Grant\ClientCredentialsGrant;
 use Mezzio\Authentication\OAuth2\Grant\ClientCredentialsGrantFactory;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class ClientCredentialsGrantFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testInvoke(): void
     {
-        $mockContainer = $this->prophesize(ContainerInterface::class);
+        $mockContainer = $this->createMock(ContainerInterface::class);
 
         $factory = new ClientCredentialsGrantFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer);
 
-        $this->assertInstanceOf(ClientCredentialsGrant::class, $result);
+        self::assertInstanceOf(ClientCredentialsGrant::class, $result);
     }
 }

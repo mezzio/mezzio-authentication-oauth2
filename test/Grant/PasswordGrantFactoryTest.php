@@ -9,18 +9,15 @@ use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Grant\PasswordGrantFactory;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class PasswordGrantFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testInvoke(): void
     {
-        $mockContainer        = $this->prophesize(ContainerInterface::class);
-        $mockUserRepo         = $this->prophesize(UserRepositoryInterface::class);
-        $mockRefreshTokenRepo = $this->prophesize(RefreshTokenRepositoryInterface::class);
+        $mockContainer        = $this->createMock(ContainerInterface::class);
+        $mockUserRepo         = $this->createMock(UserRepositoryInterface::class);
+        $mockRefreshTokenRepo = $this->createMock(RefreshTokenRepositoryInterface::class);
 
         $config = [
             'authentication' => [
@@ -28,16 +25,24 @@ class PasswordGrantFactoryTest extends TestCase
             ],
         ];
 
-        $mockContainer->has(UserRepositoryInterface::class)->willReturn(true);
-        $mockContainer->has(RefreshTokenRepositoryInterface::class)->willReturn(true);
-        $mockContainer->get(UserRepositoryInterface::class)->willReturn($mockUserRepo->reveal());
-        $mockContainer->get(RefreshTokenRepositoryInterface::class)->willReturn($mockRefreshTokenRepo->reveal());
-        $mockContainer->get('config')->willReturn($config);
+        $mockContainer->expects(self::exactly(2))
+            ->method('has')
+            ->willReturnMap([
+                [UserRepositoryInterface::class, true],
+                [RefreshTokenRepositoryInterface::class, true],
+            ]);
+        $mockContainer->expects(self::exactly(3))
+            ->method('get')
+            ->willReturnMap([
+                [UserRepositoryInterface::class, $mockUserRepo],
+                [RefreshTokenRepositoryInterface::class, $mockRefreshTokenRepo],
+                ['config', $config],
+            ]);
 
         $factory = new PasswordGrantFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer);
 
-        $this->assertInstanceOf(PasswordGrant::class, $result);
+        self::assertInstanceOf(PasswordGrant::class, $result);
     }
 }

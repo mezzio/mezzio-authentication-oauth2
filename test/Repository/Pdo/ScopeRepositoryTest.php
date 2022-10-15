@@ -9,74 +9,74 @@ use Mezzio\Authentication\OAuth2\Entity\ScopeEntity;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\ScopeRepository;
 use PDOStatement;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 
 class ScopeRepositoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    private ObjectProphecy $pdo;
+    /** @var PdoService&MockObject **/
+    private PdoService $pdo;
     private ScopeRepository $repo;
 
     protected function setUp(): void
     {
-        $this->pdo  = $this->prophesize(PdoService::class);
-        $this->repo = new ScopeRepository($this->pdo->reveal());
+        $this->pdo  = $this->createMock(PdoService::class);
+        $this->repo = new ScopeRepository($this->pdo);
     }
 
     public function testGetScopeEntityByIdentifierReturnsNullWhenStatementExecutionFails(): void
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':identifier', 'id')->shouldBeCalled();
-        $statement->execute()->willReturn(false)->shouldBeCalled();
-        $statement->fetch()->shouldNotBeCalled();
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())->method('bindParam')->with(':identifier', 'id');
+        $statement->expects(self::once())->method('execute')->willReturn(false);
+        $statement->expects(self::never())->method('fetch');
 
-        $this->pdo
-            ->prepare(Argument::containingString('SELECT id FROM oauth_scopes'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::stringContains('SELECT id FROM oauth_scopes'))
+            ->willReturn($statement);
 
-        $this->assertNull($this->repo->getScopeEntityByIdentifier('id'));
+        self::assertNull($this->repo->getScopeEntityByIdentifier('id'));
     }
 
     public function testGetScopeEntityByIdentifierReturnsNullWhenReturnedRowDoesNotHaveIdentifier(): void
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':identifier', 'id')->shouldBeCalled();
-        $statement->execute()->willReturn(true)->shouldBeCalled();
-        $statement->fetch()->willReturn([])->shouldBeCalled();
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())->method('bindParam')->with(':identifier', 'id');
+        $statement->expects(self::once())->method('execute')->willReturn(true);
+        $statement->expects(self::once())->method('fetch')->willReturn([]);
 
-        $this->pdo
-            ->prepare(Argument::containingString('SELECT id FROM oauth_scopes'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::stringContains('SELECT id FROM oauth_scopes'))
+            ->willReturn($statement);
 
-        $this->assertNull($this->repo->getScopeEntityByIdentifier('id'));
+        self::assertNull($this->repo->getScopeEntityByIdentifier('id'));
     }
 
     public function testGetScopeEntityByIndentifierReturnsScopes(): void
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':identifier', 'id')->shouldBeCalled();
-        $statement->execute()->willReturn(true)->shouldBeCalled();
-        $statement->fetch()->willReturn([
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())->method('bindParam')->with(':identifier', 'id');
+        $statement->expects(self::once())->method('execute')->willReturn(true);
+        $statement->expects(self::once())->method('fetch')->willReturn([
             'id' => 'foo',
-        ])->shouldBeCalled();
+        ]);
 
-        $this->pdo
-            ->prepare(Argument::containingString('SELECT id FROM oauth_scopes'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::stringContains('SELECT id FROM oauth_scopes'))
+            ->willReturn($statement);
 
         $scope = $this->repo->getScopeEntityByIdentifier('id');
-        $this->assertInstanceOf(ScopeEntity::class, $scope);
-        $this->assertEquals('foo', $scope->getIdentifier());
+        self::assertInstanceOf(ScopeEntity::class, $scope);
+        self::assertEquals('foo', $scope->getIdentifier());
     }
 
     public function testFinalizeScopesWithEmptyScopes(): void
     {
-        $clientEntity = $this->prophesize(ClientEntityInterface::class);
-        $scopes       = $this->repo->finalizeScopes([], 'foo', $clientEntity->reveal());
-        $this->assertEquals([], $scopes);
+        $clientEntity = $this->createMock(ClientEntityInterface::class);
+        $scopes       = $this->repo->finalizeScopes([], 'foo', $clientEntity);
+        self::assertEquals([], $scopes);
     }
 }

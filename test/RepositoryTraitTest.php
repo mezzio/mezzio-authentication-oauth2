@@ -14,16 +14,12 @@ use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Exception;
 use Mezzio\Authentication\OAuth2\RepositoryTrait;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class RepositoryTraitTest extends TestCase
 {
-    use ProphecyTrait;
-
     private object $trait;
-    private ObjectProphecy $container;
+    private InMemoryContainer $container;
 
     protected function setUp(): void
     {
@@ -35,144 +31,100 @@ class RepositoryTraitTest extends TestCase
                 return $this->$name($container);
             }
         };
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = new InMemoryContainer();
     }
 
     public function testGetUserRepositoryWithoutService(): void
     {
-        $this->container
-            ->has(UserRepositoryInterface::class)
-            ->willReturn(false);
-
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getUserRepository', $this->container->reveal());
+        $this->trait->proxy('getUserRepository', $this->container);
     }
 
     public function testGetUserRepository(): void
     {
-        $this->container
-            ->has(UserRepositoryInterface::class)
-            ->willReturn(true);
-        $this->container
-            ->get(UserRepositoryInterface::class)
-            ->willReturn($this->prophesize(UserRepositoryInterface::class)->reveal());
-
-        $result = $this->trait->proxy('getUserRepository', $this->container->reveal());
-        $this->assertInstanceOf(UserRepositoryInterface::class, $result);
+        $this->container->set(UserRepositoryInterface::class, $this->createMock(UserRepositoryInterface::class));
+        $result = $this->trait->proxy('getUserRepository', $this->container);
+        self::assertInstanceOf(UserRepositoryInterface::class, $result);
     }
 
     public function testGetScopeRepositoryWithoutService(): void
     {
-        $this->container
-            ->has(ScopeRepositoryInterface::class)
-            ->willReturn(false);
-
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getScopeRepository', $this->container->reveal());
+        $this->trait->proxy('getScopeRepository', $this->container);
     }
 
     public function testGetScopeRepository(): void
     {
-        $this->container
-            ->has(ScopeRepositoryInterface::class)
-            ->willReturn(true);
-        $this->container
-            ->get(ScopeRepositoryInterface::class)
-            ->willReturn($this->prophesize(ScopeRepositoryInterface::class)->reveal());
-
-        $result = $this->trait->proxy('getScopeRepository', $this->container->reveal());
-        $this->assertInstanceOf(ScopeRepositoryInterface::class, $result);
+        $this->container->set(ScopeRepositoryInterface::class, $this->createMock(ScopeRepositoryInterface::class));
+        $result = $this->trait->proxy('getScopeRepository', $this->container);
+        self::assertInstanceOf(ScopeRepositoryInterface::class, $result);
     }
 
     public function testGetAccessTokenRepositoryWithoutService(): void
     {
-        $this->container
-            ->has(AccessTokenRepositoryInterface::class)
-            ->willReturn(false);
-
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getAccessTokenRepository', $this->container->reveal());
+        $this->trait->proxy('getAccessTokenRepository', $this->container);
     }
 
     public function testGetAccessTokenRepository(): void
     {
-        $this->container
-            ->has(AccessTokenRepositoryInterface::class)
-            ->willReturn(true);
-        $this->container
-            ->get(AccessTokenRepositoryInterface::class)
-            ->willReturn($this->prophesize(AccessTokenRepositoryInterface::class)->reveal());
+        $this->container->set(
+            AccessTokenRepositoryInterface::class,
+            $this->createMock(AccessTokenRepositoryInterface::class)
+        );
 
-        $result = $this->trait->proxy('getAccessTokenRepository', $this->container->reveal());
-        $this->assertInstanceOf(AccessTokenRepositoryInterface::class, $result);
+        $result = $this->trait->proxy('getAccessTokenRepository', $this->container);
+        self::assertInstanceOf(AccessTokenRepositoryInterface::class, $result);
     }
 
     public function testGetClientRepositoryWithoutService(): void
     {
-        $this->container
-            ->has(ClientRepositoryInterface::class)
-            ->willReturn(false);
-
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getClientRepository', $this->container->reveal());
+        $this->trait->proxy('getClientRepository', $this->container);
     }
 
     public function testGetClientRepository(): void
     {
-        $this->container
-            ->has(ClientRepositoryInterface::class)
-            ->willReturn(true);
-        $this->container
-            ->get(ClientRepositoryInterface::class)
-            ->willReturn($this->prophesize(ClientRepositoryInterface::class)->reveal());
+        $this->container->set(
+            ClientRepositoryInterface::class,
+            $this->createMock(ClientRepositoryInterface::class)
+        );
 
-        $result = $this->trait->proxy('getClientRepository', $this->container->reveal());
-        $this->assertInstanceOf(ClientRepositoryInterface::class, $result);
+        $result = $this->trait->proxy('getClientRepository', $this->container);
+        self::assertInstanceOf(ClientRepositoryInterface::class, $result);
     }
 
     public function testGetRefreshTokenRepositoryWithoutService(): void
     {
-        $this->container
-            ->has(RefreshTokenRepositoryInterface::class)
-            ->willReturn(false);
-
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getRefreshTokenRepository', $this->container->reveal());
+        $this->trait->proxy('getRefreshTokenRepository', $this->container);
     }
 
     public function testGetRefreshTokenRepository(): void
     {
-        $this->container
-            ->has(RefreshTokenRepositoryInterface::class)
-            ->willReturn(true);
-        $this->container
-            ->get(RefreshTokenRepositoryInterface::class)
-            ->willReturn($this->prophesize(RefreshTokenRepositoryInterface::class)->reveal());
+        $this->container->set(
+            RefreshTokenRepositoryInterface::class,
+            $this->createMock(RefreshTokenRepositoryInterface::class),
+        );
 
-        $result = $this->trait->proxy('getRefreshTokenRepository', $this->container->reveal());
-        $this->assertInstanceOf(RefreshTokenRepositoryInterface::class, $result);
+        $result = $this->trait->proxy('getRefreshTokenRepository', $this->container);
+        self::assertInstanceOf(RefreshTokenRepositoryInterface::class, $result);
     }
 
     public function testGetAuthCodeRepositoryWithoutService(): void
     {
-        $this->container
-            ->has(AuthCodeRepositoryInterface::class)
-            ->willReturn(false);
-
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getAuthCodeRepository', $this->container->reveal());
+        $this->trait->proxy('getAuthCodeRepository', $this->container);
     }
 
     public function testGetAuthCodeRepository(): void
     {
-        $this->container
-            ->has(AuthCodeRepositoryInterface::class)
-            ->willReturn(true);
-        $this->container
-            ->get(AuthCodeRepositoryInterface::class)
-            ->willReturn($this->prophesize(AuthCodeRepositoryInterface::class)->reveal());
+        $this->container->set(
+            AuthCodeRepositoryInterface::class,
+            $this->createMock(AuthCodeRepositoryInterface::class),
+        );
 
-        $result = $this->trait->proxy('getAuthCodeRepository', $this->container->reveal());
-        $this->assertInstanceOf(AuthCodeRepositoryInterface::class, $result);
+        $result = $this->trait->proxy('getAuthCodeRepository', $this->container);
+        self::assertInstanceOf(AuthCodeRepositoryInterface::class, $result);
     }
 }

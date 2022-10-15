@@ -29,9 +29,8 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\ScopeRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\UserRepository;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use PDO;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -60,8 +59,6 @@ use function unlink;
  */
 class OAuth2PdoMiddlewareTest extends TestCase
 {
-    use ProphecyTrait;
-
     private const DB_FILE        = __DIR__ . '/TestAsset/test_oauth2.sq3';
     private const DB_SCHEMA      = __DIR__ . '/../../data/oauth2.sql';
     private const DB_DATA        = __DIR__ . '/TestAsset/test_data.sql';
@@ -78,8 +75,8 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
     private ClientRepository $clientRepository;
 
-    /** @var RequestHandlerInterface|ObjectProphecy */
-    private $handler;
+    /** @var RequestHandlerInterface&MockObject */
+    private RequestHandlerInterface $handler;
 
     private PdoService $pdoService;
 
@@ -141,7 +138,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
             self::ENCRYPTION_KEY
         );
 
-        $this->handler         = $this->prophesize(RequestHandlerInterface::class);
+        $this->handler         = $this->createMock(RequestHandlerInterface::class);
         $this->responseFactory = fn(): Response => $this->response;
     }
 
@@ -180,7 +177,7 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
         $response = $handler->handle($request);
 
-        $this->assertEquals(401, $response->getStatusCode());
+        self::assertEquals(401, $response->getStatusCode());
     }
 
     /**
@@ -218,11 +215,11 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
         $response = $handler->handle($request);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        self::assertEquals(200, $response->getStatusCode());
         $content = json_decode((string) $response->getBody());
-        $this->assertEquals('Bearer', $content->token_type);
-        $this->assertIsInt($content->expires_in);
-        $this->assertNotEmpty($content->access_token);
+        self::assertEquals('Bearer', $content->token_type);
+        self::assertIsInt($content->expires_in);
+        self::assertNotEmpty($content->access_token);
     }
 
     /**
@@ -266,12 +263,12 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
         $response = $handler->handle($request);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        self::assertEquals(200, $response->getStatusCode());
         $content = json_decode((string) $response->getBody());
-        $this->assertEquals('Bearer', $content->token_type);
-        $this->assertIsInt($content->expires_in);
-        $this->assertNotEmpty($content->access_token);
-        $this->assertNotEmpty($content->refresh_token);
+        self::assertEquals('Bearer', $content->token_type);
+        self::assertIsInt($content->expires_in);
+        self::assertNotEmpty($content->access_token);
+        self::assertNotEmpty($content->refresh_token);
     }
 
     /**
@@ -329,14 +326,14 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
         $response = $authMiddleware->process($request, $consumerHandler);
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertTrue($response->hasHeader('Location'));
+        self::assertEquals(302, $response->getStatusCode());
+        self::assertTrue($response->hasHeader('Location'));
         [$url, $queryString] = explode('?', $response->getHeader('Location')[0]);
-        $this->assertEquals($params['redirect_uri'], $url);
+        self::assertEquals($params['redirect_uri'], $url);
         parse_str($queryString, $data);
-        $this->assertTrue(isset($data['code']));
-        $this->assertTrue(isset($data['state']));
-        $this->assertEquals($state, $data['state']);
+        self::assertTrue(isset($data['code']));
+        self::assertTrue(isset($data['state']));
+        self::assertEquals($state, $data['state']);
 
         return $data['code'];
     }
@@ -388,12 +385,12 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
         $response = $handler->handle($request);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        self::assertEquals(200, $response->getStatusCode());
         $content = json_decode((string) $response->getBody());
-        $this->assertEquals('Bearer', $content->token_type);
-        $this->assertIsInt($content->expires_in);
-        $this->assertNotEmpty($content->access_token);
-        $this->assertNotEmpty($content->refresh_token);
+        self::assertEquals('Bearer', $content->token_type);
+        self::assertIsInt($content->expires_in);
+        self::assertNotEmpty($content->access_token);
+        self::assertNotEmpty($content->refresh_token);
 
         return $content->refresh_token;
     }
@@ -434,18 +431,18 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
         $response = $authMiddleware->process($request, $consumerHandler);
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertTrue($response->hasHeader('Location'));
+        self::assertEquals(302, $response->getStatusCode());
+        self::assertTrue($response->hasHeader('Location'));
         [$url, $fragment] = explode('#', $response->getHeader('Location')[0]);
-        $this->assertEquals($params['redirect_uri'], $url);
+        self::assertEquals($params['redirect_uri'], $url);
         parse_str($fragment, $data);
-        $this->assertTrue(isset($data['access_token']));
-        $this->assertTrue(isset($data['expires_in']));
-        $this->assertTrue(isset($data['token_type']));
-        $this->assertEquals('bearer', strtolower($data['token_type']));
-        $this->assertFalse(isset($data['refresh_token']));
-        $this->assertTrue(isset($data['state']));
-        $this->assertEquals($state, $data['state']);
+        self::assertTrue(isset($data['access_token']));
+        self::assertTrue(isset($data['expires_in']));
+        self::assertTrue(isset($data['token_type']));
+        self::assertEquals('bearer', strtolower($data['token_type']));
+        self::assertFalse(isset($data['refresh_token']));
+        self::assertTrue(isset($data['state']));
+        self::assertEquals($state, $data['state']);
     }
 
     /**
@@ -488,12 +485,12 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
         $response = $handler->handle($request);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        self::assertEquals(200, $response->getStatusCode());
         $content = json_decode((string) $response->getBody());
-        $this->assertEquals('Bearer', $content->token_type);
-        $this->assertIsInt($content->expires_in);
-        $this->assertNotEmpty($content->access_token);
-        $this->assertNotEmpty($content->refresh_token);
+        self::assertEquals('Bearer', $content->token_type);
+        self::assertIsInt($content->expires_in);
+        self::assertNotEmpty($content->access_token);
+        self::assertNotEmpty($content->refresh_token);
     }
 
     private function buildConsumerAuthMiddleware(AuthorizationHandler $authHandler): object

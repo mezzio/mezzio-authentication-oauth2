@@ -12,137 +12,79 @@ use Mezzio\Authentication\OAuth2\OAuth2AdapterFactory;
 use Mezzio\Authentication\UserInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
-use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use TypeError;
 
 class OAuth2AdapterFactoryTest extends TestCase
 {
-    use ProphecyTrait;
+    private InMemoryContainer $container;
 
-    /** @var ContainerInterface|ObjectProphecy */
-    private $container;
-
-    /** @var ResourceServer|ObjectProphecy */
-    private $resourceServer;
+    /** @var ResourceServer&MockObject */
+    private ResourceServer $resourceServer;
 
     /** @var ResponseInterface&MockObject */
-    private $response;
+    private ResponseInterface $response;
 
-    /** @var callable */
+    /** @var callable(): ResponseInterface */
     private $responseFactory;
 
-    /** @var UserInterface|ObjectProphecy */
-    private $user;
+    /** @var UserInterface&MockObject */
+    private UserInterface $user;
 
-    /** @var Closure */
-    private $userFactory;
+    /** @var Closure(): UserInterface */
+    private Closure $userFactory;
 
     protected function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
-        $this->container
-            ->has(ResponseFactoryInterface::class)
-            ->willReturn(false);
-
-        $this->resourceServer = $this->prophesize(ResourceServer::class);
+        $this->container      = new InMemoryContainer();
+        $this->resourceServer = $this->createMock(ResourceServer::class);
         $this->response       = $this->createMock(ResponseInterface::class);
 
         $this->responseFactory = fn(): MockObject => $this->response;
-        $this->user            = $this->prophesize(UserInterface::class);
-        $this->userFactory     = fn(string $identity, array $roles = [], array $details = []) => $this->user->reveal();
-    }
-
-    public function testConstructor(): void
-    {
-        $factory = new OAuth2AdapterFactory();
-        $this->assertInstanceOf(OAuth2AdapterFactory::class, $factory);
+        $this->user            = $this->createMock(UserInterface::class);
+        $this->userFactory     = fn(): UserInterface => $this->user;
     }
 
     public function testInvokeWithEmptyContainer(): void
     {
         $factory = new OAuth2AdapterFactory();
-        $this->container
-            ->has(ResourceServer::class)
-            ->willReturn(false);
-
         $this->expectException(Exception\InvalidConfigException::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testFactoryRaisesTypeErrorForNonCallableResponseFactory(): void
     {
-        $this->container
-            ->has(ResourceServer::class)
-            ->willReturn(true);
-        $this->container
-            ->get(ResourceServer::class)
-            ->willReturn($this->resourceServer->reveal());
-
-        $this->container
-            ->get(ResponseInterface::class)
-            ->willReturn(new stdClass());
-
-        $this->container
-            ->get(UserInterface::class)
-            ->willReturn($this->userFactory);
+        $this->container->set(ResourceServer::class, $this->resourceServer);
+        $this->container->set(ResponseInterface::class, new stdClass());
+        $this->container->set(UserInterface::class, $this->userFactory);
 
         $factory = new OAuth2AdapterFactory();
-
         $this->expectException(TypeError::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testFactoryRaisesTypeErrorWhenResponseServiceProvidesResponseInstance(): void
     {
-        $this->container
-            ->has(ResourceServer::class)
-            ->willReturn(true);
-        $this->container
-            ->get(ResourceServer::class)
-            ->willReturn($this->resourceServer->reveal());
-
-        $this->container
-            ->get(ResponseInterface::class)
-            ->willReturn($this->response);
-
-        $this->container
-            ->get(UserInterface::class)
-            ->willReturn($this->userFactory);
+        $this->container->set(ResourceServer::class, $this->resourceServer);
+        $this->container->set(ResponseInterface::class, $this->response);
+        $this->container->set(UserInterface::class, $this->userFactory);
 
         $factory = new OAuth2AdapterFactory();
 
         $this->expectException(TypeError::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testFactoryReturnsInstanceWhenAppropriateDependenciesArePresentInContainer(): void
     {
-        $this->container
-            ->has(ResourceServer::class)
-            ->willReturn(true);
-        $this->container
-            ->get(ResourceServer::class)
-            ->willReturn($this->resourceServer->reveal());
-
-        $this->container
-            ->has(ResponseInterface::class)
-            ->willReturn(true);
-        $this->container
-            ->get(ResponseInterface::class)
-            ->willReturn($this->responseFactory);
-
-        $this->container
-            ->get(UserInterface::class)
-            ->willReturn($this->userFactory);
+        $this->container->set(ResourceServer::class, $this->resourceServer);
+        $this->container->set(ResponseInterface::class, $this->responseFactory);
+        $this->container->set(UserInterface::class, $this->userFactory);
 
         $factory = new OAuth2AdapterFactory();
-        $adapter = $factory($this->container->reveal());
+        $adapter = $factory($this->container);
 
-        $this->assertInstanceOf(AuthenticationInterface::class, $adapter);
+        self::assertInstanceOf(AuthenticationInterface::class, $adapter);
     }
 }

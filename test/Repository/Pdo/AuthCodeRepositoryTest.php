@@ -12,108 +12,136 @@ use Mezzio\Authentication\OAuth2\Entity\AuthCodeEntity;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PDOStatement;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 
 use function date;
 use function time;
 
 class AuthCodeRepositoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    private ObjectProphecy $pdo;
+    /** @var PdoService&MockObject */
+    private PdoService $pdo;
     private AuthCodeRepository $repo;
 
     protected function setUp(): void
     {
-        $this->pdo  = $this->prophesize(PdoService::class);
-        $this->repo = new AuthCodeRepository($this->pdo->reveal());
+        $this->pdo  = $this->createMock(PdoService::class);
+        $this->repo = new AuthCodeRepository($this->pdo);
     }
 
     public function testPersistNewAuthCodeRaisesExceptionWhenStatementExecutionFails(): void
     {
-        $client = $this->prophesize(ClientEntityInterface::class);
-        $client->getIdentifier()->willReturn('client_id');
+        $client = $this->createMock(ClientEntityInterface::class);
+        $client->expects(self::once())
+            ->method('getIdentifier')
+            ->willReturn('client_id');
 
-        $scope = $this->prophesize(ScopeEntityInterface::class);
-        $scope->getIdentifier()->willReturn('authentication');
+        $scope = $this->createMock(ScopeEntityInterface::class);
+        $scope->expects(self::once())
+            ->method('getIdentifier')
+            ->willReturn('authentication');
 
         $time = time();
-        $date = $this->prophesize(DateTime::class);
-        $date->getTimestamp()->willReturn($time);
+        $date = DateTime::createFromFormat('U', (string) $time);
 
-        $authCode = $this->prophesize(AuthCodeEntity::class);
-        $authCode->getIdentifier()->willReturn('id');
-        $authCode->getUserIdentifier()->willReturn('user_id');
-        $authCode->getClient()->will([$client, 'reveal']);
-        $authCode->getScopes()->willReturn([$scope->reveal()]);
-        $authCode->getExpiryDateTime()->will([$date, 'reveal']);
+        $authCode = $this->createMock(AuthCodeEntity::class);
+        $authCode->method('getIdentifier')->willReturn('id');
+        $authCode->method('getUserIdentifier')->willReturn('user_id');
+        $authCode->method('getClient')->willReturn($client);
+        $authCode->method('getScopes')->willReturn([$scope]);
+        $authCode->method('getExpiryDateTime')->willReturn($date);
 
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindValue(':id', 'id')->shouldBeCalled();
-        $statement->bindValue(':user_id', 'user_id')->shouldBeCalled();
-        $statement->bindValue(':client_id', 'client_id')->shouldBeCalled();
-        $statement->bindValue(':scopes', 'authentication')->shouldBeCalled();
-        $statement->bindValue(':revoked', 0)->shouldBeCalled();
-        $statement->bindValue(':expires_at', date('Y-m-d H:i:s', $time))
-            ->shouldBeCalled();
-        $statement->execute()->willReturn(false);
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->method('bindValue')
+            ->withConsecutive(
+                [':id', 'id'],
+                [':user_id', 'user_id'],
+                [':client_id', 'client_id'],
+                [':scopes', 'authentication'],
+                [':revoked', 0],
+                [':expires_at', date('Y-m-d H:i:s', $time)],
+            );
 
-        $this->pdo
-            ->prepare(Argument::containingString('INSERT INTO oauth_auth_codes'))
-            ->will([$statement, 'reveal']);
+        $statement->expects(self::once())
+            ->method('execute')
+            ->willReturn(false);
+
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::stringContains('INSERT INTO oauth_auth_codes'))
+            ->willReturn($statement);
 
         $this->expectException(UniqueTokenIdentifierConstraintViolationException::class);
-        $this->repo->persistNewAuthCode($authCode->reveal());
+        $this->repo->persistNewAuthCode($authCode);
     }
 
     public function testIsAuthCodeRevokedReturnsFalseForStatementExecutionFailure(): void
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':codeId', 'code_identifier')->shouldBeCalled();
-        $statement->execute()->willReturn(false);
-        $statement->fetch()->shouldNotBeCalled();
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())
+            ->method('bindParam')
+            ->with(':codeId', 'code_identifier');
 
-        $this->pdo
-            ->prepare(Argument::containingString('SELECT revoked FROM oauth_auth_codes'))
-            ->will([$statement, 'reveal']);
+        $statement->expects(self::once())
+            ->method('execute')
+            ->willReturn(false);
 
-        $this->assertFalse($this->repo->isAuthCodeRevoked('code_identifier'));
+        $statement->expects(self::never())
+            ->method('fetch');
+
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::stringContains('SELECT revoked FROM oauth_auth_codes'))
+            ->willReturn($statement);
+
+        self::assertFalse($this->repo->isAuthCodeRevoked('code_identifier'));
     }
 
     public function testIsAuthCodeRevokedReturnsTrue(): void
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':codeId', 'code_identifier')->shouldBeCalled();
-        $statement->execute()->willReturn(true);
-        $statement->fetch()->willReturn(['revoked' => true]);
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())
+            ->method('bindParam')
+            ->with(':codeId', 'code_identifier');
+        $statement->expects(self::once())
+            ->method('execute')
+            ->willReturn(true);
+        $statement->expects(self::once())
+            ->method('fetch')
+            ->willReturn(['revoked' => true]);
 
-        $this->pdo
-            ->prepare(Argument::containingString('SELECT revoked FROM oauth_auth_codes'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::stringContains('SELECT revoked FROM oauth_auth_codes'))
+            ->willReturn($statement);
 
-        $this->assertTrue($this->repo->isAuthCodeRevoked('code_identifier'));
+        self::assertTrue($this->repo->isAuthCodeRevoked('code_identifier'));
     }
 
     public function testNewAuthCode(): void
     {
         $result = $this->repo->getNewAuthCode();
-        $this->assertInstanceOf(AuthCodeEntity::class, $result);
+        self::assertInstanceOf(AuthCodeEntity::class, $result);
     }
 
     public function testRevokeAuthCode(): void
     {
-        $statement = $this->prophesize(PDOStatement::class);
-        $statement->bindParam(':codeId', 'code_identifier')->shouldBeCalled();
-        $statement->bindValue(':revoked', 1)->shouldBeCalled();
-        $statement->execute()->willReturn(true);
+        $statement = $this->createMock(PDOStatement::class);
+        $statement->expects(self::once())
+            ->method('bindParam')
+            ->with(':codeId', 'code_identifier');
+        $statement->expects(self::once())
+            ->method('bindValue')
+            ->with(':revoked', 1);
+        $statement->expects(self::once())
+            ->method('execute')
+            ->willReturn(true);
 
-        $this->pdo
-            ->prepare(Argument::containingString('UPDATE oauth_auth_codes SET revoked=:revoked WHERE id = :codeId'))
-            ->will([$statement, 'reveal']);
+        $this->pdo->expects(self::once())
+            ->method('prepare')
+            ->with(self::stringContains('UPDATE oauth_auth_codes SET revoked=:revoked WHERE id = :codeId'))
+            ->willReturn($statement);
 
         $this->repo->revokeAuthCode('code_identifier');
     }

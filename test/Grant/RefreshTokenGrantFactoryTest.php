@@ -8,17 +8,14 @@ use League\OAuth2\Server\Grant\RefreshTokenGrant;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Grant\RefreshTokenGrantFactory;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class RefreshTokenGrantFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testInvoke(): void
     {
-        $mockContainer        = $this->prophesize(ContainerInterface::class);
-        $mockRefreshTokenRepo = $this->prophesize(RefreshTokenRepositoryInterface::class);
+        $mockContainer        = $this->createMock(ContainerInterface::class);
+        $mockRefreshTokenRepo = $this->createMock(RefreshTokenRepositoryInterface::class);
 
         $config = [
             'authentication' => [
@@ -26,14 +23,21 @@ class RefreshTokenGrantFactoryTest extends TestCase
             ],
         ];
 
-        $mockContainer->has(RefreshTokenRepositoryInterface::class)->willReturn(true);
-        $mockContainer->get(RefreshTokenRepositoryInterface::class)->willReturn($mockRefreshTokenRepo->reveal());
-        $mockContainer->get('config')->willReturn($config);
+        $mockContainer->expects(self::once())
+            ->method('has')
+            ->with(RefreshTokenRepositoryInterface::class)
+            ->willReturn(true);
+
+        $mockContainer->expects(self::atLeast(2))
+            ->method('get')
+            ->willReturnMap([
+                [RefreshTokenRepositoryInterface::class, $mockRefreshTokenRepo],
+                ['config', $config],
+            ]);
 
         $factory = new RefreshTokenGrantFactory();
+        $result  = $factory($mockContainer);
 
-        $result = $factory($mockContainer->reveal());
-
-        $this->assertInstanceOf(RefreshTokenGrant::class, $result);
+        self::assertInstanceOf(RefreshTokenGrant::class, $result);
     }
 }

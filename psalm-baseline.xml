@@ -359,21 +359,9 @@
     </MixedArgumentTypeCoercion>
   </file>
   <file src="test/AuthorizationServerFactoryTest.php">
-    <MixedArgument occurrences="5">
-      <code>$mockContainer-&gt;reveal()</code>
-      <code>$mockContainer-&gt;reveal()</code>
-      <code>$mockContainer-&gt;reveal()</code>
-      <code>$mockContainer-&gt;reveal()</code>
-      <code>$mockContainer-&gt;reveal()</code>
-    </MixedArgument>
     <UnusedClosureParam occurrences="1">
       <code>$event</code>
     </UnusedClosureParam>
-    <UnusedVariable occurrences="3">
-      <code>$mockListener</code>
-      <code>$mockProvider</code>
-      <code>$result</code>
-    </UnusedVariable>
   </file>
   <file src="test/ConfigTraitTest.php">
     <MixedAssignment occurrences="9">
@@ -424,91 +412,11 @@
       <code>$entity</code>
     </UnusedVariable>
   </file>
-  <file src="test/OAuth2AdapterFactoryTest.php">
-    <MissingClosureReturnType occurrences="1">
-      <code>fn(string $identity, array $roles = [], array $details = []) =&gt; $this-&gt;user-&gt;reveal()</code>
-    </MissingClosureReturnType>
-    <MixedArgument occurrences="4">
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-    </MixedArgument>
-    <MixedMethodCall occurrences="9">
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-    </MixedMethodCall>
-    <PossiblyInvalidMethodCall occurrences="5">
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-    </PossiblyInvalidMethodCall>
-    <PossiblyUndefinedMethod occurrences="8">
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-    </PossiblyUndefinedMethod>
-    <UnusedClosureParam occurrences="3">
-      <code>$details</code>
-      <code>$identity</code>
-      <code>$roles</code>
-    </UnusedClosureParam>
-  </file>
   <file src="test/OAuth2AdapterTest.php">
-    <InvalidArgument occurrences="4">
-      <code>Argument::that([$request, 'reveal'])</code>
-      <code>Argument::that([$request, 'reveal'])</code>
-      <code>Argument::that([$request, 'reveal'])</code>
-      <code>Argument::that([$request, 'reveal'])</code>
-    </InvalidArgument>
-    <MixedArgument occurrences="6">
-      <code>$this-&gt;resourceServer-&gt;reveal()</code>
-      <code>$this-&gt;resourceServer-&gt;reveal()</code>
-      <code>$this-&gt;resourceServer-&gt;reveal()</code>
-      <code>$this-&gt;resourceServer-&gt;reveal()</code>
-      <code>$this-&gt;resourceServer-&gt;reveal()</code>
-      <code>$this-&gt;resourceServer-&gt;reveal()</code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="12">
+    <MixedArgumentTypeCoercion occurrences="2">
       <code>$details</code>
       <code>$roles</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>[$request, 'reveal']</code>
-      <code>[$request, 'reveal']</code>
-      <code>[$request, 'reveal']</code>
-      <code>[$request, 'reveal']</code>
     </MixedArgumentTypeCoercion>
-    <PossiblyUndefinedMethod occurrences="10">
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>reveal</code>
-      <code>will</code>
-      <code>will</code>
-      <code>will</code>
-      <code>willThrow</code>
-    </PossiblyUndefinedMethod>
   </file>
   <file src="test/Pdo/OAuth2PdoMiddlewareTest.php">
     <ArgumentTypeCoercion occurrences="2">
@@ -572,30 +480,6 @@
       <code>ResponseFactoryFactory</code>
     </UndefinedClass>
   </file>
-  <file src="test/Repository/Pdo/ClientRepositoryTest.php">
-    <MixedInferredReturnType occurrences="1">
-      <code>array</code>
-    </MixedInferredReturnType>
-    <UnusedVariable occurrences="3">
-      <code>$client</code>
-      <code>$client</code>
-      <code>$client</code>
-    </UnusedVariable>
-  </file>
-  <file src="test/Repository/Pdo/PdoServiceFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testRaisesExceptionIfPdoConfigurationIsMissing</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="4">
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-    </MixedArgument>
-    <MixedInferredReturnType occurrences="1">
-      <code>array</code>
-    </MixedInferredReturnType>
-  </file>
   <file src="test/RepositoryTraitTest.php">
     <MixedInferredReturnType occurrences="1">
       <code>RepositoryInterface</code>
@@ -618,34 +502,9 @@
       <code>$this-&gt;$name($container)</code>
     </MixedReturnStatement>
   </file>
-  <file src="test/ResourceServerFactoryTest.php">
-    <MixedArgument occurrences="5">
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-      <code>$this-&gt;container-&gt;reveal()</code>
-    </MixedArgument>
-    <MixedInferredReturnType occurrences="2">
-      <code>Generator</code>
-      <code>Generator</code>
-    </MixedInferredReturnType>
-  </file>
   <file src="test/TestAsset/Psr17ResponseFactoryTraitImplementation.php">
     <DeprecatedTrait occurrences="1">
       <code>Psr17ResponseFactoryTrait</code>
     </DeprecatedTrait>
-  </file>
-  <file src="test/TokenEndpointHandlerFactoryTest.php">
-    <InvalidArgument occurrences="1">
-      <code>$container</code>
-    </InvalidArgument>
-  </file>
-  <file src="test/TokenEndpointHandlerTest.php">
-    <MixedArgumentTypeCoercion occurrences="3">
-      <code>$this-&gt;createResponseFactory($expectedResponse)</code>
-      <code>$this-&gt;createResponseFactory($expectedResponse)</code>
-      <code>$this-&gt;createResponseFactory()</code>
-    </MixedArgumentTypeCoercion>
   </file>
 </files>
