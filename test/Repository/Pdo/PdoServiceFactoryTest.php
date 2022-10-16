@@ -7,21 +7,22 @@ namespace MezzioTest\Authentication\OAuth2\Repository\Pdo;
 use Mezzio\Authentication\OAuth2\Exception;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoServiceFactory;
+use MezzioTest\Authentication\OAuth2\InMemoryContainer;
 use PDO;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Psr\Container\ContainerInterface;
 
 class PdoServiceFactoryTest extends TestCase
 {
-    use ProphecyTrait;
+    private InMemoryContainer $container;
+    private PdoServiceFactory $factory;
 
     protected function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = new InMemoryContainer();
         $this->factory   = new PdoServiceFactory();
     }
 
+    /** @return array<string, array{0: bool, 1: array, 2: string}> */
     public function invalidConfiguration(): array
     {
         // phpcs:disable
@@ -42,24 +43,20 @@ class PdoServiceFactoryTest extends TestCase
         bool $hasConfig,
         array $config,
         string $expectedMessage
-    ) {
-        $this->container->has('config')->willReturn($hasConfig);
+    ): void {
         if ($hasConfig) {
-            $this->container->get('config')->willReturn($config)->shouldBeCalled();
-        } else {
-            $this->container->get('config')->shouldNotBeCalled();
+            $this->container->set('config', $config);
         }
 
         $this->expectException(Exception\InvalidConfigException::class);
         $this->expectExceptionMessage($expectedMessage);
 
-        ($this->factory)($this->container->reveal());
+        ($this->factory)($this->container);
     }
 
-    public function testValidConfigurationResultsInReturnedPdoServiceInstance()
+    public function testValidConfigurationResultsInReturnedPdoServiceInstance(): void
     {
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([
+        $this->container->set('config', [
             'authentication' => [
                 'pdo' => [
                     'dsn' => 'sqlite::memory:',
@@ -67,43 +64,38 @@ class PdoServiceFactoryTest extends TestCase
             ],
         ]);
 
-        $pdo = ($this->factory)($this->container->reveal());
+        $pdo = ($this->factory)($this->container);
 
-        $this->assertInstanceOf(PdoService::class, $pdo);
+        self::assertInstanceOf(PdoService::class, $pdo);
     }
 
-    public function testValidServiceInConfigurationReturnsPdoService()
+    public function testValidServiceInConfigurationReturnsPdoService(): void
     {
-        $mockPdo = $this->prophesize(PDO::class);
+        $mockPdo = $this->createMock(PDO::class);
 
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([
+        $this->container->set('config', [
             'authentication' => [
                 'pdo' => 'My\Pdo\Service',
             ],
         ]);
 
-        $this->container->has('My\Pdo\Service')->willReturn(true);
-        $this->container->get('My\Pdo\Service')->willReturn($mockPdo->reveal());
+        $this->container->set('My\Pdo\Service', $mockPdo);
 
-        $pdo = ($this->factory)($this->container->reveal());
+        $pdo = ($this->factory)($this->container);
 
-        $this->assertInstanceOf(PDO::class, $pdo);
+        self::assertInstanceOf(PDO::class, $pdo);
     }
 
-    public function testRaisesExceptionIfPdoServiceIsInvalid()
+    public function testRaisesExceptionIfPdoServiceIsInvalid(): void
     {
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([
+        $this->container->set('config', [
             'authentication' => [
                 'pdo' => 'My\Invalid\Service',
             ],
         ]);
 
-        $this->container->has('My\Invalid\Service')->willReturn(false);
-
         $this->expectException(Exception\InvalidConfigException::class);
 
-        ($this->factory)($this->container->reveal());
+        ($this->factory)($this->container);
     }
 }

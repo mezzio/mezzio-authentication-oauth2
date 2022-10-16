@@ -9,18 +9,15 @@ use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Grant\AuthCodeGrantFactory;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class AuthCodeGrantFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    public function testInvoke()
+    public function testInvoke(): void
     {
-        $mockContainer        = $this->prophesize(ContainerInterface::class);
-        $mockAuthRepo         = $this->prophesize(AuthCodeRepositoryInterface::class);
-        $mockRefreshTokenRepo = $this->prophesize(RefreshTokenRepositoryInterface::class);
+        $mockContainer        = $this->createMock(ContainerInterface::class);
+        $mockAuthRepo         = $this->createMock(AuthCodeRepositoryInterface::class);
+        $mockRefreshTokenRepo = $this->createMock(RefreshTokenRepositoryInterface::class);
 
         $config = [
             'authentication' => [
@@ -29,16 +26,25 @@ class AuthCodeGrantFactoryTest extends TestCase
             ],
         ];
 
-        $mockContainer->has(AuthCodeRepositoryInterface::class)->willReturn(true);
-        $mockContainer->has(RefreshTokenRepositoryInterface::class)->willReturn(true);
-        $mockContainer->get('config')->willReturn($config);
-        $mockContainer->get(AuthCodeRepositoryInterface::class)->willReturn($mockAuthRepo->reveal());
-        $mockContainer->get(RefreshTokenRepositoryInterface::class)->willReturn($mockRefreshTokenRepo->reveal());
+        $mockContainer->expects(self::exactly(2))
+            ->method('has')
+            ->willReturnMap([
+                [AuthCodeRepositoryInterface::class, true],
+                [RefreshTokenRepositoryInterface::class, true],
+            ]);
+
+        $mockContainer->expects(self::atLeast(3))
+            ->method('get')
+            ->willReturnMap([
+                ['config', $config],
+                [AuthCodeRepositoryInterface::class, $mockAuthRepo],
+                [RefreshTokenRepositoryInterface::class, $mockRefreshTokenRepo],
+            ]);
 
         $factory = new AuthCodeGrantFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer);
 
-        $this->assertInstanceOf(AuthCodeGrant::class, $result);
+        self::assertInstanceOf(AuthCodeGrant::class, $result);
     }
 }

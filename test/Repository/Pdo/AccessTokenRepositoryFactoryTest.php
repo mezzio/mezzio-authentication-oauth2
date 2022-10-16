@@ -7,30 +7,31 @@ namespace MezzioTest\Authentication\OAuth2\Repository\Pdo;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\AccessTokenRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\AccessTokenRepositoryFactory;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class AccessTokenRepositoryFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    private ObjectProphecy $container;
+    /** @var ContainerInterface&MockObject */
+    private ContainerInterface $container;
+    /** @var PdoService&MockObject */
+    private PdoService $pdo;
 
     protected function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
-        $this->pdo       = $this->prophesize(PdoService::class);
+        $this->container = $this->createMock(ContainerInterface::class);
+        $this->pdo       = $this->createMock(PdoService::class);
     }
 
-    public function testFactory()
+    public function testFactory(): void
     {
-        $this->container
-            ->get(PdoService::class)
-            ->willReturn($this->pdo->reveal());
+        $this->container->expects(self::once())
+            ->method('get')
+            ->with(PdoService::class)
+            ->willReturn($this->pdo);
 
-        $factory = (new AccessTokenRepositoryFactory())($this->container->reveal());
-        $this->assertInstanceOf(AccessTokenRepository::class, $factory);
+        $factory = (new AccessTokenRepositoryFactory())($this->container);
+        self::assertInstanceOf(AccessTokenRepository::class, $factory);
     }
 }

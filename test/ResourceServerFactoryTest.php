@@ -10,13 +10,9 @@ use League\OAuth2\Server\ResourceServer;
 use Mezzio\Authentication\OAuth2\Exception;
 use Mezzio\Authentication\OAuth2\ResourceServerFactory;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Psr\Container\ContainerInterface;
 
 class ResourceServerFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     private const PUBLIC_KEY = __DIR__ . '/TestAsset/public.key';
 
     private const PUBLIC_KEY_EXTENDED = [
@@ -25,67 +21,60 @@ class ResourceServerFactoryTest extends TestCase
         'key_permissions_check' => false,
     ];
 
+    private InMemoryContainer $container;
+
     protected function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = new InMemoryContainer();
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $factory = new ResourceServerFactory();
-        $this->assertInstanceOf(ResourceServerFactory::class, $factory);
+        self::assertInstanceOf(ResourceServerFactory::class, $factory);
     }
 
-    public function testInvokeWithEmptyConfig()
+    public function testInvokeWithEmptyConfig(): void
     {
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([]);
+        $this->container->set('config', []);
         $factory = new ResourceServerFactory();
 
         $this->expectException(Exception\InvalidConfigException::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
-    public function testInvokeWithConfigWithoutRepository()
+    public function testInvokeWithConfigWithoutRepository(): void
     {
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([
+        $this->container->set('config', [
             'authentication' => [
                 'public_key' => self::PUBLIC_KEY,
             ],
         ]);
-        $this->container
-            ->has(AccessTokenRepositoryInterface::class)
-            ->willReturn(false);
 
         $factory = new ResourceServerFactory();
 
         $this->expectException(Exception\InvalidConfigException::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
-    public function testInvokeWithConfigAndRepository()
+    public function testInvokeWithConfigAndRepository(): void
     {
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([
+        $this->container->set('config', [
             'authentication' => [
                 'public_key' => self::PUBLIC_KEY,
             ],
         ]);
-        $this->container
-            ->has(AccessTokenRepositoryInterface::class)
-            ->willReturn(true);
-        $this->container
-            ->get(AccessTokenRepositoryInterface::class)
-            ->willReturn(
-                $this->prophesize(AccessTokenRepositoryInterface::class)->reveal()
-            );
+        $this->container->set(
+            AccessTokenRepositoryInterface::class,
+            $this->createMock(AccessTokenRepositoryInterface::class)
+        );
 
         $factory        = new ResourceServerFactory();
-        $resourceServer = $factory($this->container->reveal());
-        $this->assertInstanceOf(ResourceServer::class, $resourceServer);
+        $resourceServer = $factory($this->container);
+        self::assertInstanceOf(ResourceServer::class, $resourceServer);
     }
 
+    /** @return Generator<array-key, array{0: array}> */
     public function getExtendedKeyConfigs(): Generator
     {
         $extendedConfig = self::PUBLIC_KEY_EXTENDED;
@@ -102,28 +91,24 @@ class ResourceServerFactoryTest extends TestCase
     /**
      * @dataProvider getExtendedKeyConfigs
      */
-    public function testInvokeWithValidExtendedKey(array $keyConfig)
+    public function testInvokeWithValidExtendedKey(array $keyConfig): void
     {
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([
+        $this->container->set('config', [
             'authentication' => [
                 'public_key' => $keyConfig,
             ],
         ]);
-        $this->container
-            ->has(AccessTokenRepositoryInterface::class)
-            ->willReturn(true);
-        $this->container
-            ->get(AccessTokenRepositoryInterface::class)
-            ->willReturn(
-                $this->prophesize(AccessTokenRepositoryInterface::class)->reveal()
-            );
+        $this->container->set(
+            AccessTokenRepositoryInterface::class,
+            $this->createMock(AccessTokenRepositoryInterface::class)
+        );
 
         $factory        = new ResourceServerFactory();
-        $resourceServer = $factory($this->container->reveal());
-        $this->assertInstanceOf(ResourceServer::class, $resourceServer);
+        $resourceServer = $factory($this->container);
+        self::assertInstanceOf(ResourceServer::class, $resourceServer);
     }
 
+    /** @return Generator<array-key, array{0: array}> */
     public function getInvalidExtendedKeyConfigs(): Generator
     {
         $extendedConfig = self::PUBLIC_KEY_EXTENDED;
@@ -135,26 +120,21 @@ class ResourceServerFactoryTest extends TestCase
     /**
      * @dataProvider getInvalidExtendedKeyConfigs
      */
-    public function testInvokeWithInvalidExtendedKey(array $keyConfig)
+    public function testInvokeWithInvalidExtendedKey(array $keyConfig): void
     {
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([
+        $this->container->set('config', [
             'authentication' => [
                 'public_key' => $keyConfig,
             ],
         ]);
-        $this->container
-            ->has(AccessTokenRepositoryInterface::class)
-            ->willReturn(true);
-        $this->container
-            ->get(AccessTokenRepositoryInterface::class)
-            ->willReturn(
-                $this->prophesize(AccessTokenRepositoryInterface::class)->reveal()
-            );
+        $this->container->set(
+            AccessTokenRepositoryInterface::class,
+            $this->createMock(AccessTokenRepositoryInterface::class)
+        );
 
         $factory = new ResourceServerFactory();
 
         $this->expectException(Exception\InvalidConfigException::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 }

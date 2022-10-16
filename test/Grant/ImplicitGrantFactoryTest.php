@@ -7,16 +7,13 @@ namespace MezzioTest\Authentication\OAuth2\Grant;
 use League\OAuth2\Server\Grant\ImplicitGrant;
 use Mezzio\Authentication\OAuth2\Grant\ImplicitGrantFactory;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class ImplicitGrantFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    public function testInvoke()
+    public function testInvoke(): void
     {
-        $mockContainer = $this->prophesize(ContainerInterface::class);
+        $mockContainer = $this->createMock(ContainerInterface::class);
 
         $config = [
             'authentication' => [
@@ -24,12 +21,15 @@ class ImplicitGrantFactoryTest extends TestCase
             ],
         ];
 
-        $mockContainer->get('config')->willReturn($config);
+        $mockContainer->expects(self::once())
+            ->method('get')
+            ->with('config')
+            ->willReturn($config);
 
         $factory = new ImplicitGrantFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer);
 
-        $this->assertInstanceOf(ImplicitGrant::class, $result);
+        self::assertInstanceOf(ImplicitGrant::class, $result);
     }
 }

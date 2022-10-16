@@ -6,17 +6,21 @@ namespace MezzioTest\Authentication\OAuth2;
 
 use Mezzio\Authentication\OAuth2\ConfigTrait;
 use Mezzio\Authentication\OAuth2\Exception;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class ConfigTraitTest extends TestCase
 {
-    use ProphecyTrait;
+    private object $trait;
+    /** @var array{authentication: array<string, mixed>} */
+    private array $config;
+    /** @var ContainerInterface&MockObject */
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
-        $this->trait     = $trait = new class {
+        $this->trait     = new class {
             use ConfigTrait;
 
             /**
@@ -37,29 +41,33 @@ class ConfigTraitTest extends TestCase
                 'grants'               => ['xxx'],
             ],
         ];
-        $this->container = $this->prophesize(ContainerInterface::class);
-        $this->container
-            ->get('config')
-            ->willReturn($this->config);
+        $this->container = $this->createMock(ContainerInterface::class);
     }
 
-    public function testGetPrivateKeyWhenNoConfigPresentWillResultInAnException()
+    private function containerHasConfig(array $config): void
     {
-        $this->container
-            ->get('config')
-            ->willReturn([]);
+        $this->container->expects(self::once())
+            ->method('get')
+            ->with('config')
+            ->willReturn($config);
+    }
+
+    public function testGetPrivateKeyWhenNoConfigPresentWillResultInAnException(): void
+    {
+        $this->containerHasConfig([]);
 
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getPrivateKey', $this->container->reveal());
+        $this->trait->proxy('getPrivateKey', $this->container);
     }
 
-    public function testGetPrivateKey()
+    public function testGetPrivateKey(): void
     {
-        $result = $this->trait->proxy('getPrivateKey', $this->container->reveal());
-        $this->assertEquals($this->config['authentication']['private_key'], $result);
+        $this->containerHasConfig($this->config);
+        $result = $this->trait->proxy('getPrivateKey', $this->container);
+        self::assertEquals($this->config['authentication']['private_key'], $result);
     }
 
-    public function testGetPrivateKeyArray()
+    public function testGetPrivateKeyArray(): void
     {
         $config = [
             'authentication' => [
@@ -71,181 +79,165 @@ class ConfigTraitTest extends TestCase
             ],
         ];
 
-        $this->container
-            ->get('config')
-            ->willReturn($config);
+        $this->containerHasConfig($config);
 
-        $result = $this->trait->proxy('getPrivateKey', $this->container->reveal());
-        $this->assertEquals($config['authentication']['private_key'], $result);
+        $result = $this->trait->proxy('getPrivateKey', $this->container);
+        self::assertEquals($config['authentication']['private_key'], $result);
     }
 
-    public function testGetEncryptionKeyNoConfig()
+    public function testGetEncryptionKeyNoConfig(): void
     {
-        $this->container
-            ->get('config')
-            ->willReturn([]);
+        $this->containerHasConfig([]);
 
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getEncryptionKey', $this->container->reveal());
+        $this->trait->proxy('getEncryptionKey', $this->container);
     }
 
-    public function testGetEncryptionKey()
+    public function testGetEncryptionKey(): void
     {
-        $result = $this->trait->proxy('getEncryptionKey', $this->container->reveal());
-        $this->assertEquals($this->config['authentication']['encryption_key'], $result);
+        $this->containerHasConfig($this->config);
+        $result = $this->trait->proxy('getEncryptionKey', $this->container);
+        self::assertEquals($this->config['authentication']['encryption_key'], $result);
     }
 
-    public function testGetAccessTokenExpireNoConfig()
+    public function testGetAccessTokenExpireNoConfig(): void
     {
-        $this->container
-            ->get('config')
-            ->willReturn([]);
+        $this->containerHasConfig([]);
 
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getAccessTokenExpire', $this->container->reveal());
+        $this->trait->proxy('getAccessTokenExpire', $this->container);
     }
 
-    public function testGetAccessTokenExpire()
+    public function testGetAccessTokenExpire(): void
     {
-        $result = $this->trait->proxy('getAccessTokenExpire', $this->container->reveal());
-        $this->assertEquals($this->config['authentication']['access_token_expire'], $result);
+        $this->containerHasConfig($this->config);
+
+        $result = $this->trait->proxy('getAccessTokenExpire', $this->container);
+        self::assertEquals($this->config['authentication']['access_token_expire'], $result);
     }
 
-    public function testGetRefreshTokenExpireNoConfig()
+    public function testGetRefreshTokenExpireNoConfig(): void
     {
-        $this->container
-            ->get('config')
-            ->willReturn([]);
+        $this->containerHasConfig([]);
 
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getRefreshTokenExpire', $this->container->reveal());
+        $this->trait->proxy('getRefreshTokenExpire', $this->container);
     }
 
-    public function testGetRefreshTokenExpire()
+    public function testGetRefreshTokenExpire(): void
     {
-        $result = $this->trait->proxy('getRefreshTokenExpire', $this->container->reveal());
-        $this->assertEquals($this->config['authentication']['refresh_token_expire'], $result);
+        $this->containerHasConfig($this->config);
+
+        $result = $this->trait->proxy('getRefreshTokenExpire', $this->container);
+        self::assertEquals($this->config['authentication']['refresh_token_expire'], $result);
     }
 
-    public function testGetAuthCodeExpireNoConfig()
+    public function testGetAuthCodeExpireNoConfig(): void
     {
-        $this->container
-            ->get('config')
-            ->willReturn([]);
+        $this->containerHasConfig([]);
 
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getAuthCodeExpire', $this->container->reveal());
+        $this->trait->proxy('getAuthCodeExpire', $this->container);
     }
 
-    public function testGetAuthCodeExpire()
+    public function testGetAuthCodeExpire(): void
     {
-        $result = $this->trait->proxy('getAuthCodeExpire', $this->container->reveal());
-        $this->assertEquals($this->config['authentication']['auth_code_expire'], $result);
+        $this->containerHasConfig($this->config);
+
+        $result = $this->trait->proxy('getAuthCodeExpire', $this->container);
+        self::assertEquals($this->config['authentication']['auth_code_expire'], $result);
     }
 
-    public function testGetGrantsConfigNoConfig()
+    public function testGetGrantsConfigNoConfig(): void
     {
-        $this->container
-            ->get('config')
-            ->willReturn([]);
+        $this->containerHasConfig([]);
 
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getGrantsConfig', $this->container->reveal());
+        $this->trait->proxy('getGrantsConfig', $this->container);
     }
 
-    public function testGetGrantsConfigNoArrayValue()
+    public function testGetGrantsConfigNoArrayValue(): void
     {
-        $this->container
-            ->get('config')
-            ->willReturn([
-                'authentication' => [
-                    'grants' => 'xxx',
-                ],
-            ]);
+        $this->containerHasConfig([
+            'authentication' => [
+                'grants' => 'xxx',
+            ],
+        ]);
 
         $this->expectException(Exception\InvalidConfigException::class);
-        $this->trait->proxy('getGrantsConfig', $this->container->reveal());
+        $this->trait->proxy('getGrantsConfig', $this->container);
     }
 
-    public function testGetGrantsConfig()
+    public function testGetGrantsConfig(): void
     {
-        $result = $this->trait->proxy('getGrantsConfig', $this->container->reveal());
-        $this->assertEquals($this->config['authentication']['grants'], $result);
+        $this->containerHasConfig($this->config);
+
+        $result = $this->trait->proxy('getGrantsConfig', $this->container);
+        self::assertEquals($this->config['authentication']['grants'], $result);
     }
 
-    public function testGetListenersConfigNoConfig()
+    public function testGetListenersConfigNoConfig(): void
     {
-        $this->container
-            ->get('config')
-            ->willReturn([]);
+        $this->containerHasConfig([]);
+
         $result = $this->trait
-            ->proxy('getListenersConfig', $this->container->reveal());
-        $this->assertIsArray($result);
+            ->proxy('getListenersConfig', $this->container);
+        self::assertIsArray($result);
     }
 
-    public function testGetListenersConfigNoArrayValue()
+    public function testGetListenersConfigNoArrayValue(): void
     {
         $this->expectException(Exception\InvalidConfigException::class);
 
-        $this->container
-            ->get('config')
-            ->willReturn([
-                'authentication' => [
-                    'event_listeners' => 'xxx',
-                ],
-            ]);
+        $this->containerHasConfig([
+            'authentication' => [
+                'event_listeners' => 'xxx',
+            ],
+        ]);
 
-        $this->trait->proxy('getListenersConfig', $this->container->reveal());
+        $this->trait->proxy('getListenersConfig', $this->container);
     }
 
-    public function testGetListenersConfig()
+    public function testGetListenersConfig(): void
     {
-        $this->container->get('config')
-            ->willReturn([
-                'authentication' => [
-                    'event_listeners' => $expected = [['xxx']],
-                ],
-            ]);
-        $result = $this->trait
-            ->proxy('getListenersConfig', $this->container->reveal());
-        $this->assertEquals($expected, $result);
+        $this->containerHasConfig([
+            'authentication' => [
+                'event_listeners' => $expected = [['xxx']],
+            ],
+        ]);
+        $result = $this->trait->proxy('getListenersConfig', $this->container);
+        self::assertEquals($expected, $result);
     }
 
-    public function testGetListenerProvidersConfigNoConfig()
+    public function testGetListenerProvidersConfigNoConfig(): void
     {
-        $this->container
-            ->get('config')
-            ->willReturn([]);
-        $result = $this->trait
-            ->proxy('getListenerProvidersConfig', $this->container->reveal());
-        $this->assertIsArray($result);
+        $this->containerHasConfig([]);
+
+        $result = $this->trait->proxy('getListenerProvidersConfig', $this->container);
+        self::assertIsArray($result);
     }
 
-    public function testGetListenerProvidersConfigNoArrayValue()
+    public function testGetListenerProvidersConfigNoArrayValue(): void
     {
         $this->expectException(Exception\InvalidConfigException::class);
 
-        $this->container
-            ->get('config')
-            ->willReturn([
-                'authentication' => [
-                    'event_listener_providers' => 'xxx',
-                ],
-            ]);
+        $this->containerHasConfig([
+            'authentication' => [
+                'event_listener_providers' => 'xxx',
+            ],
+        ]);
 
-        $this->trait->proxy('getListenerProvidersConfig', $this->container->reveal());
+        $this->trait->proxy('getListenerProvidersConfig', $this->container);
     }
 
-    public function testGetListenerProvidersConfig()
+    public function testGetListenerProvidersConfig(): void
     {
-        $this->container->get('config')
-            ->willReturn([
-                'authentication' => [
-                    'event_listener_providers' => $expected = ['xxx'],
-                ],
-            ]);
-        $result = $this->trait
-            ->proxy('getListenerProvidersConfig', $this->container->reveal());
-        $this->assertEquals($expected, $result);
+        $this->containerHasConfig([
+            'authentication' => [
+                'event_listener_providers' => $expected = ['xxx'],
+            ],
+        ]);
+        $result = $this->trait->proxy('getListenerProvidersConfig', $this->container);
+        self::assertEquals($expected, $result);
     }
 }

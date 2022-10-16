@@ -16,22 +16,17 @@ use League\OAuth2\Server\RequestEvent;
 use Mezzio\Authentication\OAuth2\AuthorizationServerFactory;
 use Mezzio\Authentication\OAuth2\Exception\InvalidConfigException;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
-use Psr\Container\ContainerInterface;
 
 class AuthorizationServerFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    public function testInvoke()
+    public function testInvoke(): void
     {
-        $mockContainer       = $this->prophesize(ContainerInterface::class);
-        $mockClientRepo      = $this->prophesize(ClientRepositoryInterface::class);
-        $mockAccessTokenRepo = $this->prophesize(AccessTokenRepositoryInterface::class);
-        $mockScopeRepo       = $this->prophesize(ScopeRepositoryInterface::class);
-        $mockClientGrant     = $this->prophesize(ClientCredentialsGrant::class);
-        $mockPasswordGrant   = $this->prophesize(PasswordGrant::class);
+        $container           = new InMemoryContainer();
+        $mockClientRepo      = $this->createMock(ClientRepositoryInterface::class);
+        $mockAccessTokenRepo = $this->createMock(AccessTokenRepositoryInterface::class);
+        $mockScopeRepo       = $this->createMock(ScopeRepositoryInterface::class);
+        $mockClientGrant     = $this->createMock(ClientCredentialsGrant::class);
+        $mockPasswordGrant   = $this->createMock(PasswordGrant::class);
 
         $config = [
             'authentication' => [
@@ -45,47 +40,39 @@ class AuthorizationServerFactoryTest extends TestCase
             ],
         ];
 
-        $mockContainer->has(ClientRepositoryInterface::class)->willReturn(true);
-        $mockContainer->has(AccessTokenRepositoryInterface::class)->willReturn(true);
-        $mockContainer->has(ScopeRepositoryInterface::class)->willReturn(true);
-
-        $mockContainer->get(ClientRepositoryInterface::class)->willReturn($mockClientRepo->reveal());
-        $mockContainer->get(AccessTokenRepositoryInterface::class)->willReturn($mockAccessTokenRepo->reveal());
-        $mockContainer->get(ScopeRepositoryInterface::class)->willReturn($mockScopeRepo->reveal());
-        $mockContainer->get(ClientCredentialsGrant::class)->willReturn($mockClientGrant->reveal());
-        $mockContainer->get(PasswordGrant::class)->willReturn($mockPasswordGrant->reveal());
-        $mockContainer->get('config')->willReturn($config);
+        $container->set(ClientRepositoryInterface::class, $mockClientRepo);
+        $container->set(AccessTokenRepositoryInterface::class, $mockAccessTokenRepo);
+        $container->set(ScopeRepositoryInterface::class, $mockScopeRepo);
+        $container->set(ClientCredentialsGrant::class, $mockClientGrant);
+        $container->set(PasswordGrant::class, $mockPasswordGrant);
+        $container->set('config', $config);
 
         $factory = new AuthorizationServerFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($container);
 
-        $this->assertInstanceOf(AuthorizationServer::class, $result);
+        self::assertInstanceOf(AuthorizationServer::class, $result);
     }
 
-    private function getContainerMock(): ObjectProphecy
+    private function getContainerMock(): InMemoryContainer
     {
-        $mockContainer       = $this->prophesize(ContainerInterface::class);
-        $mockClientRepo      = $this->prophesize(ClientRepositoryInterface::class);
-        $mockAccessTokenRepo = $this->prophesize(AccessTokenRepositoryInterface::class);
-        $mockScopeRepo       = $this->prophesize(ScopeRepositoryInterface::class);
-        $mockClientGrant     = $this->prophesize(ClientCredentialsGrant::class);
-        $mockPasswordGrant   = $this->prophesize(PasswordGrant::class);
+        $container           = new InMemoryContainer();
+        $mockClientRepo      = $this->createMock(ClientRepositoryInterface::class);
+        $mockAccessTokenRepo = $this->createMock(AccessTokenRepositoryInterface::class);
+        $mockScopeRepo       = $this->createMock(ScopeRepositoryInterface::class);
+        $mockClientGrant     = $this->createMock(ClientCredentialsGrant::class);
+        $mockPasswordGrant   = $this->createMock(PasswordGrant::class);
 
-        $mockContainer->has(ClientRepositoryInterface::class)->willReturn(true);
-        $mockContainer->has(AccessTokenRepositoryInterface::class)->willReturn(true);
-        $mockContainer->has(ScopeRepositoryInterface::class)->willReturn(true);
+        $container->set(ClientRepositoryInterface::class, $mockClientRepo);
+        $container->set(AccessTokenRepositoryInterface::class, $mockAccessTokenRepo);
+        $container->set(ScopeRepositoryInterface::class, $mockScopeRepo);
+        $container->set(ClientCredentialsGrant::class, $mockClientGrant);
+        $container->set(PasswordGrant::class, $mockPasswordGrant);
 
-        $mockContainer->get(ClientRepositoryInterface::class)->willReturn($mockClientRepo->reveal());
-        $mockContainer->get(AccessTokenRepositoryInterface::class)->willReturn($mockAccessTokenRepo->reveal());
-        $mockContainer->get(ScopeRepositoryInterface::class)->willReturn($mockScopeRepo->reveal());
-        $mockContainer->get(ClientCredentialsGrant::class)->willReturn($mockClientGrant->reveal());
-        $mockContainer->get(PasswordGrant::class)->willReturn($mockPasswordGrant->reveal());
-
-        return $mockContainer;
+        return $container;
     }
 
-    public function testInvokeWithNullGrant()
+    public function testInvokeWithNullGrant(): void
     {
         $mockContainer = $this->getContainerMock();
 
@@ -101,21 +88,20 @@ class AuthorizationServerFactoryTest extends TestCase
             ],
         ];
 
-        $mockContainer->get('config')->willReturn($config);
+        $mockContainer->set('config', $config);
 
         $factory = new AuthorizationServerFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer);
 
-        $this->assertInstanceOf(AuthorizationServer::class, $result);
+        self::assertInstanceOf(AuthorizationServer::class, $result);
     }
 
-    public function testInvokeWithListenerConfig()
+    public function testInvokeWithListenerConfig(): void
     {
         $mockContainer = $this->getContainerMock();
-        $mockListener  = $this->prophesize(ListenerInterface::class);
-        $mockContainer->has(ListenerInterface::class)->willReturn(true);
-        $mockContainer->get(ListenerInterface::class)->willReturn($mockListener->reveal());
+        $mockListener  = $this->createMock(ListenerInterface::class);
+        $mockContainer->set(ListenerInterface::class, $mockListener);
 
         $config = [
             'authentication' => [
@@ -140,20 +126,18 @@ class AuthorizationServerFactoryTest extends TestCase
             ],
         ];
 
-        $mockContainer->get('config')->willReturn($config);
+        $mockContainer->set('config', $config);
 
         $factory = new AuthorizationServerFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer);
 
-        $this->assertInstanceOf(AuthorizationServer::class, $result);
+        self::assertInstanceOf(AuthorizationServer::class, $result);
     }
 
-    public function testInvokeWithListenerConfigMissingServiceThrowsException()
+    public function testInvokeWithListenerConfigMissingServiceThrowsException(): void
     {
         $mockContainer = $this->getContainerMock();
-        $mockListener  = $this->prophesize(ListenerInterface::class);
-        $mockContainer->has(ListenerInterface::class)->willReturn(false);
 
         $config = [
             'authentication' => [
@@ -172,21 +156,20 @@ class AuthorizationServerFactoryTest extends TestCase
             ],
         ];
 
-        $mockContainer->get('config')->willReturn($config);
+        $mockContainer->set('config', $config);
 
         $factory = new AuthorizationServerFactory();
 
         $this->expectException(InvalidConfigException::class);
 
-        $result = $factory($mockContainer->reveal());
+        $factory($mockContainer);
     }
 
-    public function testInvokeWithListenerProviderConfig()
+    public function testInvokeWithListenerProviderConfig(): void
     {
         $mockContainer = $this->getContainerMock();
-        $mockProvider  = $this->prophesize(ListenerProviderInterface::class);
-        $mockContainer->has(ListenerProviderInterface::class)->willReturn(true);
-        $mockContainer->get(ListenerProviderInterface::class)->willReturn($mockProvider->reveal());
+        $mockProvider  = $this->createMock(ListenerProviderInterface::class);
+        $mockContainer->set(ListenerProviderInterface::class, $mockProvider);
 
         $config = [
             'authentication' => [
@@ -202,20 +185,18 @@ class AuthorizationServerFactoryTest extends TestCase
             ],
         ];
 
-        $mockContainer->get('config')->willReturn($config);
+        $mockContainer->set('config', $config);
 
         $factory = new AuthorizationServerFactory();
 
-        $result = $factory($mockContainer->reveal());
+        $result = $factory($mockContainer);
 
-        $this->assertInstanceOf(AuthorizationServer::class, $result);
+        self::assertInstanceOf(AuthorizationServer::class, $result);
     }
 
-    public function testInvokeWithListenerProviderConfigMissingServiceThrowsException()
+    public function testInvokeWithListenerProviderConfigMissingServiceThrowsException(): void
     {
         $mockContainer = $this->getContainerMock();
-        $mockProvider  = $this->prophesize(ListenerProviderInterface::class);
-        $mockContainer->has(ListenerProviderInterface::class)->willReturn(false);
 
         $config = [
             'authentication' => [
@@ -231,11 +212,11 @@ class AuthorizationServerFactoryTest extends TestCase
             ],
         ];
 
-        $mockContainer->get('config')->willReturn($config);
+        $mockContainer->set('config', $config);
 
         $factory = new AuthorizationServerFactory();
 
         $this->expectException(InvalidConfigException::class);
-        $factory($mockContainer->reveal());
+        $factory($mockContainer);
     }
 }

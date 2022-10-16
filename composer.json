@@ -26,7 +26,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "platform": {
-            "php": "7.4.99"
+            "php": "8.0.99"
         }
     },
     "extra": {
@@ -35,8 +35,8 @@
         }
     },
     "require": {
-        "php": "^7.4 || ~8.0.0 || ~8.1.0",
-        "league/oauth2-server": "^8.3.3",
+        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+        "league/oauth2-server": "^8.3.5",
         "mezzio/mezzio-authentication": "^1.0",
         "psr/container": "^1.0 || ^2.0",
         "psr/http-factory": "^1.0",
@@ -46,15 +46,15 @@
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.4.0",
-        "laminas/laminas-diactoros": "^2.17",
-        "laminas/laminas-servicemanager": "^3.16.0",
-        "phpspec/prophecy-phpunit": "^2.0",
-        "phpunit/phpunit": "^9.5.11",
+        "laminas/laminas-diactoros": "^2.19",
+        "laminas/laminas-servicemanager": "^3.19",
+        "phpunit/phpunit": "^9.5.25",
         "psalm/plugin-phpunit": "^0.17.0",
-        "vimeo/psalm": "^4.27.0"
+        "vimeo/psalm": "^4.29"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2.0",
+        "lcobucci/jwt": "<4",
         "zendframework/zend-expressive-authentication-oauth2": "*"
     },
     "autoload": {

@@ -12,10 +12,10 @@ use function method_exists;
 
 trait TimestampableTrait
 {
-    /** @var DateTime */
+    /** @var DateTimeInterface */
     protected $createdAt;
 
-    /** @var DateTime */
+    /** @var DateTimeInterface */
     protected $updatedAt;
 
     public function getCreatedAt(): DateTimeInterface

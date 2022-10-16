@@ -9,8 +9,6 @@ use League\OAuth2\Server\Exception\OAuthServerException;
 use Mezzio\Authentication\OAuth2\Exception\RuntimeException;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -19,8 +17,7 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class TokenEndpointHandlerTest extends TestCase
 {
-    use ProphecyTrait;
-
+    /** @return callable(): ResponseInterface */
     private function createResponseFactory(?ResponseInterface $response = null): callable
     {
         return function () use ($response): ResponseInterface {
@@ -33,58 +30,62 @@ class TokenEndpointHandlerTest extends TestCase
         };
     }
 
-    public function testHandleUsesAuthorizationServer()
+    public function testHandleUsesAuthorizationServer(): void
     {
-        $server   = $this->prophesize(AuthorizationServer::class);
-        $request  = $this->prophesize(ServerRequestInterface::class);
+        $server   = $this->createMock(AuthorizationServer::class);
+        $request  = $this->createMock(ServerRequestInterface::class);
         $response = $this->createMock(ResponseInterface::class);
         $response
             ->method('withStatus')
             ->willReturnSelf();
         $expectedResponse = $response;
 
-        $server->respondToAccessTokenRequest($request->reveal(), $expectedResponse)
-            ->shouldBeCalled()
+        $server->expects(self::once())
+            ->method('respondToAccessTokenRequest')
+            ->with($request, $expectedResponse)
             ->willReturn($expectedResponse);
 
-        $subject = new TokenEndpointHandler($server->reveal(), $this->createResponseFactory($expectedResponse));
-        self::assertSame($expectedResponse, $subject->handle($request->reveal()));
+        $subject = new TokenEndpointHandler($server, $this->createResponseFactory($expectedResponse));
+        self::assertSame($expectedResponse, $subject->handle($request));
     }
 
-    public function testOAuthExceptionProducesResult()
+    public function testOAuthExceptionProducesResult(): void
     {
-        $server   = $this->prophesize(AuthorizationServer::class);
-        $request  = $this->prophesize(ServerRequestInterface::class);
+        $server   = $this->createMock(AuthorizationServer::class);
+        $request  = $this->createMock(ServerRequestInterface::class);
         $response = $this->createMock(ResponseInterface::class);
         $response
             ->method('withStatus')
             ->willReturnSelf();
-        $exception        = $this->prophesize(OAuthServerException::class);
+        $exception        = $this->createMock(OAuthServerException::class);
         $expectedResponse = $response;
 
-        $server->respondToAccessTokenRequest(Argument::cetera())
-            ->willThrow($exception->reveal());
+        $server->expects(self::once())
+            ->method('respondToAccessTokenRequest')
+            ->willThrowException($exception);
 
-        $exception->generateHttpResponse($expectedResponse, Argument::cetera())
-            ->shouldBeCalled()
+        $exception->expects(self::once())
+            ->method('generateHttpResponse')
+            ->with($expectedResponse)
             ->willReturn($expectedResponse);
 
-        $subject = new TokenEndpointHandler($server->reveal(), $this->createResponseFactory($expectedResponse));
-        self::assertSame($expectedResponse, $subject->handle($request->reveal()));
+        $subject = new TokenEndpointHandler($server, $this->createResponseFactory($expectedResponse));
+        self::assertSame($expectedResponse, $subject->handle($request));
     }
 
-    public function testGenericExceptionsFallsThrough()
+    public function testGenericExceptionsFallsThrough(): void
     {
-        $server    = $this->prophesize(AuthorizationServer::class);
-        $request   = $this->prophesize(ServerRequestInterface::class);
+        $server    = $this->createMock(AuthorizationServer::class);
+        $request   = $this->createMock(ServerRequestInterface::class);
         $exception = new RuntimeException();
 
-        $server->respondToAccessTokenRequest(Argument::cetera())
-            ->willThrow($exception);
+        $server->expects(self::once())
+            ->method('respondToAccessTokenRequest')
+            ->willThrowException($exception);
 
-        $subject = new TokenEndpointHandler($server->reveal(), $this->createResponseFactory());
+        $subject = new TokenEndpointHandler($server, $this->createResponseFactory());
 
         $this->expectException(RuntimeException::class);
-        $subject->handle($request->reveal());
+        $subject->handle($request);
     }
 }

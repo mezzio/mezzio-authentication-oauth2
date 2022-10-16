@@ -8,29 +8,19 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\ClientRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\ClientRepositoryFactory;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
 class ClientRepositoryFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    private ObjectProphecy $container;
-
-    protected function setUp(): void
+    public function testFactory(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
-        $this->pdo       = $this->prophesize(PdoService::class);
-    }
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects(self::once())
+            ->method('get')
+            ->with(PdoService::class)
+            ->willReturn($this->createMock(PdoService::class));
 
-    public function testFactory()
-    {
-        $this->container
-            ->get(PdoService::class)
-            ->willReturn($this->pdo->reveal());
-
-        $factory = (new ClientRepositoryFactory())($this->container->reveal());
-        $this->assertInstanceOf(ClientRepository::class, $factory);
+        $factory = (new ClientRepositoryFactory())($container);
+        self::assertInstanceOf(ClientRepository::class, $factory);
     }
 }

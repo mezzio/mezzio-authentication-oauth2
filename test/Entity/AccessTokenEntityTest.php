@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class AccessTokenEntityTest extends TestCase
 {
-    public function testImplementsInstanceAccessTokenEntityInterface()
+    public function testImplementsInstanceAccessTokenEntityInterface(): void
     {
         $entity = new AccessTokenEntity();
         $this->assertInstanceOf(AccessTokenEntityInterface::class, $entity);
