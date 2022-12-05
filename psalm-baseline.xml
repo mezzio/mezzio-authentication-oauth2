@@ -64,23 +64,6 @@
       <code>$priority</code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/ConfigProvider.php">
-    <UndefinedClass occurrences="13">
-      <code>\Zend\Expressive\Authentication\AuthenticationInterface</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\AuthorizationHandler</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\AuthorizationMiddleware</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\OAuth2Adapter</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\PasswordGrant</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AccessTokenRepository</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ClientRepository</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\PdoService</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ScopeRepository</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\Repository\Pdo\UserRepository</code>
-      <code>\Zend\Expressive\Authentication\OAuth2\TokenEndpointHandler</code>
-    </UndefinedClass>
-  </file>
   <file src="src/ConfigTrait.php">
     <MixedInferredReturnType occurrences="5">
       <code>non-empty-string|non-empty-array</code>
@@ -355,11 +338,6 @@
     <MixedArgument occurrences="1">
       <code>$container-&gt;get(AuthorizationServer::class)</code>
     </MixedArgument>
-  </file>
-  <file src="test/AuthorizationHandlerFactoryTest.php">
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>(new ConfigProvider())-&gt;getDependencies()</code>
-    </MixedArgumentTypeCoercion>
   </file>
   <file src="test/AuthorizationServerFactoryTest.php">
     <UnusedClosureParam occurrences="1">
