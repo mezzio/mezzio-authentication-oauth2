@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mezzio\Authentication\OAuth2;
 
+use Laminas\ServiceManager\ConfigInterface;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Grant\AuthCodeGrant;
 use League\OAuth2\Server\Grant\ClientCredentialsGrant;
@@ -27,6 +28,7 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo;
 
 /**
  * @codeCoverageIgnore
+ * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
  */
 class ConfigProvider
 {
@@ -44,6 +46,8 @@ class ConfigProvider
 
     /**
      * Returns the container dependencies
+     *
+     * @return ServiceManagerConfigurationType
      */
     public function getDependencies(): array
     {
@@ -60,19 +64,19 @@ class ConfigProvider
 
                 // Legacy Zend Framework aliases
                 // @codingStandardsIgnoreStart
-                \Zend\Expressive\Authentication\AuthenticationInterface::class => AuthenticationInterface::class,
-                \Zend\Expressive\Authentication\OAuth2\AuthorizationMiddleware::class => AuthorizationMiddleware::class,
-                \Zend\Expressive\Authentication\OAuth2\AuthorizationHandler::class => AuthorizationHandler::class,
-                \Zend\Expressive\Authentication\OAuth2\TokenEndpointHandler::class => TokenEndpointHandler::class,
-                \Zend\Expressive\Authentication\OAuth2\OAuth2Adapter::class => OAuth2Adapter::class,
-                \Zend\Expressive\Authentication\OAuth2\Repository\Pdo\PdoService::class => Pdo\PdoService::class,
-                \Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AccessTokenRepository::class => Pdo\AccessTokenRepository::class,
-                \Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository::class => Pdo\AuthCodeRepository::class,
-                \Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ClientRepository::class => Pdo\ClientRepository::class,
-                \Zend\Expressive\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository::class => Pdo\RefreshTokenRepository::class,
-                \Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ScopeRepository::class => Pdo\ScopeRepository::class,
-                \Zend\Expressive\Authentication\OAuth2\Repository\Pdo\UserRepository::class => Pdo\UserRepository::class,
-                \Zend\Expressive\Authentication\OAuth2\PasswordGrant::class => PasswordGrant::class,
+                'Zend\Expressive\Authentication\AuthenticationInterface' => AuthenticationInterface::class,
+                'Zend\Expressive\Authentication\OAuth2\AuthorizationMiddleware' => AuthorizationMiddleware::class,
+                'Zend\Expressive\Authentication\OAuth2\AuthorizationHandler' => AuthorizationHandler::class,
+                'Zend\Expressive\Authentication\OAuth2\TokenEndpointHandler' => TokenEndpointHandler::class,
+                'Zend\Expressive\Authentication\OAuth2\OAuth2Adapter' => OAuth2Adapter::class,
+                'Zend\Expressive\Authentication\OAuth2\Repository\Pdo\PdoService' => Pdo\PdoService::class,
+                'Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AccessTokenRepository' => Pdo\AccessTokenRepository::class,
+                'Zend\Expressive\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository' => Pdo\AuthCodeRepository::class,
+                'Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ClientRepository' => Pdo\ClientRepository::class,
+                'Zend\Expressive\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository' => Pdo\RefreshTokenRepository::class,
+                'Zend\Expressive\Authentication\OAuth2\Repository\Pdo\ScopeRepository' => Pdo\ScopeRepository::class,
+                'Zend\Expressive\Authentication\OAuth2\Repository\Pdo\UserRepository' => Pdo\UserRepository::class,
+                'Zend\Expressive\Authentication\OAuth2\PasswordGrant' => PasswordGrant::class,
                 // @codingStandardsIgnoreEnd
             ],
             'factories' => [
