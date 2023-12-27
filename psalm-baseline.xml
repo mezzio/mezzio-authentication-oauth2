@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.0.0@4e177bf0c9f03c17d2fbfd83b7cc9c47605274d8">
+<files psalm-version="5.18.0@b113f3ed0259fd6e212d87c3df80eec95a6abf19">
   <file src="config/oauth2.php">
-    <MixedAssignment occurrences="1">
-      <code>$config['encryption_key']</code>
+    <MixedAssignment>
+      <code><![CDATA[$config['encryption_key']]]></code>
     </MixedAssignment>
-    <UnresolvableInclude occurrences="1">
+    <UnresolvableInclude>
       <code>require $encryptionKeyFile</code>
     </UnresolvableInclude>
   </file>
   <file src="src/AuthorizationHandler.php">
-    <DeprecatedClass occurrences="1"/>
-    <MixedArgument occurrences="1">
+    <DeprecatedClass>
+      <code><![CDATA[new CallableResponseFactoryDecorator(
+                static fn(): ResponseInterface => $responseFactory()
+            )]]></code>
+    </DeprecatedClass>
+    <MixedArgument>
       <code>$authRequest</code>
     </MixedArgument>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$authRequest</code>
     </MixedAssignment>
   </file>
   <file src="src/AuthorizationHandlerFactory.php">
-    <DeprecatedTrait occurrences="1">
+    <DeprecatedTrait>
       <code>Psr17ResponseFactoryTrait</code>
     </DeprecatedTrait>
-    <MixedArgument occurrences="1">
-      <code>$container-&gt;get(AuthorizationServer::class)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(AuthorizationServer::class)]]></code>
     </MixedArgument>
   </file>
   <file src="src/AuthorizationMiddleware.php">
-    <DeprecatedClass occurrences="1"/>
+    <DeprecatedClass>
+      <code><![CDATA[new CallableResponseFactoryDecorator(
+                static fn(): ResponseInterface => $responseFactory()
+            )]]></code>
+    </DeprecatedClass>
   </file>
   <file src="src/AuthorizationMiddlewareFactory.php">
-    <DeprecatedTrait occurrences="1">
+    <DeprecatedTrait>
       <code>Psr17ResponseFactoryTrait</code>
     </DeprecatedTrait>
-    <MixedArgument occurrences="1">
-      <code>$container-&gt;get(AuthorizationServer::class)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(AuthorizationServer::class)]]></code>
     </MixedArgument>
   </file>
   <file src="src/AuthorizationServerFactory.php">
-    <MixedArgument occurrences="6">
-      <code>$container-&gt;get($grant)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get($grant)]]></code>
       <code>$event</code>
       <code>$grant</code>
       <code>$listener</code>
       <code>$priority</code>
       <code>$provider</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="3">
+    <MixedArrayAccess>
       <code>$listenerConfig[0]</code>
       <code>$listenerConfig[1]</code>
       <code>$listenerConfig[2]</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="8">
+    <MixedAssignment>
       <code>$event</code>
       <code>$grant</code>
       <code>$listener</code>
@@ -60,12 +68,12 @@
       <code>$provider</code>
       <code>$provider</code>
     </MixedAssignment>
-    <PossiblyNullArgument occurrences="1">
+    <PossiblyNullArgument>
       <code>$priority</code>
     </PossiblyNullArgument>
   </file>
   <file src="src/ConfigTrait.php">
-    <MixedInferredReturnType occurrences="5">
+    <MixedInferredReturnType>
       <code>non-empty-string|non-empty-array</code>
       <code>string</code>
       <code>string</code>
@@ -74,18 +82,18 @@
     </MixedInferredReturnType>
   </file>
   <file src="src/CryptKeyTrait.php">
-    <MixedArgument occurrences="4">
-      <code>$keyConfig['key_or_path']</code>
-      <code>$keyConfig['key_or_path']</code>
+    <MixedArgument>
+      <code><![CDATA[$keyConfig['key_or_path']]]></code>
+      <code><![CDATA[$keyConfig['key_or_path']]]></code>
       <code>$passPhrase</code>
       <code>$passPhrase</code>
     </MixedArgument>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$passPhrase</code>
     </MixedAssignment>
   </file>
   <file src="src/Entity/ClientEntity.php">
-    <PropertyNotSetInConstructor occurrences="6">
+    <PropertyNotSetInConstructor>
       <code>$passwordClient</code>
       <code>$personalAccessClient</code>
       <code>$secret</code>
@@ -95,7 +103,7 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Entity/RevokableTrait.php">
-    <MissingConstructor occurrences="4">
+    <MissingConstructor>
       <code>$revoked</code>
       <code>$revoked</code>
       <code>$revoked</code>
@@ -103,212 +111,242 @@
     </MissingConstructor>
   </file>
   <file src="src/Entity/TimestampableTrait.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>! $this-&gt;createdAt</code>
-      <code>$this-&gt;createdAt</code>
+    <DocblockTypeContradiction>
+      <code><![CDATA[! $this->createdAt]]></code>
+      <code><![CDATA[$this->createdAt]]></code>
     </DocblockTypeContradiction>
-    <MissingConstructor occurrences="4">
+    <MissingConstructor>
       <code>$createdAt</code>
       <code>$createdAt</code>
       <code>$updatedAt</code>
       <code>$updatedAt</code>
     </MissingConstructor>
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;getTimezone()-&gt;getValue()</code>
+    <MixedArgument>
+      <code><![CDATA[$this->getTimezone()->getValue()]]></code>
     </MixedArgument>
-    <MixedMethodCall occurrences="1">
+    <MixedMethodCall>
       <code>getValue</code>
     </MixedMethodCall>
   </file>
   <file src="src/OAuth2Adapter.php">
-    <DeprecatedClass occurrences="1"/>
-    <InvalidFunctionCall occurrences="1"/>
-    <InvalidMethodCall occurrences="1">
+    <DeprecatedClass>
+      <code><![CDATA[new CallableResponseFactoryDecorator(
+                static fn(): ResponseInterface => $responseFactory()
+            )]]></code>
+    </DeprecatedClass>
+    <InvalidFunctionCall>
+      <code><![CDATA[($this->userFactory)(
+                    $userId,
+                    [],
+                    [
+                        'oauth_user_id'         => $userId,
+                        'oauth_client_id'       => $clientId,
+                        'oauth_access_token_id' => $result->getAttribute('oauth_access_token_id', null),
+                        'oauth_scopes'          => $result->getAttribute('oauth_scopes', null),
+                    ]
+                )]]></code>
+    </InvalidFunctionCall>
+    <InvalidMethodCall>
       <code>createResponse</code>
     </InvalidMethodCall>
-    <InvalidPropertyAssignmentValue occurrences="2">
+    <InvalidPropertyAssignmentValue>
       <code>$responseFactory</code>
+      <code><![CDATA[static fn(string $identity, array $roles = [], array $details = []): UserInterface
+                => $userFactory($identity, $roles, $details)]]></code>
     </InvalidPropertyAssignmentValue>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$clientId</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="3">
+    <MixedInferredReturnType>
       <code>?UserInterface</code>
       <code>ResponseInterface</code>
       <code>UserInterface</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="1">
+    <MixedMethodCall>
       <code>withHeader</code>
     </MixedMethodCall>
-    <MixedReturnStatement occurrences="3">
+    <MixedReturnStatement>
+      <code><![CDATA[$this->responseFactory
+            ->createResponse(401)
+            ->withHeader(
+                'WWW-Authenticate',
+                'Bearer realm="OAuth2 token"'
+            )]]></code>
       <code>$userFactory($identity, $roles, $details)</code>
+      <code><![CDATA[($this->userFactory)(
+                    $userId,
+                    [],
+                    [
+                        'oauth_user_id'         => $userId,
+                        'oauth_client_id'       => $clientId,
+                        'oauth_access_token_id' => $result->getAttribute('oauth_access_token_id', null),
+                        'oauth_scopes'          => $result->getAttribute('oauth_scopes', null),
+                    ]
+                )]]></code>
     </MixedReturnStatement>
   </file>
   <file src="src/OAuth2AdapterFactory.php">
-    <DeprecatedTrait occurrences="1">
+    <DeprecatedTrait>
       <code>Psr17ResponseFactoryTrait</code>
     </DeprecatedTrait>
-    <MixedArgument occurrences="2">
-      <code>$container-&gt;get(UserInterface::class)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(UserInterface::class)]]></code>
       <code>$resourceServer</code>
     </MixedArgument>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$resourceServer</code>
     </MixedAssignment>
   </file>
   <file src="src/Psr17ResponseFactoryTrait.php">
-    <DeprecatedClass occurrences="1">
+    <DeprecatedClass>
       <code>new CallableResponseFactoryDecorator($responseFactory)</code>
     </DeprecatedClass>
-    <InternalClass occurrences="1">
+    <InternalClass>
       <code>new CallableResponseFactoryDecorator($responseFactory)</code>
     </InternalClass>
-    <UndefinedClass occurrences="1">
+    <UndefinedClass>
       <code>ResponseFactoryFactory</code>
     </UndefinedClass>
   </file>
   <file src="src/Repository/Pdo/AbstractRepository.php">
-    <MixedMethodCall occurrences="1">
+    <MixedMethodCall>
       <code>getIdentifier</code>
     </MixedMethodCall>
-    <MixedOperand occurrences="2">
-      <code>$item-&gt;getIdentifier()</code>
+    <MixedOperand>
+      <code><![CDATA[$item->getIdentifier()]]></code>
       <code>$result</code>
     </MixedOperand>
-    <PropertyTypeCoercion occurrences="1">
+    <PropertyTypeCoercion>
       <code>$pdo</code>
     </PropertyTypeCoercion>
   </file>
   <file src="src/Repository/Pdo/AccessTokenRepository.php">
-    <MissingReturnType occurrences="2">
+    <MissingReturnType>
       <code>persistNewAccessToken</code>
       <code>revokeAccessToken</code>
     </MissingReturnType>
-    <MixedArgument occurrences="1">
+    <MixedArgument>
       <code>$userIdentifier</code>
     </MixedArgument>
   </file>
   <file src="src/Repository/Pdo/AccessTokenRepositoryFactory.php">
-    <MixedArgument occurrences="1">
-      <code>$container-&gt;get(PdoService::class)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(PdoService::class)]]></code>
     </MixedArgument>
   </file>
   <file src="src/Repository/Pdo/AuthCodeRepository.php">
-    <MissingReturnType occurrences="2">
+    <MissingReturnType>
       <code>persistNewAuthCode</code>
       <code>revokeAuthCode</code>
     </MissingReturnType>
-    <MixedArrayAccess occurrences="1">
-      <code>$row['revoked']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$row['revoked']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$row</code>
     </MixedAssignment>
   </file>
   <file src="src/Repository/Pdo/AuthCodeRepositoryFactory.php">
-    <MixedArgument occurrences="1">
-      <code>$container-&gt;get(PdoService::class)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(PdoService::class)]]></code>
     </MixedArgument>
   </file>
   <file src="src/Repository/Pdo/ClientRepository.php">
-    <MixedArgument occurrences="3">
-      <code>$clientData['name'] ?? ''</code>
-      <code>$clientData['redirect'] ?? ''</code>
-      <code>$clientData['secret']</code>
+    <MixedArgument>
+      <code><![CDATA[$clientData['name'] ?? '']]></code>
+      <code><![CDATA[$clientData['redirect'] ?? '']]></code>
+      <code><![CDATA[$clientData['secret']]]></code>
     </MixedArgument>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$row</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
+    <MixedInferredReturnType>
       <code>?array</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
+    <MixedReturnStatement>
       <code>$row</code>
     </MixedReturnStatement>
   </file>
   <file src="src/Repository/Pdo/ClientRepositoryFactory.php">
-    <MixedArgument occurrences="1">
-      <code>$container-&gt;get(PdoService::class)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(PdoService::class)]]></code>
     </MixedArgument>
   </file>
   <file src="src/Repository/Pdo/PdoServiceFactory.php">
-    <MixedArgument occurrences="3">
-      <code>$config['dsn']</code>
+    <MixedArgument>
+      <code><![CDATA[$config['dsn']]]></code>
       <code>$password</code>
       <code>$username</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="5">
-      <code>$config['authentication']</code>
-      <code>$config['authentication']['pdo']</code>
-      <code>$config['dsn']</code>
-      <code>$config['password']</code>
-      <code>$config['username']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['authentication']]]></code>
+      <code><![CDATA[$config['authentication']['pdo']]]></code>
+      <code><![CDATA[$config['dsn']]]></code>
+      <code><![CDATA[$config['password']]]></code>
+      <code><![CDATA[$config['username']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment>
       <code>$config</code>
       <code>$config</code>
       <code>$password</code>
       <code>$username</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
+    <MixedInferredReturnType>
       <code>PDO</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$container-&gt;get($config)</code>
+    <MixedReturnStatement>
+      <code><![CDATA[$container->get($config)]]></code>
     </MixedReturnStatement>
   </file>
   <file src="src/Repository/Pdo/RefreshTokenRepository.php">
-    <MissingReturnType occurrences="2">
+    <MissingReturnType>
       <code>persistNewRefreshToken</code>
       <code>revokeRefreshToken</code>
     </MissingReturnType>
-    <MixedArrayAccess occurrences="1">
-      <code>$row['revoked']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$row['revoked']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$row</code>
     </MixedAssignment>
   </file>
   <file src="src/Repository/Pdo/RefreshTokenRepositoryFactory.php">
-    <MixedArgument occurrences="1">
-      <code>$container-&gt;get(PdoService::class)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(PdoService::class)]]></code>
     </MixedArgument>
   </file>
   <file src="src/Repository/Pdo/ScopeRepository.php">
-    <MixedArrayAccess occurrences="1">
-      <code>$row['id']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$row['id']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$row</code>
     </MixedAssignment>
   </file>
   <file src="src/Repository/Pdo/ScopeRepositoryFactory.php">
-    <MixedArgument occurrences="1">
-      <code>$container-&gt;get(PdoService::class)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(PdoService::class)]]></code>
     </MixedArgument>
   </file>
   <file src="src/Repository/Pdo/UserRepository.php">
-    <InvalidReturnType occurrences="1">
-      <code>UserEntity|void</code>
-    </InvalidReturnType>
-    <MixedArgument occurrences="2">
-      <code>$row['password']</code>
+    <MixedArgument>
+      <code><![CDATA[$row['password']]]></code>
       <code>$username</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="1">
-      <code>$row['password']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$row['password']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$row</code>
     </MixedAssignment>
   </file>
   <file src="src/Repository/Pdo/UserRepositoryFactory.php">
-    <MixedArgument occurrences="1">
-      <code>$container-&gt;get(PdoService::class)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(PdoService::class)]]></code>
     </MixedArgument>
   </file>
   <file src="src/RepositoryTrait.php">
-    <MixedInferredReturnType occurrences="6">
+    <MixedInferredReturnType>
       <code>AccessTokenRepositoryInterface</code>
       <code>AuthCodeRepositoryInterface</code>
       <code>ClientRepositoryInterface</code>
@@ -318,34 +356,38 @@
     </MixedInferredReturnType>
   </file>
   <file src="src/ResourceServerFactory.php">
-    <MixedArgument occurrences="1">
-      <code>$config['public_key']</code>
+    <MixedArgument>
+      <code><![CDATA[$config['public_key']]]></code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="1">
-      <code>$config['authentication']</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['authentication']]]></code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$config</code>
     </MixedAssignment>
   </file>
   <file src="src/TokenEndpointHandler.php">
-    <DeprecatedClass occurrences="1"/>
+    <DeprecatedClass>
+      <code><![CDATA[new CallableResponseFactoryDecorator(
+                static fn(): ResponseInterface => $responseFactory()
+            )]]></code>
+    </DeprecatedClass>
   </file>
   <file src="src/TokenEndpointHandlerFactory.php">
-    <DeprecatedTrait occurrences="1">
+    <DeprecatedTrait>
       <code>Psr17ResponseFactoryTrait</code>
     </DeprecatedTrait>
-    <MixedArgument occurrences="1">
-      <code>$container-&gt;get(AuthorizationServer::class)</code>
+    <MixedArgument>
+      <code><![CDATA[$container->get(AuthorizationServer::class)]]></code>
     </MixedArgument>
   </file>
   <file src="test/AuthorizationServerFactoryTest.php">
-    <UnusedClosureParam occurrences="1">
+    <UnusedClosureParam>
       <code>$event</code>
     </UnusedClosureParam>
   </file>
   <file src="test/ConfigTraitTest.php">
-    <MixedAssignment occurrences="9">
+    <MixedAssignment>
       <code>$result</code>
       <code>$result</code>
       <code>$result</code>
@@ -356,10 +398,10 @@
       <code>$result</code>
       <code>$result</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
+    <MixedInferredReturnType>
       <code>array|string</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="20">
+    <MixedMethodCall>
       <code>proxy</code>
       <code>proxy</code>
       <code>proxy</code>
@@ -381,91 +423,91 @@
       <code>proxy</code>
       <code>proxy</code>
     </MixedMethodCall>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;$name($container)</code>
+    <MixedReturnStatement>
+      <code><![CDATA[$this->$name($container)]]></code>
     </MixedReturnStatement>
   </file>
   <file src="test/Entity/UserEntityTest.php">
-    <TooFewArguments occurrences="1">
+    <TooFewArguments>
       <code>new UserEntity()</code>
     </TooFewArguments>
-    <UnusedVariable occurrences="1">
+    <UnusedVariable>
       <code>$entity</code>
     </UnusedVariable>
   </file>
   <file src="test/OAuth2AdapterTest.php">
-    <MixedArgumentTypeCoercion occurrences="2">
+    <MixedArgumentTypeCoercion>
       <code>$details</code>
       <code>$roles</code>
     </MixedArgumentTypeCoercion>
   </file>
   <file src="test/Pdo/OAuth2PdoMiddlewareTest.php">
-    <ArgumentTypeCoercion occurrences="2">
+    <ArgumentTypeCoercion>
       <code>$consumerHandler</code>
       <code>$consumerHandler</code>
     </ArgumentTypeCoercion>
-    <MixedArgument occurrences="1">
-      <code>$data['token_type']</code>
+    <MixedArgument>
+      <code><![CDATA[$data['token_type']]]></code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="9">
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
-      <code>$this-&gt;responseFactory</code>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$this->responseFactory]]></code>
+      <code><![CDATA[$this->responseFactory]]></code>
+      <code><![CDATA[$this->responseFactory]]></code>
+      <code><![CDATA[$this->responseFactory]]></code>
+      <code><![CDATA[$this->responseFactory]]></code>
+      <code><![CDATA[$this->responseFactory]]></code>
+      <code><![CDATA[$this->responseFactory]]></code>
+      <code><![CDATA[$this->responseFactory]]></code>
+      <code><![CDATA[$this->responseFactory]]></code>
     </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment>
       <code>$content</code>
       <code>$content</code>
       <code>$content</code>
       <code>$content</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="2">
+    <MixedInferredReturnType>
       <code>string</code>
       <code>string</code>
     </MixedInferredReturnType>
-    <MixedPropertyFetch occurrences="15">
-      <code>$content-&gt;access_token</code>
-      <code>$content-&gt;access_token</code>
-      <code>$content-&gt;access_token</code>
-      <code>$content-&gt;access_token</code>
-      <code>$content-&gt;expires_in</code>
-      <code>$content-&gt;expires_in</code>
-      <code>$content-&gt;expires_in</code>
-      <code>$content-&gt;expires_in</code>
-      <code>$content-&gt;refresh_token</code>
-      <code>$content-&gt;refresh_token</code>
-      <code>$content-&gt;refresh_token</code>
-      <code>$content-&gt;token_type</code>
-      <code>$content-&gt;token_type</code>
-      <code>$content-&gt;token_type</code>
-      <code>$content-&gt;token_type</code>
+    <MixedPropertyFetch>
+      <code><![CDATA[$content->access_token]]></code>
+      <code><![CDATA[$content->access_token]]></code>
+      <code><![CDATA[$content->access_token]]></code>
+      <code><![CDATA[$content->access_token]]></code>
+      <code><![CDATA[$content->expires_in]]></code>
+      <code><![CDATA[$content->expires_in]]></code>
+      <code><![CDATA[$content->expires_in]]></code>
+      <code><![CDATA[$content->expires_in]]></code>
+      <code><![CDATA[$content->refresh_token]]></code>
+      <code><![CDATA[$content->refresh_token]]></code>
+      <code><![CDATA[$content->refresh_token]]></code>
+      <code><![CDATA[$content->token_type]]></code>
+      <code><![CDATA[$content->token_type]]></code>
+      <code><![CDATA[$content->token_type]]></code>
+      <code><![CDATA[$content->token_type]]></code>
     </MixedPropertyFetch>
-    <MixedReturnStatement occurrences="2">
-      <code>$content-&gt;refresh_token</code>
-      <code>$data['code']</code>
+    <MixedReturnStatement>
+      <code><![CDATA[$content->refresh_token]]></code>
+      <code><![CDATA[$data['code']]]></code>
     </MixedReturnStatement>
   </file>
   <file src="test/Psr17ResponseFactoryTraitTest.php">
-    <DeprecatedClass occurrences="1">
+    <DeprecatedClass>
       <code>CallableResponseFactoryDecorator::class</code>
     </DeprecatedClass>
-    <InternalMethod occurrences="1">
+    <InternalMethod>
       <code>getResponseFromCallable</code>
     </InternalMethod>
-    <UndefinedClass occurrences="1">
+    <UndefinedClass>
       <code>ResponseFactoryFactory</code>
     </UndefinedClass>
   </file>
   <file src="test/RepositoryTraitTest.php">
-    <MixedInferredReturnType occurrences="1">
+    <MixedInferredReturnType>
       <code>RepositoryInterface</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="12">
+    <MixedMethodCall>
       <code>proxy</code>
       <code>proxy</code>
       <code>proxy</code>
@@ -479,12 +521,12 @@
       <code>proxy</code>
       <code>proxy</code>
     </MixedMethodCall>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;$name($container)</code>
+    <MixedReturnStatement>
+      <code><![CDATA[$this->$name($container)]]></code>
     </MixedReturnStatement>
   </file>
   <file src="test/TestAsset/Psr17ResponseFactoryTraitImplementation.php">
-    <DeprecatedTrait occurrences="1">
+    <DeprecatedTrait>
       <code>Psr17ResponseFactoryTrait</code>
     </DeprecatedTrait>
   </file>

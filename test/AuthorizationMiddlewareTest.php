@@ -150,8 +150,10 @@ class AuthorizationMiddlewareTest extends TestCase
         $this->response
             ->expects(self::exactly(2))
             ->method('withStatus')
-            ->withConsecutive([200], [500])
-            ->willReturnSelf();
+            ->willReturnMap([
+                [200, '', $this->response],
+                [500, '', $this->response],
+            ]);
 
         $exception = new RuntimeException('oauth2 server error');
 

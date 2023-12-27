@@ -11,6 +11,7 @@ use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationExcep
 use Mezzio\Authentication\OAuth2\Entity\RefreshTokenEntity;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\RefreshTokenRepository;
+use PDO;
 use PDOStatement;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -52,14 +53,15 @@ class RefreshTokenRepositoryTest extends TestCase
             ->willReturn($date);
 
         $statement = $this->createMock(PDOStatement::class);
-        $statement->expects(self::exactly(4))
+        $statement
+            ->expects(self::exactly(4))
             ->method('bindValue')
-            ->withConsecutive(
-                [':id', 'id'],
-                [':access_token_id', 'access_token_id'],
-                [':revoked', 0],
-                [':expires_at', date('Y-m-d H:i:s', $time)],
-            );
+            ->willReturnMap([
+                [':id', 'id', PDO::PARAM_STR, true],
+                [':access_token_id', 'access_token_id', PDO::PARAM_STR, true],
+                [':revoked', 0, PDO::PARAM_STR, true],
+                [':expires_at', date('Y-m-d H:i:s', $time), PDO::PARAM_STR, true],
+            ]);
 
         $statement->expects(self::once())->method('execute')->willReturn(false);
 

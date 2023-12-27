@@ -11,6 +11,7 @@ use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationExcep
 use Mezzio\Authentication\OAuth2\Entity\AuthCodeEntity;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\AuthCodeRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
+use PDO;
 use PDOStatement;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -53,15 +54,16 @@ class AuthCodeRepositoryTest extends TestCase
         $authCode->method('getExpiryDateTime')->willReturn($date);
 
         $statement = $this->createMock(PDOStatement::class);
-        $statement->method('bindValue')
-            ->withConsecutive(
-                [':id', 'id'],
-                [':user_id', 'user_id'],
-                [':client_id', 'client_id'],
-                [':scopes', 'authentication'],
-                [':revoked', 0],
-                [':expires_at', date('Y-m-d H:i:s', $time)],
-            );
+        $statement
+            ->method('bindValue')
+            ->willReturnMap([
+                [':id', 'id', PDO::PARAM_STR, true],
+                [':user_id', 'user_id', PDO::PARAM_STR, true],
+                [':client_id', 'client_id', PDO::PARAM_STR, true],
+                [':scopes', 'authentication', PDO::PARAM_STR, true],
+                [':revoked', 0, PDO::PARAM_STR, true],
+                [':expires_at', date('Y-m-d H:i:s', $time), PDO::PARAM_STR, true],
+            ]);
 
         $statement->expects(self::once())
             ->method('execute')
