@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2;
 
+use Laminas\Diactoros\ServerRequest;
 use League\Event\ListenerInterface;
 use League\Event\ListenerProviderInterface;
 use League\OAuth2\Server\AuthorizationServer;
@@ -133,6 +134,43 @@ class AuthorizationServerFactoryTest extends TestCase
         $result = $factory($mockContainer);
 
         self::assertInstanceOf(AuthorizationServer::class, $result);
+
+        // Ensure listeners have been registered correctly. If they have not, then emitting an event will fail
+        $request = $this->createMock(ServerRequest::class);
+        $result->getEmitter()->emit(new RequestEvent(RequestEvent::CLIENT_AUTHENTICATION_FAILED, $request));
+    }
+
+    public function testInvokeWithListenerConfigFailsIfPriorityIsNotAnInteger(): void
+    {
+        $mockContainer = $this->getContainerMock();
+        $mockListener  = $this->createMock(ListenerInterface::class);
+        $mockContainer->set(ListenerInterface::class, $mockListener);
+
+        $config = [
+            'authentication' => [
+                'private_key'         => __DIR__ . '/TestAsset/private.key',
+                'encryption_key'      => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
+                'access_token_expire' => 'P1D',
+                'grants'              => [
+                    ClientCredentialsGrant::class => ClientCredentialsGrant::class,
+                ],
+                'event_listeners'     => [
+                    [
+                        RequestEvent::CLIENT_AUTHENTICATION_FAILED,
+                        ListenerInterface::class,
+                        'one',
+                    ],
+                ],
+            ],
+        ];
+
+        $mockContainer->set('config', $config);
+
+        $factory = new AuthorizationServerFactory();
+
+        $this->expectException(InvalidConfigException::class);
+
+        $factory($mockContainer);
     }
 
     public function testInvokeWithListenerConfigMissingServiceThrowsException(): void

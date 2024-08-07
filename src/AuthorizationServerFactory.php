@@ -8,6 +8,7 @@ use DateInterval;
 use League\OAuth2\Server\AuthorizationServer;
 use Psr\Container\ContainerInterface;
 
+use function is_int;
 use function is_string;
 use function sprintf;
 
@@ -78,7 +79,7 @@ class AuthorizationServerFactory
         foreach ($listeners as $idx => $listenerConfig) {
             $event    = $listenerConfig[0];
             $listener = $listenerConfig[1];
-            $priority = $listenerConfig[2] ?? null;
+            $priority = $listenerConfig[2] ?? 0;
             if (is_string($listener)) {
                 if (! $container->has($listener)) {
                     throw new Exception\InvalidConfigException(sprintf(
@@ -91,6 +92,14 @@ class AuthorizationServerFactory
                     ));
                 }
                 $listener = $container->get($listener);
+            }
+            if (! is_int($priority)) {
+                throw new Exception\InvalidConfigException(sprintf(
+                    'The third element of event_listeners config at index "%s" (priority) '
+                        . 'is expected to be an integer, received "%s"',
+                    $idx,
+                    $priority
+                ));
             }
             $authServer->getEmitter()
                 ->addListener($event, $listener, $priority);
