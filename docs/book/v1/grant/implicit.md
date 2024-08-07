@@ -11,9 +11,9 @@ authorization server:
 
 - `response_type` = token.
 - `client_id`, with the client’s ID.
-- `redirect_uri`, with the URI to which to redirect the client after completing
-  authorization. This parameter is optional; if not provided, however, the user
-  will be redirected to a default location.
+- `redirect_uri`, with the absolute URI to which to redirect the client after
+  completing authorization. This parameter is optional; if not provided,
+  however, the user will be redirected to a default location.
 - `scope`, with a space-delimited list of requested scope permissions.
 - `state`, with a Cross-Site Request Forgery (CSRF) token. This parameter is
   optional but highly recommended. You can store the value of CSRF token in the

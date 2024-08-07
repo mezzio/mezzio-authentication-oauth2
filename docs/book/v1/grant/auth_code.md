@@ -24,7 +24,7 @@ authorization server:
 
 - `response_type` = code.
 - `client_id` with the client identifer.
-- `redirect_uri` with the URI to which to redirect the client following
+- `redirect_uri` with the absolute URI to which to redirect the client following
   successful authorization. This parameter is optional, but if it is not sent,
   the user will be redirected to a default location on completion.
 - `scope` with a space-delimited list of requested scope permissions.
