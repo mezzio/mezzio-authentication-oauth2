@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2;
 
+use Laminas\Diactoros\ServerRequest;
 use League\Event\ListenerInterface;
 use League\Event\ListenerProviderInterface;
 use League\OAuth2\Server\AuthorizationServer;
@@ -133,6 +134,10 @@ class AuthorizationServerFactoryTest extends TestCase
         $result = $factory($mockContainer);
 
         self::assertInstanceOf(AuthorizationServer::class, $result);
+
+        // Ensure listeners have been registered correctly. If they have not, then emitting an event will fail
+        $request = $this->createMock(ServerRequest::class);
+        $result->getEmitter()->emit(new RequestEvent(RequestEvent::CLIENT_AUTHENTICATION_FAILED, $request));
     }
 
     public function testInvokeWithListenerConfigMissingServiceThrowsException(): void
