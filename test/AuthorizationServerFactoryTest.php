@@ -140,6 +140,39 @@ class AuthorizationServerFactoryTest extends TestCase
         $result->getEmitter()->emit(new RequestEvent(RequestEvent::CLIENT_AUTHENTICATION_FAILED, $request));
     }
 
+    public function testInvokeWithListenerConfigFailsIfPriorityIsNotAnInteger(): void
+    {
+        $mockContainer = $this->getContainerMock();
+        $mockListener  = $this->createMock(ListenerInterface::class);
+        $mockContainer->set(ListenerInterface::class, $mockListener);
+
+        $config = [
+            'authentication' => [
+                'private_key'         => __DIR__ . '/TestAsset/private.key',
+                'encryption_key'      => 'iALlwJ1sH77dmFCJFo+pMdM6Af4bF/hCca1EDDx7MwE=',
+                'access_token_expire' => 'P1D',
+                'grants'              => [
+                    ClientCredentialsGrant::class => ClientCredentialsGrant::class,
+                ],
+                'event_listeners'     => [
+                    [
+                        RequestEvent::CLIENT_AUTHENTICATION_FAILED,
+                        ListenerInterface::class,
+                        'one',
+                    ],
+                ],
+            ],
+        ];
+
+        $mockContainer->set('config', $config);
+
+        $factory = new AuthorizationServerFactory();
+
+        $this->expectException(InvalidConfigException::class);
+
+        $factory($mockContainer);
+    }
+
     public function testInvokeWithListenerConfigMissingServiceThrowsException(): void
     {
         $mockContainer = $this->getContainerMock();
