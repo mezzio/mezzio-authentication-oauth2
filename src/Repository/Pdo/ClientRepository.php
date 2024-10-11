@@ -19,7 +19,7 @@ class ClientRepository extends AbstractRepository implements ClientRepositoryInt
     {
         $clientData = $this->getClientData($clientIdentifier);
 
-        if (empty($clientData)) {
+        if ($clientData === null || $clientData === []) {
             return null;
         }
 
@@ -38,7 +38,7 @@ class ClientRepository extends AbstractRepository implements ClientRepositoryInt
     {
         $clientData = $this->getClientData($clientIdentifier);
 
-        if (empty($clientData)) {
+        if ($clientData === null || $clientData === []) {
             return false;
         }
 
