@@ -40,9 +40,4 @@ final class InMemoryContainer implements ContainerInterface
     {
         $this->services[$id] = $item;
     }
-
-    public function reset(): void
-    {
-        $this->services = [];
-    }
 }

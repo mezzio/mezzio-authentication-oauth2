@@ -29,7 +29,6 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\ScopeRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\UserRepository;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use PDO;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -74,9 +73,6 @@ class OAuth2PdoMiddlewareTest extends TestCase
     private AuthorizationServer $authServer;
 
     private ClientRepository $clientRepository;
-
-    /** @var RequestHandlerInterface&MockObject */
-    private RequestHandlerInterface $handler;
 
     private PdoService $pdoService;
 
@@ -138,7 +134,6 @@ class OAuth2PdoMiddlewareTest extends TestCase
             self::ENCRYPTION_KEY
         );
 
-        $this->handler         = $this->createMock(RequestHandlerInterface::class);
         $this->responseFactory = fn(): Response => $this->response;
     }
 
