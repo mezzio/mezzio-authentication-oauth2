@@ -22,6 +22,7 @@ use function is_callable;
  * that contains the validated OAuth2 request
  *
  * @see https://tools.ietf.org/html/rfc6749#section-3.1.1
+ *
  * @final
  */
 class AuthorizationHandler implements RequestHandlerInterface

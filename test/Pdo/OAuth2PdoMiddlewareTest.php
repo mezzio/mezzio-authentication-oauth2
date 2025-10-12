@@ -90,7 +90,7 @@ final class OAuth2PdoMiddlewareTest extends TestCase
         self::tearDownAfterClass();
 
         // Generate the OAuth2 database
-        $pdo = new PDO('sqlite:' . self::DB_FILE);
+        $pdo       = new PDO('sqlite:' . self::DB_FILE);
         $statement = file_get_contents(self::DB_SCHEMA);
         self::assertNotFalse($statement);
         if (false === $pdo->exec($statement)) {

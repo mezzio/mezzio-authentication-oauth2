@@ -19,6 +19,7 @@ use function sprintf;
  * Then configured grant types are enabled with configured access token
  * expiry. Then any optionally configured event listeners are attached to the
  * AuthorizationServer.
+ *
  * @final
  */
 class AuthorizationServerFactory
