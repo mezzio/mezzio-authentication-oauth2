@@ -29,6 +29,7 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo;
 /**
  * @codeCoverageIgnore
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
+ * @final
  */
 class ConfigProvider
 {

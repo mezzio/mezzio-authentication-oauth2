@@ -7,7 +7,7 @@ namespace MezzioTest\Authentication\OAuth2\Entity;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
-class TimestampableTraitTest extends TestCase
+final class TimestampableTraitTest extends TestCase
 {
     private TimestampableTraitStub $trait;
 

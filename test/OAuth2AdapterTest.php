@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class OAuth2AdapterTest extends TestCase
+final class OAuth2AdapterTest extends TestCase
 {
     /** @var ResourceServer&MockObject */
     private ResourceServer $resourceServer;

@@ -8,6 +8,7 @@ use League\OAuth2\Server\ResourceServer;
 use Mezzio\Authentication\UserInterface;
 use Psr\Container\ContainerInterface;
 
+/** @final */
 class OAuth2AdapterFactory
 {
     use Psr17ResponseFactoryTrait;

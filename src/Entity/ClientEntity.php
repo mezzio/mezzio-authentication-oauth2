@@ -10,6 +10,7 @@ use League\OAuth2\Server\Entities\Traits\EntityTrait;
 
 use function explode;
 
+/** @final */
 class ClientEntity implements ClientEntityInterface
 {
     use ClientTrait;

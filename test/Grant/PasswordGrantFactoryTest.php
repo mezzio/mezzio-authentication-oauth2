@@ -11,7 +11,7 @@ use Mezzio\Authentication\OAuth2\Grant\PasswordGrantFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class PasswordGrantFactoryTest extends TestCase
+final class PasswordGrantFactoryTest extends TestCase
 {
     public function testInvoke(): void
     {

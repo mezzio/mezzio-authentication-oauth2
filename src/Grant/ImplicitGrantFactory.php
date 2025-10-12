@@ -9,6 +9,7 @@ use League\OAuth2\Server\Grant\ImplicitGrant;
 use Mezzio\Authentication\OAuth2\ConfigTrait;
 use Psr\Container\ContainerInterface;
 
+/** @final */
 class ImplicitGrantFactory
 {
     use ConfigTrait;

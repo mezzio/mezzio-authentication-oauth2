@@ -9,7 +9,7 @@ use League\OAuth2\Server\Entities\UserEntityInterface;
 use Mezzio\Authentication\OAuth2\Entity\UserEntity;
 use PHPUnit\Framework\TestCase;
 
-class UserEntityTest extends TestCase
+final class UserEntityTest extends TestCase
 {
     private UserEntity $entity;
 

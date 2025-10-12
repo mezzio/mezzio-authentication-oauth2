@@ -8,7 +8,7 @@ use League\OAuth2\Server\Entities\ClientEntityInterface;
 use Mezzio\Authentication\OAuth2\Entity\ClientEntity;
 use PHPUnit\Framework\TestCase;
 
-class ClientEntityTest extends TestCase
+final class ClientEntityTest extends TestCase
 {
     private ClientEntity $entity;
 

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
   <file src="config/oauth2.php">
     <MixedAssignment>
       <code><![CDATA[$config['encryption_key']]]></code>
     </MixedAssignment>
+    <PossiblyFalseOperand>
+      <code><![CDATA[getcwd()]]></code>
+      <code><![CDATA[getcwd()]]></code>
+      <code><![CDATA[getcwd()]]></code>
+    </PossiblyFalseOperand>
     <UnresolvableInclude>
       <code><![CDATA[require $encryptionKeyFile]]></code>
     </UnresolvableInclude>
@@ -79,15 +84,6 @@
       <code><![CDATA[array]]></code>
     </PossiblyUnusedReturnValue>
   </file>
-  <file src="src/ConfigTrait.php">
-    <MixedInferredReturnType>
-      <code><![CDATA[non-empty-string|non-empty-array]]></code>
-      <code><![CDATA[string]]></code>
-      <code><![CDATA[string]]></code>
-      <code><![CDATA[string]]></code>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
-  </file>
   <file src="src/CryptKeyTrait.php">
     <MixedArgument>
       <code><![CDATA[$keyConfig['key_or_path']]]></code>
@@ -136,9 +132,9 @@
     </MixedMethodCall>
   </file>
   <file src="src/Grant/ClientCredentialsGrantFactory.php">
-    <PossiblyUnusedParam>
+    <UnusedParam>
       <code><![CDATA[$container]]></code>
-    </PossiblyUnusedParam>
+    </UnusedParam>
   </file>
   <file src="src/OAuth2Adapter.php">
     <DeprecatedClass>
@@ -169,11 +165,6 @@
     <MixedAssignment>
       <code><![CDATA[$clientId]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[?UserInterface]]></code>
-      <code><![CDATA[ResponseInterface]]></code>
-      <code><![CDATA[UserInterface]]></code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
       <code><![CDATA[withHeader]]></code>
     </MixedMethodCall>
@@ -272,9 +263,6 @@
     <MixedAssignment>
       <code><![CDATA[$row]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[?array]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$row]]></code>
     </MixedReturnStatement>
@@ -303,9 +291,6 @@
       <code><![CDATA[$password]]></code>
       <code><![CDATA[$username]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[PDO]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$container->get($config)]]></code>
     </MixedReturnStatement>
@@ -357,16 +342,6 @@
       <code><![CDATA[$container->get(PdoService::class)]]></code>
     </MixedArgument>
   </file>
-  <file src="src/RepositoryTrait.php">
-    <MixedInferredReturnType>
-      <code><![CDATA[AccessTokenRepositoryInterface]]></code>
-      <code><![CDATA[AuthCodeRepositoryInterface]]></code>
-      <code><![CDATA[ClientRepositoryInterface]]></code>
-      <code><![CDATA[RefreshTokenRepositoryInterface]]></code>
-      <code><![CDATA[ScopeRepositoryInterface]]></code>
-      <code><![CDATA[UserRepositoryInterface]]></code>
-    </MixedInferredReturnType>
-  </file>
   <file src="src/ResourceServerFactory.php">
     <MixedArgument>
       <code><![CDATA[$config['public_key']]]></code>
@@ -410,9 +385,6 @@
       <code><![CDATA[$result]]></code>
       <code><![CDATA[$result]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[array|string]]></code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
       <code><![CDATA[proxy]]></code>
       <code><![CDATA[proxy]]></code>
@@ -478,10 +450,6 @@
       <code><![CDATA[$content]]></code>
       <code><![CDATA[$content]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[string]]></code>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
     <MixedPropertyFetch>
       <code><![CDATA[$content->access_token]]></code>
       <code><![CDATA[$content->access_token]]></code>
@@ -516,9 +484,6 @@
     </UndefinedClass>
   </file>
   <file src="test/RepositoryTraitTest.php">
-    <MixedInferredReturnType>
-      <code><![CDATA[RepositoryInterface]]></code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
       <code><![CDATA[proxy]]></code>
       <code><![CDATA[proxy]]></code>

@@ -9,7 +9,7 @@ use Mezzio\Authentication\OAuth2\Grant\ClientCredentialsGrantFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class ClientCredentialsGrantFactoryTest extends TestCase
+final class ClientCredentialsGrantFactoryTest extends TestCase
 {
     public function testInvoke(): void
     {

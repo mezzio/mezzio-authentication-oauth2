@@ -8,6 +8,7 @@ use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\Entities\Traits\EntityTrait;
 use ReturnTypeWillChange;
 
+/** @final */
 class ScopeEntity implements ScopeEntityInterface
 {
     use EntityTrait;

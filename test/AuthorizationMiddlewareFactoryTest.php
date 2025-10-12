@@ -17,7 +17,7 @@ use TypeError;
 /**
  * @covers \Mezzio\Authentication\OAuth2\AuthorizationMiddlewareFactory
  */
-class AuthorizationMiddlewareFactoryTest extends TestCase
+final class AuthorizationMiddlewareFactoryTest extends TestCase
 {
     /** @var AuthorizationServer&MockObject */
     private AuthorizationServer $authServer;

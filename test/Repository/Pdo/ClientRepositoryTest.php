@@ -11,7 +11,7 @@ use PDOStatement;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class ClientRepositoryTest extends TestCase
+final class ClientRepositoryTest extends TestCase
 {
     /** @var PdoService&MockObject */
     private PdoService $pdo;

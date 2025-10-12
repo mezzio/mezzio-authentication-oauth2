@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 use function json_encode;
 
-class ScopeEntityTest extends TestCase
+final class ScopeEntityTest extends TestCase
 {
     private ScopeEntity $entity;
 

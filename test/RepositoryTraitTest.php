@@ -16,7 +16,7 @@ use Mezzio\Authentication\OAuth2\RepositoryTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class RepositoryTraitTest extends TestCase
+final class RepositoryTraitTest extends TestCase
 {
     private object $trait;
     private InMemoryContainer $container;

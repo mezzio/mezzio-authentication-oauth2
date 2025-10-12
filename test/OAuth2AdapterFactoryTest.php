@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use TypeError;
 
-class OAuth2AdapterFactoryTest extends TestCase
+final class OAuth2AdapterFactoryTest extends TestCase
 {
     private InMemoryContainer $container;
 

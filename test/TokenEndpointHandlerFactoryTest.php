@@ -15,7 +15,7 @@ use TypeError;
 /**
  * @covers \Mezzio\Authentication\OAuth2\TokenEndpointHandlerFactory
  */
-class TokenEndpointHandlerFactoryTest extends TestCase
+final class TokenEndpointHandlerFactoryTest extends TestCase
 {
     private TokenEndpointHandlerFactory $subject;
 

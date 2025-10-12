@@ -17,6 +17,7 @@ use function implode;
 use function is_array;
 use function sprintf;
 
+/** @final */
 class AccessTokenRepository extends AbstractRepository implements AccessTokenRepositoryInterface
 {
     /**

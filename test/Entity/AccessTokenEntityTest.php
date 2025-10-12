@@ -8,7 +8,7 @@ use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use Mezzio\Authentication\OAuth2\Entity\AccessTokenEntity;
 use PHPUnit\Framework\TestCase;
 
-class AccessTokenEntityTest extends TestCase
+final class AccessTokenEntityTest extends TestCase
 {
     public function testImplementsInstanceAccessTokenEntityInterface(): void
     {

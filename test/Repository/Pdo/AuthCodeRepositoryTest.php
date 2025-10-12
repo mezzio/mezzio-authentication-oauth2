@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 use function date;
 use function time;
 
-class AuthCodeRepositoryTest extends TestCase
+final class AuthCodeRepositoryTest extends TestCase
 {
     /** @var PdoService&MockObject */
     private PdoService $pdo;

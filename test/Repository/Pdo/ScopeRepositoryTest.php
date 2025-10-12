@@ -12,7 +12,7 @@ use PDOStatement;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class ScopeRepositoryTest extends TestCase
+final class ScopeRepositoryTest extends TestCase
 {
     /** @var PdoService&MockObject **/
     private PdoService $pdo;

@@ -9,7 +9,7 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class AbstractRepositoryTest extends TestCase
+final class AbstractRepositoryTest extends TestCase
 {
     /** @var PdoService&MockObject */
     private PdoService|MockObject $pdo;

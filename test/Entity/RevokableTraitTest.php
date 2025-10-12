@@ -6,7 +6,7 @@ namespace MezzioTest\Authentication\OAuth2\Entity;
 
 use PHPUnit\Framework\TestCase;
 
-class RevokableTraitTest extends TestCase
+final class RevokableTraitTest extends TestCase
 {
     private RevokableTraitStub $trait;
 

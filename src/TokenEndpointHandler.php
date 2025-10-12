@@ -23,6 +23,8 @@ use function is_callable;
  * @see https://oauth2.thephpleague.com/authorization-server/client-credentials-grant/
  * @see https://oauth2.thephpleague.com/authorization-server/resource-owner-password-credentials-grant/
  * @see https://oauth2.thephpleague.com/authorization-server/refresh-token-grant/
+ *
+ * @final
  */
 class TokenEndpointHandler implements RequestHandlerInterface
 {

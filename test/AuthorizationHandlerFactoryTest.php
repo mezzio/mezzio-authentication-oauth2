@@ -20,7 +20,7 @@ use TypeError;
 /**
  * @covers \Mezzio\Authentication\OAuth2\AuthorizationHandlerFactory
  */
-class AuthorizationHandlerFactoryTest extends TestCase
+final class AuthorizationHandlerFactoryTest extends TestCase
 {
     /** @var AuthorizationServer&MockObject */
     private AuthorizationServer $authServer;

@@ -18,7 +18,7 @@ use Mezzio\Authentication\OAuth2\AuthorizationServerFactory;
 use Mezzio\Authentication\OAuth2\Exception\InvalidConfigException;
 use PHPUnit\Framework\TestCase;
 
-class AuthorizationServerFactoryTest extends TestCase
+final class AuthorizationServerFactoryTest extends TestCase
 {
     public function testInvoke(): void
     {

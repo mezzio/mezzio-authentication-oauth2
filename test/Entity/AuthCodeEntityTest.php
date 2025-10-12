@@ -8,7 +8,7 @@ use League\OAuth2\Server\Entities\AuthCodeEntityInterface;
 use Mezzio\Authentication\OAuth2\Entity\AuthCodeEntity;
 use PHPUnit\Framework\TestCase;
 
-class AuthCodeEntityTest extends TestCase
+final class AuthCodeEntityTest extends TestCase
 {
     public function testImplementsInstanceAuthCodeEntityInterface(): void
     {

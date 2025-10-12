@@ -10,7 +10,7 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class AuthCodeRepositoryFactoryTest extends TestCase
+final class AuthCodeRepositoryFactoryTest extends TestCase
 {
     public function testFactory(): void
     {
