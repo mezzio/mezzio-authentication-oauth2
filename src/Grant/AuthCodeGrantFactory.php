@@ -10,6 +10,7 @@ use Mezzio\Authentication\OAuth2\ConfigTrait;
 use Mezzio\Authentication\OAuth2\RepositoryTrait;
 use Psr\Container\ContainerInterface;
 
+/** @final */
 class AuthCodeGrantFactory
 {
     use ConfigTrait;

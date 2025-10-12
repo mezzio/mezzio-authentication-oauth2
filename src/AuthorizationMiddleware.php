@@ -30,6 +30,7 @@ use function is_callable;
  *
  * @see https://oauth2.thephpleague.com/authorization-server/auth-code-grant/
  * @see https://oauth2.thephpleague.com/authorization-server/implicit-grant/
+ * @final
  */
 class AuthorizationMiddleware implements MiddlewareInterface
 {

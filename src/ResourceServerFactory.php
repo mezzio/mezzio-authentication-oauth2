@@ -7,6 +7,7 @@ namespace Mezzio\Authentication\OAuth2;
 use League\OAuth2\Server\ResourceServer;
 use Psr\Container\ContainerInterface;
 
+/** @final */
 class ResourceServerFactory
 {
     use CryptKeyTrait;

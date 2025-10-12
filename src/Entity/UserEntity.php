@@ -7,6 +7,7 @@ namespace Mezzio\Authentication\OAuth2\Entity;
 use League\OAuth2\Server\Entities\Traits\EntityTrait;
 use League\OAuth2\Server\Entities\UserEntityInterface;
 
+/** @final */
 class UserEntity implements UserEntityInterface
 {
     use EntityTrait;

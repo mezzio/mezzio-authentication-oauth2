@@ -11,6 +11,7 @@ use Mezzio\Authentication\OAuth2\Entity\AuthCodeEntity;
 
 use function date;
 
+/** @final */
 class AuthCodeRepository extends AbstractRepository implements AuthCodeRepositoryInterface
 {
     /**

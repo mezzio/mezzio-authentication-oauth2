@@ -9,6 +9,7 @@ use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Entity\ScopeEntity;
 
+/** @final */
 class ScopeRepository extends AbstractRepository implements ScopeRepositoryInterface
 {
     /**

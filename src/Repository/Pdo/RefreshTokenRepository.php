@@ -11,6 +11,7 @@ use Mezzio\Authentication\OAuth2\Entity\RefreshTokenEntity;
 
 use function date;
 
+/** @final */
 class RefreshTokenRepository extends AbstractRepository implements RefreshTokenRepositoryInterface
 {
     public function getNewRefreshToken(): RefreshTokenEntity

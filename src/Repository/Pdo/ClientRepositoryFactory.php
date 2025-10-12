@@ -6,6 +6,7 @@ namespace Mezzio\Authentication\OAuth2\Repository\Pdo;
 
 use Psr\Container\ContainerInterface;
 
+/** @final */
 class ClientRepositoryFactory
 {
     public function __invoke(ContainerInterface $container): ClientRepository

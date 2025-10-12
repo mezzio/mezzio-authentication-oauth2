@@ -10,6 +10,7 @@ use Psr\Container\ContainerInterface;
 
 use function is_string;
 
+/** @final */
 class PdoServiceFactory
 {
     public function __invoke(ContainerInterface $container): PDO

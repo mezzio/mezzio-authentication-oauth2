@@ -10,6 +10,7 @@ use Mezzio\Authentication\OAuth2\Entity\ClientEntity;
 
 use function password_verify;
 
+/** @final */
 class ClientRepository extends AbstractRepository implements ClientRepositoryInterface
 {
     /**

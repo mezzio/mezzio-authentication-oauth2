@@ -15,6 +15,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 use function is_callable;
 
+/** @final */
 class OAuth2Adapter implements AuthenticationInterface
 {
     /** @var ResourceServer */
