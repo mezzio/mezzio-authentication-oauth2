@@ -17,7 +17,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
 
-class AuthorizationMiddlewareTest extends TestCase
+final class AuthorizationMiddlewareTest extends TestCase
 {
     /** @var AuthorizationRequest&MockObject */
     private AuthorizationRequest $authRequest;

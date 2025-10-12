@@ -53,10 +53,8 @@ use function unlink;
 
 /**
  * Integration test for the authorization flows with PDO
- *
- * @coversNothing
  */
-class OAuth2PdoMiddlewareTest extends TestCase
+final class OAuth2PdoMiddlewareTest extends TestCase
 {
     private const DB_FILE        = __DIR__ . '/TestAsset/test_oauth2.sq3';
     private const DB_SCHEMA      = __DIR__ . '/../../data/oauth2.sql';
@@ -93,14 +91,18 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
         // Generate the OAuth2 database
         $pdo = new PDO('sqlite:' . self::DB_FILE);
-        if (false === $pdo->exec(file_get_contents(self::DB_SCHEMA))) {
+        $statement = file_get_contents(self::DB_SCHEMA);
+        self::assertNotFalse($statement);
+        if (false === $pdo->exec($statement)) {
             throw new Exception(sprintf(
                 "The test cannot be executed without the %s db",
                 self::DB_SCHEMA
             ));
         }
         // Insert the test values
-        if (false === $pdo->exec(file_get_contents(self::DB_DATA))) {
+        $statement = file_get_contents(self::DB_DATA);
+        self::assertNotFalse($statement);
+        if (false === $pdo->exec($statement)) {
             throw new Exception(sprintf(
                 "The test cannot be executed without the values in %s",
                 self::DB_DATA
@@ -513,6 +515,8 @@ class OAuth2PdoMiddlewareTest extends TestCase
 
     /**
      * Build a ServerRequest object
+     *
+     * @param array<non-empty-string, array<array-key, string>|string> $headers
      */
     protected function buildServerRequest(
         string $method,

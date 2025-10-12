@@ -16,7 +16,7 @@ use function password_hash;
 
 use const PASSWORD_DEFAULT;
 
-class UserRepositoryTest extends TestCase
+final class UserRepositoryTest extends TestCase
 {
     /** @var PdoService&MockObject **/
     private PdoService $pdo;

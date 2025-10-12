@@ -15,7 +15,7 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * @covers \Mezzio\Authentication\OAuth2\TokenEndpointHandler
  */
-class TokenEndpointHandlerTest extends TestCase
+final class TokenEndpointHandlerTest extends TestCase
 {
     /** @return callable(): ResponseInterface */
     private function createResponseFactory(?ResponseInterface $response = null): callable

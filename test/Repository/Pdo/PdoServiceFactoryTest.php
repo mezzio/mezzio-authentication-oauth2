@@ -11,7 +11,7 @@ use MezzioTest\Authentication\OAuth2\InMemoryContainer;
 use PDO;
 use PHPUnit\Framework\TestCase;
 
-class PdoServiceFactoryTest extends TestCase
+final class PdoServiceFactoryTest extends TestCase
 {
     private InMemoryContainer $container;
     private PdoServiceFactory $factory;

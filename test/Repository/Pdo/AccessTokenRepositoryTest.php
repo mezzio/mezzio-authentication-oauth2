@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 use function date;
 use function time;
 
-class AccessTokenRepositoryTest extends TestCase
+final class AccessTokenRepositoryTest extends TestCase
 {
     private AccessTokenRepository $repo;
     /** @var PdoService&MockObject */

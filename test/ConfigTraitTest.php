@@ -10,7 +10,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class ConfigTraitTest extends TestCase
+final class ConfigTraitTest extends TestCase
 {
     private object $trait;
     /** @var array{authentication: array<string, mixed>} */

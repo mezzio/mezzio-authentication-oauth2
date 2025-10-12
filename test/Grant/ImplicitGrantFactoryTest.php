@@ -9,7 +9,7 @@ use Mezzio\Authentication\OAuth2\Grant\ImplicitGrantFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class ImplicitGrantFactoryTest extends TestCase
+final class ImplicitGrantFactoryTest extends TestCase
 {
     public function testInvoke(): void
     {

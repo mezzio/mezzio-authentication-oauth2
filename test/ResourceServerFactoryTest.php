@@ -11,7 +11,7 @@ use Mezzio\Authentication\OAuth2\Exception;
 use Mezzio\Authentication\OAuth2\ResourceServerFactory;
 use PHPUnit\Framework\TestCase;
 
-class ResourceServerFactoryTest extends TestCase
+final class ResourceServerFactoryTest extends TestCase
 {
     private const PUBLIC_KEY = __DIR__ . '/TestAsset/public.key';
 

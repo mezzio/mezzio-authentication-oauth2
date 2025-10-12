@@ -16,7 +16,7 @@ use TypeError;
 /**
  * @covers \Mezzio\Authentication\OAuth2\AuthorizationHandler
  */
-class AuthorizationHandlerTest extends TestCase
+final class AuthorizationHandlerTest extends TestCase
 {
     public function testHandleUsesAuthorizationServerService(): void
     {

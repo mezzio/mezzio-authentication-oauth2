@@ -10,7 +10,7 @@ use Mezzio\Authentication\OAuth2\Grant\RefreshTokenGrantFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class RefreshTokenGrantFactoryTest extends TestCase
+final class RefreshTokenGrantFactoryTest extends TestCase
 {
     public function testInvoke(): void
     {
