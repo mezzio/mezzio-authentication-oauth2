@@ -272,6 +272,11 @@
       <code><![CDATA[$container->get(PdoService::class)]]></code>
     </MixedArgument>
   </file>
+  <file src="src/Repository/Pdo/PdoService.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PdoService]]></code>
+    </ClassMustBeFinal>
+  </file>
   <file src="src/Repository/Pdo/PdoServiceFactory.php">
     <MixedArgument>
       <code><![CDATA[$config['dsn']]]></code>

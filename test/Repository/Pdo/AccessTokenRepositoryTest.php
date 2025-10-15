@@ -23,8 +23,7 @@ use function time;
 final class AccessTokenRepositoryTest extends TestCase
 {
     private AccessTokenRepository $repo;
-    /** @var PdoService&MockObject */
-    private PdoService $pdo;
+    private MockObject&PdoService $pdo;
 
     protected function setUp(): void
     {
@@ -233,10 +232,13 @@ final class AccessTokenRepositoryTest extends TestCase
         $this->assertEquals([], $accessToken->getScopes());
     }
 
-    public function testGetNewTokenWithScopeAndIndentifier(): void
+    public function testGetNewTokenWithScopeAndIdentifier(): void
     {
-        $client         = $this->createMock(ClientEntityInterface::class);
-        $scopes         = [$this->createMock(ScopeEntityInterface::class)];
+        $client = $this->createMock(ClientEntityInterface::class);
+        $scope  = $this->createMock(ScopeEntityInterface::class);
+        $scope->method('getIdentifier')
+                ->willReturn('test_scope');
+        $scopes         = [$scope];
         $userIdentifier = 'foo';
 
         $accessToken = $this->repo->getNewToken($client, $scopes, $userIdentifier);

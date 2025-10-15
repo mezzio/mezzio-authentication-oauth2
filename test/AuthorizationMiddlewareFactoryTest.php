@@ -6,6 +6,7 @@ namespace MezzioTest\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
 use Mezzio\Authentication\OAuth2\AuthorizationMiddlewareFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -14,19 +15,14 @@ use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use TypeError;
 
-/**
- * @covers \Mezzio\Authentication\OAuth2\AuthorizationMiddlewareFactory
- */
+#[CoversClass(AuthorizationMiddlewareFactory::class)]
 final class AuthorizationMiddlewareFactoryTest extends TestCase
 {
-    /** @var AuthorizationServer&MockObject */
-    private AuthorizationServer $authServer;
+    private MockObject&AuthorizationServer $authServer;
 
-    /** @var ContainerInterface&MockObject */
-    private ContainerInterface $container;
+    private MockObject&ContainerInterface $container;
 
-    /** @var ResponseInterface&MockObject */
-    private ResponseInterface $response;
+    private MockObject&ResponseInterface $response;
 
     protected function setUp(): void
     {
@@ -50,7 +46,7 @@ final class AuthorizationMiddlewareFactoryTest extends TestCase
             ->method('get')
             ->willReturnMap([
                 [AuthorizationServer::class, new stdClass()],
-                [ResponseInterface::class, fn () => null],
+                [ResponseInterface::class, static fn () => null],
             ]);
 
         $factory = new AuthorizationMiddlewareFactory();

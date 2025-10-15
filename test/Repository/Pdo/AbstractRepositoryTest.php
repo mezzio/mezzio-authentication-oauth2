@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class AbstractRepositoryTest extends TestCase
 {
-    /** @var PdoService&MockObject */
-    private PdoService|MockObject $pdo;
+    private MockObject&PdoService $pdo;
 
     protected function setUp(): void
     {

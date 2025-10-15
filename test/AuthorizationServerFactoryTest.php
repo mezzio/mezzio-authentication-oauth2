@@ -27,7 +27,11 @@ final class AuthorizationServerFactoryTest extends TestCase
         $mockAccessTokenRepo = $this->createMock(AccessTokenRepositoryInterface::class);
         $mockScopeRepo       = $this->createMock(ScopeRepositoryInterface::class);
         $mockClientGrant     = $this->createMock(ClientCredentialsGrant::class);
-        $mockPasswordGrant   = $this->createMock(PasswordGrant::class);
+        $mockClientGrant->method('getIdentifier')
+            ->willReturn('client_credentials');
+        $mockPasswordGrant = $this->createMock(PasswordGrant::class);
+        $mockPasswordGrant->method('getIdentifier')
+            ->willReturn('password');
 
         $config = [
             'authentication' => [
@@ -62,7 +66,11 @@ final class AuthorizationServerFactoryTest extends TestCase
         $mockAccessTokenRepo = $this->createMock(AccessTokenRepositoryInterface::class);
         $mockScopeRepo       = $this->createMock(ScopeRepositoryInterface::class);
         $mockClientGrant     = $this->createMock(ClientCredentialsGrant::class);
-        $mockPasswordGrant   = $this->createMock(PasswordGrant::class);
+        $mockClientGrant->method('getIdentifier')
+            ->willReturn('client_credentials');
+        $mockPasswordGrant = $this->createMock(PasswordGrant::class);
+        $mockPasswordGrant->method('getIdentifier')
+            ->willReturn('password');
 
         $container->set(ClientRepositoryInterface::class, $mockClientRepo);
         $container->set(AccessTokenRepositoryInterface::class, $mockAccessTokenRepo);

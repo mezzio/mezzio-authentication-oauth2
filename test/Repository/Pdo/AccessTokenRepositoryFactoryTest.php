@@ -13,10 +13,9 @@ use Psr\Container\ContainerInterface;
 
 final class AccessTokenRepositoryFactoryTest extends TestCase
 {
-    /** @var ContainerInterface&MockObject */
-    private ContainerInterface $container;
-    /** @var PdoService&MockObject */
-    private PdoService $pdo;
+    private MockObject&ContainerInterface $container;
+    /** @psalm-trace */
+    private MockObject&PdoService $pdo;
 
     protected function setUp(): void
     {

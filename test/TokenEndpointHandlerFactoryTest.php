@@ -7,14 +7,13 @@ namespace MezzioTest\Authentication\OAuth2;
 use League\OAuth2\Server\AuthorizationServer;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandlerFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use TypeError;
 
-/**
- * @covers \Mezzio\Authentication\OAuth2\TokenEndpointHandlerFactory
- */
+#[CoversClass(TokenEndpointHandlerFactory::class)]
 final class TokenEndpointHandlerFactoryTest extends TestCase
 {
     private TokenEndpointHandlerFactory $subject;

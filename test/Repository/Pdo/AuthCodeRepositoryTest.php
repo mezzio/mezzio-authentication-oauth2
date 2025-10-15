@@ -21,8 +21,7 @@ use function time;
 
 final class AuthCodeRepositoryTest extends TestCase
 {
-    /** @var PdoService&MockObject */
-    private PdoService $pdo;
+    private MockObject&PdoService $pdo;
     private AuthCodeRepository $repo;
 
     protected function setUp(): void

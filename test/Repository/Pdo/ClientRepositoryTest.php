@@ -8,13 +8,13 @@ use League\OAuth2\Server\Entities\ClientEntityInterface;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\ClientRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use PDOStatement;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ClientRepositoryTest extends TestCase
 {
-    /** @var PdoService&MockObject */
-    private PdoService $pdo;
+    private MockObject&PdoService $pdo;
     private ClientRepository $repo;
 
     protected function setUp(): void
@@ -108,7 +108,7 @@ final class ClientRepositoryTest extends TestCase
     }
 
     /** @return array<string, array{0: string, 1: array}> */
-    public function invalidGrants(): array
+    public static function invalidGrants(): array
     {
         return [
             'personal_access_password_mismatch' => [
@@ -160,9 +160,7 @@ final class ClientRepositoryTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider invalidGrants
-     */
+    #[DataProvider('invalidGrants')]
     public function testValidateClientReturnsFalseIfRowIndicatesNotGranted(string $grantType, array $rowReturned): void
     {
         $statement = $this->createMock(PDOStatement::class);

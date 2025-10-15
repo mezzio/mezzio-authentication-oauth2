@@ -2,16 +2,19 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="test/bootstrap.php"
+         cacheDirectory=".phpunit.cache"
          colors="true"
-         stderr="true">
-  <coverage>
-    <include>
-      <directory suffix=".php">./src</directory>
-    </include>
-  </coverage>
-  <testsuites>
-    <testsuite name="mezzio-authentication-oauth2">
-      <directory>./test</directory>
-    </testsuite>
-  </testsuites>
+         displayDetailsOnAllIssues="true"
+         failOnAllIssues="true"
+>
+    <testsuites>
+        <testsuite name="mezzio-authentication-oauth2">
+            <directory>./test</directory>
+        </testsuite>
+    </testsuites>
+    <source ignoreIndirectDeprecations="true">
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </source>
 </phpunit>
