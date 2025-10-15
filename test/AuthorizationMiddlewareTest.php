@@ -19,23 +19,18 @@ use RuntimeException;
 
 final class AuthorizationMiddlewareTest extends TestCase
 {
-    /** @var AuthorizationRequest&MockObject */
-    private AuthorizationRequest $authRequest;
+    private MockObject&AuthorizationRequest $authRequest;
 
-    /** @var AuthorizationServer&MockObject */
-    private AuthorizationServer $authServer;
+    private MockObject&AuthorizationServer $authServer;
 
-    /** @var RequestHandlerInterface&MockObject */
-    private RequestHandlerInterface $handler;
+    private MockObject&RequestHandlerInterface $handler;
 
-    /** @var ResponseInterface&MockObject */
-    private ResponseInterface $response;
+    private MockObject&ResponseInterface $response;
 
     /** @var callable(): ResponseInterface */
     private $responseFactory;
 
-    /** @var ServerRequestInterface&MockObject */
-    private ServerRequestInterface $serverRequest;
+    private MockObject&ServerRequestInterface $serverRequest;
 
     protected function setUp(): void
     {

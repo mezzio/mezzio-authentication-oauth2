@@ -14,8 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ScopeRepositoryTest extends TestCase
 {
-    /** @var PdoService&MockObject **/
-    private PdoService $pdo;
+    private MockObject&PdoService $pdo;
     private ScopeRepository $repo;
 
     protected function setUp(): void
@@ -54,7 +53,7 @@ final class ScopeRepositoryTest extends TestCase
         self::assertNull($this->repo->getScopeEntityByIdentifier('id'));
     }
 
-    public function testGetScopeEntityByIndentifierReturnsScopes(): void
+    public function testGetScopeEntityByIdentifierReturnsScopes(): void
     {
         $statement = $this->createMock(PDOStatement::class);
         $statement->expects(self::once())->method('bindParam')->with(':identifier', 'id');

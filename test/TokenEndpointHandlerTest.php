@@ -8,13 +8,12 @@ use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use Mezzio\Authentication\OAuth2\Exception\RuntimeException;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * @covers \Mezzio\Authentication\OAuth2\TokenEndpointHandler
- */
+#[CoversClass(TokenEndpointHandler::class)]
 final class TokenEndpointHandlerTest extends TestCase
 {
     /** @return callable(): ResponseInterface */

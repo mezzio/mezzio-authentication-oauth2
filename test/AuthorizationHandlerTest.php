@@ -7,15 +7,14 @@ namespace MezzioTest\Authentication\OAuth2;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 use Mezzio\Authentication\OAuth2\AuthorizationHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use stdClass;
 use TypeError;
 
-/**
- * @covers \Mezzio\Authentication\OAuth2\AuthorizationHandler
- */
+#[CoversClass(AuthorizationHandler::class)]
 final class AuthorizationHandlerTest extends TestCase
 {
     public function testHandleUsesAuthorizationServerService(): void

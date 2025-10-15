@@ -21,8 +21,7 @@ use function time;
 
 final class RefreshTokenRepositoryTest extends TestCase
 {
-    /** @var PdoService&MockObject */
-    private PdoService $pdo;
+    private MockObject&PdoService $pdo;
     private RefreshTokenRepository $repo;
 
     protected function setUp(): void

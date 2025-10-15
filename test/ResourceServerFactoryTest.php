@@ -9,6 +9,7 @@ use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use League\OAuth2\Server\ResourceServer;
 use Mezzio\Authentication\OAuth2\Exception;
 use Mezzio\Authentication\OAuth2\ResourceServerFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class ResourceServerFactoryTest extends TestCase
@@ -75,7 +76,7 @@ final class ResourceServerFactoryTest extends TestCase
     }
 
     /** @return Generator<array-key, array{0: array}> */
-    public function getExtendedKeyConfigs(): Generator
+    public static function getExtendedKeyConfigs(): Generator
     {
         $extendedConfig = self::PUBLIC_KEY_EXTENDED;
 
@@ -88,9 +89,7 @@ final class ResourceServerFactoryTest extends TestCase
         yield [$extendedConfig];
     }
 
-    /**
-     * @dataProvider getExtendedKeyConfigs
-     */
+    #[DataProvider('getExtendedKeyConfigs')]
     public function testInvokeWithValidExtendedKey(array $keyConfig): void
     {
         $this->container->set('config', [
@@ -109,7 +108,7 @@ final class ResourceServerFactoryTest extends TestCase
     }
 
     /** @return Generator<array-key, array{0: array}> */
-    public function getInvalidExtendedKeyConfigs(): Generator
+    public static function getInvalidExtendedKeyConfigs(): Generator
     {
         $extendedConfig = self::PUBLIC_KEY_EXTENDED;
 
@@ -117,9 +116,7 @@ final class ResourceServerFactoryTest extends TestCase
         yield [$extendedConfig];
     }
 
-    /**
-     * @dataProvider getInvalidExtendedKeyConfigs
-     */
+    #[DataProvider('getInvalidExtendedKeyConfigs')]
     public function testInvokeWithInvalidExtendedKey(array $keyConfig): void
     {
         $this->container->set('config', [

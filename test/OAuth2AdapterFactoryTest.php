@@ -20,17 +20,14 @@ final class OAuth2AdapterFactoryTest extends TestCase
 {
     private InMemoryContainer $container;
 
-    /** @var ResourceServer&MockObject */
-    private ResourceServer $resourceServer;
+    private MockObject&ResourceServer $resourceServer;
 
-    /** @var ResponseInterface&MockObject */
-    private ResponseInterface $response;
+    private MockObject&ResponseInterface $response;
 
     /** @var callable(): ResponseInterface */
     private $responseFactory;
 
-    /** @var UserInterface&MockObject */
-    private UserInterface $user;
+    private MockObject&UserInterface $user;
 
     /** @var Closure(): UserInterface */
     private Closure $userFactory;

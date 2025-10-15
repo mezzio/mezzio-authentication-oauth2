@@ -36,6 +36,7 @@
     },
     "require": {
         "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
+        "ext-pdo": "*",
         "league/oauth2-server": "^8.3.5",
         "mezzio/mezzio-authentication": "^1.0",
         "psr/container": "^1.0 || ^2.0",
@@ -48,7 +49,7 @@
         "laminas/laminas-coding-standard": "^3.1",
         "laminas/laminas-diactoros": "^3.7.0",
         "laminas/laminas-servicemanager": "^4.4",
-        "phpunit/phpunit": "^9.6.29",
+        "phpunit/phpunit": "^11.5.42",
         "psalm/plugin-phpunit": "^0.19.5",
         "vimeo/psalm": "^6.13.1"
     },

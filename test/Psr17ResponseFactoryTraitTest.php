@@ -8,6 +8,7 @@ use Generator;
 use Mezzio\Authentication\OAuth2\Response\CallableResponseFactoryDecorator;
 use Mezzio\Container\ResponseFactoryFactory;
 use MezzioTest\Authentication\OAuth2\TestAsset\Psr17ResponseFactoryTraitImplementation;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -25,14 +26,14 @@ final class Psr17ResponseFactoryTraitTest extends TestCase
     /**
      * @psalm-return Generator<non-empty-string,array{0:array<string,mixed>}>
      */
-    public function configurationsWithOverriddenResponseInterfaceFactory(): Generator
+    public static function configurationsWithOverriddenResponseInterfaceFactory(): Generator
     {
         yield 'default' => [
             [
                 'dependencies' => [
                     'factories' => [
                         ResponseInterface::class
-                            => fn(): ResponseInterface => $this->createMock(ResponseInterface::class),
+                            => static fn(): ResponseInterface => self::createStub(ResponseInterface::class),
                     ],
                 ],
             ],
@@ -53,7 +54,7 @@ final class Psr17ResponseFactoryTraitTest extends TestCase
                 'dependencies' => [
                     'delegators' => [
                         ResponseInterface::class => [
-                            fn(): ResponseInterface => $this->createMock(ResponseInterface::class),
+                            static fn(): ResponseInterface => self::createStub(ResponseInterface::class),
                         ],
                     ],
                 ],
@@ -79,9 +80,9 @@ final class Psr17ResponseFactoryTraitTest extends TestCase
 
     /**
      * @param array<string,mixed> $config
-     * @dataProvider configurationsWithOverriddenResponseInterfaceFactory
      */
-    public function testWontUseResponseFactoryInterfaceFromContainerWhenApplicationFactoryIsOverriden(
+    #[DataProvider('configurationsWithOverriddenResponseInterfaceFactory')]
+    public function testWontUseResponseFactoryInterfaceFromContainerWhenApplicationFactoryIsOverridden(
         array $config
     ): void {
         $responseFactory = $this->createMock(ResponseFactoryInterface::class);

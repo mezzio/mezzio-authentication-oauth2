@@ -9,6 +9,7 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoService;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\PdoServiceFactory;
 use MezzioTest\Authentication\OAuth2\InMemoryContainer;
 use PDO;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class PdoServiceFactoryTest extends TestCase
@@ -23,7 +24,7 @@ final class PdoServiceFactoryTest extends TestCase
     }
 
     /** @return array<string, array{0: bool, 1: array, 2: string}> */
-    public function invalidConfiguration(): array
+    public static function invalidConfiguration(): array
     {
         // phpcs:disable
         return [
@@ -36,9 +37,7 @@ final class PdoServiceFactoryTest extends TestCase
         // phpcs:enable
     }
 
-    /**
-     * @dataProvider invalidConfiguration
-     */
+    #[DataProvider('invalidConfiguration')]
     public function testRaisesExceptionIfPdoConfigurationIsMissing(
         bool $hasConfig,
         array $config,

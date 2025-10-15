@@ -29,6 +29,7 @@ use Mezzio\Authentication\OAuth2\Repository\Pdo\ScopeRepository;
 use Mezzio\Authentication\OAuth2\Repository\Pdo\UserRepository;
 use Mezzio\Authentication\OAuth2\TokenEndpointHandler;
 use PDO;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -339,9 +340,8 @@ final class OAuth2PdoMiddlewareTest extends TestCase
      * Test the Authorization Code Grant (Part Two)
      *
      * @see https://oauth2.thephpleague.com/authorization-server/auth-code-grant/
-     *
-     * @depends testProcessGetAuthorizationCode
      */
+    #[Depends('testProcessGetAuthorizationCode')]
     public function testProcessFromAuthorizationCode(string $code): string
     {
         $grant = new AuthCodeGrant(
@@ -446,9 +446,8 @@ final class OAuth2PdoMiddlewareTest extends TestCase
      * Test the Refresh Token Grant
      *
      * @see https://oauth2.thephpleague.com/authorization-server/refresh-token-grant/
-     *
-     * @depends testProcessFromAuthorizationCode
      */
+    #[Depends('testProcessFromAuthorizationCode')]
     public function testProcessRefreshTokenGrant(string $refreshToken): void
     {
         $grant = new RefreshTokenGrant($this->refreshTokenRepository);

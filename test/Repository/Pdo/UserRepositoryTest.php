@@ -18,8 +18,7 @@ use const PASSWORD_DEFAULT;
 
 final class UserRepositoryTest extends TestCase
 {
-    /** @var PdoService&MockObject **/
-    private PdoService $pdo;
+    private MockObject&PdoService $pdo;
     private UserRepository $repo;
 
     protected function setUp(): void
