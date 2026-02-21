@@ -18,14 +18,11 @@ class ClientEntity implements ClientEntityInterface
     use RevokableTrait;
     use TimestampableTrait;
 
-    /** @var string */
-    protected $secret;
+    protected string $secret;
 
-    /** @var bool */
-    protected $personalAccessClient;
+    protected bool $personalAccessClient;
 
-    /** @var bool */
-    protected $passwordClient;
+    protected bool $passwordClient;
 
     /**
      * Constructor

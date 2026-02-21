@@ -63,9 +63,6 @@ class AuthorizationServerFactory
         // add listeners if configured
         $this->addListeners($authServer, $container);
 
-        // add listener providers if configured
-        $this->addListenerProviders($authServer, $container);
-
         return $authServer;
     }
 
@@ -105,33 +102,6 @@ class AuthorizationServerFactory
             }
             $authServer->getEmitter()
                 ->addListener($event, $listener, $priority);
-        }
-    }
-
-    /**
-     * Optionally add event listener providers
-     */
-    private function addListenerProviders(
-        AuthorizationServer $authServer,
-        ContainerInterface $container
-    ): void {
-        $providers = $this->getListenerProvidersConfig($container);
-
-        foreach ($providers as $idx => $provider) {
-            if (is_string($provider)) {
-                if (! $container->has($provider)) {
-                    throw new Exception\InvalidConfigException(sprintf(
-                        'The event_listener_providers config at '
-                            . 'index "%s" is a string and therefore expected to '
-                            . 'be available as a service key in the container. '
-                            . 'A service named "%s" was not found.',
-                        $idx,
-                        $provider
-                    ));
-                }
-                $provider = $container->get($provider);
-            }
-            $authServer->getEmitter()->useListenerProvider($provider);
         }
     }
 }

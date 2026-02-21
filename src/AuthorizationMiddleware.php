@@ -7,7 +7,7 @@ namespace Mezzio\Authentication\OAuth2;
 use Exception as BaseException;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
-use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use League\OAuth2\Server\RequestTypes\AuthorizationRequestInterface;
 use Mezzio\Authentication\OAuth2\Response\CallableResponseFactoryDecorator;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -22,7 +22,7 @@ use function is_callable;
  *
  * Performs checks if the OAuth authorization request is valid and populates it
  * to the next handler via the request object as attribute with the key
- * `League\OAuth2\Server\AuthorizationServer`
+ * `League\OAuth2\Server\RequestTypes\AuthorizationRequestInterface`
  *
  * The next handler should take care of checking the resource owner's authentication and
  * consent. It may intercept to ensure authentication and consent before populating it to
@@ -68,7 +68,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
             // authenticated user and the approval
             $authRequest->setAuthorizationApproved(false);
 
-            return $handler->handle($request->withAttribute(AuthorizationRequest::class, $authRequest));
+            return $handler->handle($request->withAttribute(AuthorizationRequestInterface::class, $authRequest));
         } catch (OAuthServerException $exception) {
             $response = $this->responseFactory->createResponse();
             // The validation throws this exception if the request is not valid

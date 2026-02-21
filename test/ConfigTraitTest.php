@@ -208,36 +208,4 @@ final class ConfigTraitTest extends TestCase
         $result = $this->trait->proxy('getListenersConfig', $this->container);
         self::assertEquals($expected, $result);
     }
-
-    public function testGetListenerProvidersConfigNoConfig(): void
-    {
-        $this->containerHasConfig([]);
-
-        $result = $this->trait->proxy('getListenerProvidersConfig', $this->container);
-        self::assertIsArray($result);
-    }
-
-    public function testGetListenerProvidersConfigNoArrayValue(): void
-    {
-        $this->expectException(Exception\InvalidConfigException::class);
-
-        $this->containerHasConfig([
-            'authentication' => [
-                'event_listener_providers' => 'xxx',
-            ],
-        ]);
-
-        $this->trait->proxy('getListenerProvidersConfig', $this->container);
-    }
-
-    public function testGetListenerProvidersConfig(): void
-    {
-        $this->containerHasConfig([
-            'authentication' => [
-                'event_listener_providers' => $expected = ['xxx'],
-            ],
-        ]);
-        $result = $this->trait->proxy('getListenerProvidersConfig', $this->container);
-        self::assertEquals($expected, $result);
-    }
 }

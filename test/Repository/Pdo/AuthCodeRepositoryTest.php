@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2\Repository\Pdo;
 
-use DateTime;
+use DateTimeImmutable;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
@@ -43,7 +43,7 @@ final class AuthCodeRepositoryTest extends TestCase
             ->willReturn('authentication');
 
         $time = time();
-        $date = DateTime::createFromFormat('U', (string) $time);
+        $date = DateTimeImmutable::createFromFormat('U', (string) $time);
 
         $authCode = $this->createMock(AuthCodeEntity::class);
         $authCode->method('getIdentifier')->willReturn('id');

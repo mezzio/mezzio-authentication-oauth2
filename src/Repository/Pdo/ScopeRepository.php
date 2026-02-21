@@ -12,11 +12,7 @@ use Mezzio\Authentication\OAuth2\Entity\ScopeEntity;
 /** @final */
 class ScopeRepository extends AbstractRepository implements ScopeRepositoryInterface
 {
-    /**
-     * @param string $identifier
-     * @return ScopeEntity|void
-     */
-    public function getScopeEntityByIdentifier($identifier)
+    public function getScopeEntityByIdentifier(string $identifier): ?ScopeEntityInterface
     {
         $sth = $this->pdo->prepare(
             'SELECT id FROM oauth_scopes WHERE id = :identifier'
@@ -24,12 +20,12 @@ class ScopeRepository extends AbstractRepository implements ScopeRepositoryInter
         $sth->bindParam(':identifier', $identifier);
 
         if (false === $sth->execute()) {
-            return;
+            return null;
         }
 
         $row = $sth->fetch();
         if (! isset($row['id'])) {
-            return;
+            return null;
         }
 
         $scope = new ScopeEntity();
@@ -39,15 +35,14 @@ class ScopeRepository extends AbstractRepository implements ScopeRepositoryInter
 
     /**
      * @param ScopeEntityInterface[] $scopes
-     * @param string                 $grantType
-     * @param null|string            $userIdentifier
      * @return ScopeEntityInterface[]
      */
     public function finalizeScopes(
         array $scopes,
-        $grantType,
+        string $grantType,
         ClientEntityInterface $clientEntity,
-        $userIdentifier = null
+        string|null $userIdentifier = null,
+        ?string $authCodeId = null
     ): array {
         return $scopes;
     }

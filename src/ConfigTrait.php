@@ -110,20 +110,4 @@ trait ConfigTrait
 
         return $config['event_listeners'];
     }
-
-    protected function getListenerProvidersConfig(ContainerInterface $container): array
-    {
-        $config = $container->get('config')['authentication'] ?? [];
-
-        if (empty($config['event_listener_providers'])) {
-            return [];
-        }
-        if (! is_array($config['event_listener_providers'])) {
-            throw new InvalidConfigException(
-                'The event_listener_providers config must be an array value'
-            );
-        }
-
-        return $config['event_listener_providers'];
-    }
 }

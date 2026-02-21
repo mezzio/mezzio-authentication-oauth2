@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2\Repository\Pdo;
 
-use DateTime;
+use DateTimeImmutable;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
 use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
@@ -38,7 +38,7 @@ final class RefreshTokenRepositoryTest extends TestCase
             ->willReturn('access_token_id');
 
         $time = time();
-        $date = DateTime::createFromFormat('U', (string) $time);
+        $date = DateTimeImmutable::createFromFormat('U', (string) $time);
 
         $refreshToken = $this->createMock(RefreshTokenEntityInterface::class);
         $refreshToken->expects(self::once())

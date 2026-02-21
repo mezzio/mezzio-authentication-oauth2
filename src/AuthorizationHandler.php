@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mezzio\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
-use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use League\OAuth2\Server\RequestTypes\AuthorizationRequestInterface;
 use Mezzio\Authentication\OAuth2\Response\CallableResponseFactoryDecorator;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -18,7 +18,7 @@ use function is_callable;
  * Handles the already validated and competed authorization request
  *
  * This will perform the required redirect to the requesting party.
- * The request must provide an attribute `League\OAuth2\Server\AuthorizationServer`
+ * The request must provide an attribute `League\OAuth2\Server\RequestTypes\AuthorizationRequestInterface`
  * that contains the validated OAuth2 request
  *
  * @see https://tools.ietf.org/html/rfc6749#section-3.1.1
@@ -45,7 +45,7 @@ class AuthorizationHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $authRequest = $request->getAttribute(AuthorizationRequest::class);
+        $authRequest = $request->getAttribute(AuthorizationRequestInterface::class);
         return $this->server->completeAuthorizationRequest(
             $authRequest,
             $this->responseFactory->createResponse()

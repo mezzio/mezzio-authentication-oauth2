@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mezzio\Authentication\OAuth2;
 
 use League\OAuth2\Server\CryptKey;
+use League\OAuth2\Server\CryptKeyInterface;
 
 use function is_string;
 use function sprintf;
@@ -14,7 +15,7 @@ trait CryptKeyTrait
     /**
      * @param array|string $keyConfig
      */
-    protected function getCryptKey($keyConfig, string $configPath): CryptKey
+    protected function getCryptKey($keyConfig, string $configPath): CryptKeyInterface
     {
         if (is_string($keyConfig)) {
             return new CryptKey($keyConfig);
