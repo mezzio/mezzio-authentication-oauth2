@@ -16,7 +16,7 @@ use League\OAuth2\Server\Grant\ClientCredentialsGrant;
 use League\OAuth2\Server\Grant\ImplicitGrant;
 use League\OAuth2\Server\Grant\PasswordGrant;
 use League\OAuth2\Server\Grant\RefreshTokenGrant;
-use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use League\OAuth2\Server\RequestTypes\AuthorizationRequestInterface;
 use Mezzio\Authentication\OAuth2\AuthorizationHandler;
 use Mezzio\Authentication\OAuth2\AuthorizationMiddleware;
 use Mezzio\Authentication\OAuth2\Entity\UserEntity;
@@ -500,13 +500,13 @@ final class OAuth2PdoMiddlewareTest extends TestCase
             public function handle(
                 ServerRequestInterface $request
             ): ResponseInterface {
-                $authRequest = $request->getAttribute(AuthorizationRequest::class);
-                assert($authRequest instanceof AuthorizationRequest);
+                $authRequest = $request->getAttribute(AuthorizationRequestInterface::class);
+                assert($authRequest instanceof AuthorizationRequestInterface);
                 $authRequest->setUser(new UserEntity('test'));
                 $authRequest->setAuthorizationApproved(true);
 
                 return $this->handler->handle(
-                    $request->withAttribute(AuthorizationRequest::class, $authRequest)
+                    $request->withAttribute(AuthorizationRequestInterface::class, $authRequest)
                 );
             }
         };

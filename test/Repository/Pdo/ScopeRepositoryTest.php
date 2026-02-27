@@ -26,7 +26,7 @@ final class ScopeRepositoryTest extends TestCase
     public function testGetScopeEntityByIdentifierReturnsNullWhenStatementExecutionFails(): void
     {
         $statement = $this->createMock(PDOStatement::class);
-        $statement->expects(self::once())->method('bindParam')->with(':identifier', 'id');
+        $statement->expects(self::once())->method('bindValue')->with(':identifier', 'id');
         $statement->expects(self::once())->method('execute')->willReturn(false);
         $statement->expects(self::never())->method('fetch');
 
@@ -41,9 +41,9 @@ final class ScopeRepositoryTest extends TestCase
     public function testGetScopeEntityByIdentifierReturnsNullWhenReturnedRowDoesNotHaveIdentifier(): void
     {
         $statement = $this->createMock(PDOStatement::class);
-        $statement->expects(self::once())->method('bindParam')->with(':identifier', 'id');
+        $statement->expects(self::once())->method('bindValue')->with(':identifier', 'id');
         $statement->expects(self::once())->method('execute')->willReturn(true);
-        $statement->expects(self::once())->method('fetch')->willReturn([]);
+        $statement->expects(self::once())->method('fetchColumn')->willReturn([]);
 
         $this->pdo->expects(self::once())
             ->method('prepare')
@@ -56,11 +56,9 @@ final class ScopeRepositoryTest extends TestCase
     public function testGetScopeEntityByIdentifierReturnsScopes(): void
     {
         $statement = $this->createMock(PDOStatement::class);
-        $statement->expects(self::once())->method('bindParam')->with(':identifier', 'id');
+        $statement->expects(self::once())->method('bindValue')->with(':identifier', 'id');
         $statement->expects(self::once())->method('execute')->willReturn(true);
-        $statement->expects(self::once())->method('fetch')->willReturn([
-            'id' => 'foo',
-        ]);
+        $statement->expects(self::once())->method('fetchColumn')->willReturn("foo");
 
         $this->pdo->expects(self::once())
             ->method('prepare')

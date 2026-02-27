@@ -92,7 +92,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
-use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use League\OAuth2\Server\RequestTypes\AuthorizationRequestInterface;
 use Mezzio\Authentication\UserInterface;
 
 class OAuthAuthorizationMiddleware implements MiddlewareInterface
@@ -110,7 +110,7 @@ class OAuthAuthorizationMiddleware implements MiddlewareInterface
 
         // This is populated by the previous middleware:
         /** @var AuthorizationRequest $authRequest */
-        $authRequest = $request->getAttribute(AuthorizationRequest::class);
+        $authRequest = $request->getAttribute(AuthorizationRequestInterface::class);
 
         // The user is authenticated:
         if ($user) {

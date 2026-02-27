@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MezzioTest\Authentication\OAuth2\Repository\Pdo;
 
-use DateTime;
+use DateTimeImmutable;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
@@ -44,7 +44,7 @@ final class AccessTokenRepositoryTest extends TestCase
             ->willReturn('authentication');
 
         $time = time();
-        $date = DateTime::createFromFormat('U', (string) $time);
+        $date = DateTimeImmutable::createFromFormat('U', (string) $time);
 
         $accessToken = $this->createMock(AccessTokenEntityInterface::class);
         $accessToken->method('getIdentifier')->willReturn('id');

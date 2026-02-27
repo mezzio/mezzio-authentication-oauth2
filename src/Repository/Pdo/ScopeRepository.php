@@ -9,45 +9,45 @@ use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 use Mezzio\Authentication\OAuth2\Entity\ScopeEntity;
 
+use function is_string;
+
 /** @final */
 class ScopeRepository extends AbstractRepository implements ScopeRepositoryInterface
 {
     /**
-     * @param string $identifier
      * @return ScopeEntity|void
      */
-    public function getScopeEntityByIdentifier($identifier)
+    public function getScopeEntityByIdentifier(string $identifier): ?ScopeEntityInterface
     {
         $sth = $this->pdo->prepare(
             'SELECT id FROM oauth_scopes WHERE id = :identifier'
         );
-        $sth->bindParam(':identifier', $identifier);
+        $sth->bindValue(':identifier', $identifier);
 
         if (false === $sth->execute()) {
-            return;
+            return null;
         }
 
-        $row = $sth->fetch();
-        if (! isset($row['id'])) {
-            return;
+        $id = $sth->fetchColumn();
+        if (! is_string($id) || $id === '') {
+            return null;
         }
 
         $scope = new ScopeEntity();
-        $scope->setIdentifier($row['id']);
+        $scope->setIdentifier($id);
         return $scope;
     }
 
     /**
      * @param ScopeEntityInterface[] $scopes
-     * @param string                 $grantType
-     * @param null|string            $userIdentifier
      * @return ScopeEntityInterface[]
      */
     public function finalizeScopes(
         array $scopes,
-        $grantType,
+        string $grantType,
         ClientEntityInterface $clientEntity,
-        $userIdentifier = null
+        string|null $userIdentifier = null,
+        ?string $authCodeId = null
     ): array {
         return $scopes;
     }

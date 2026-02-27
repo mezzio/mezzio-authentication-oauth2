@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MezzioTest\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
-use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use League\OAuth2\Server\RequestTypes\AuthorizationRequestInterface;
 use Mezzio\Authentication\OAuth2\AuthorizationHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ final class AuthorizationHandlerTest extends TestCase
     {
         $server           = $this->createMock(AuthorizationServer::class);
         $response         = $this->createMock(ResponseInterface::class);
-        $authRequest      = $this->createMock(AuthorizationRequest::class);
+        $authRequest      = $this->createMock(AuthorizationRequestInterface::class);
         $request          = $this->createMock(ServerRequestInterface::class);
         $expectedResponse = $response;
         $response
@@ -29,7 +29,7 @@ final class AuthorizationHandlerTest extends TestCase
             ->willReturnSelf();
 
         $request->method('getAttribute')
-            ->with(AuthorizationRequest::class)
+            ->with(AuthorizationRequestInterface::class)
             ->willReturn($authRequest);
 
         $server->expects(self::once())
@@ -45,11 +45,11 @@ final class AuthorizationHandlerTest extends TestCase
     public function testInvalidResponseFactoryThrowsTypeError(): void
     {
         $server      = $this->createMock(AuthorizationServer::class);
-        $authRequest = $this->createMock(AuthorizationRequest::class);
+        $authRequest = $this->createMock(AuthorizationRequestInterface::class);
         $request     = $this->createMock(ServerRequestInterface::class);
 
         $request->method('getAttribute')
-            ->with(AuthorizationRequest::class)
+            ->with(AuthorizationRequestInterface::class)
             ->willReturn($authRequest);
 
         $server->expects(self::never())

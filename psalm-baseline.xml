@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
+<files psalm-version="6.15.0@204d06619833a297b402cbc66be7f2df74437db4">
   <file src="config/oauth2.php">
     <MixedAssignment>
       <code><![CDATA[$config['encryption_key']]]></code>
@@ -223,28 +223,12 @@
       <code><![CDATA[$pdo]]></code>
     </PropertyTypeCoercion>
   </file>
-  <file src="src/Repository/Pdo/AccessTokenRepository.php">
-    <MissingReturnType>
-      <code><![CDATA[persistNewAccessToken]]></code>
-      <code><![CDATA[revokeAccessToken]]></code>
-    </MissingReturnType>
-    <MixedArgument>
-      <code><![CDATA[$userIdentifier]]></code>
-    </MixedArgument>
-  </file>
   <file src="src/Repository/Pdo/AccessTokenRepositoryFactory.php">
     <MixedArgument>
       <code><![CDATA[$container->get(PdoService::class)]]></code>
     </MixedArgument>
   </file>
   <file src="src/Repository/Pdo/AuthCodeRepository.php">
-    <MissingReturnType>
-      <code><![CDATA[persistNewAuthCode]]></code>
-      <code><![CDATA[revokeAuthCode]]></code>
-    </MissingReturnType>
-    <MixedArrayAccess>
-      <code><![CDATA[$row['revoked']]]></code>
-    </MixedArrayAccess>
     <MixedAssignment>
       <code><![CDATA[$row]]></code>
     </MixedAssignment>
@@ -301,10 +285,6 @@
     </MixedReturnStatement>
   </file>
   <file src="src/Repository/Pdo/RefreshTokenRepository.php">
-    <MissingReturnType>
-      <code><![CDATA[persistNewRefreshToken]]></code>
-      <code><![CDATA[revokeRefreshToken]]></code>
-    </MissingReturnType>
     <MixedArrayAccess>
       <code><![CDATA[$row['revoked']]]></code>
     </MixedArrayAccess>
@@ -316,14 +296,6 @@
     <MixedArgument>
       <code><![CDATA[$container->get(PdoService::class)]]></code>
     </MixedArgument>
-  </file>
-  <file src="src/Repository/Pdo/ScopeRepository.php">
-    <MixedArrayAccess>
-      <code><![CDATA[$row['id']]]></code>
-    </MixedArrayAccess>
-    <MixedAssignment>
-      <code><![CDATA[$row]]></code>
-    </MixedAssignment>
   </file>
   <file src="src/Repository/Pdo/ScopeRepositoryFactory.php">
     <MixedArgument>

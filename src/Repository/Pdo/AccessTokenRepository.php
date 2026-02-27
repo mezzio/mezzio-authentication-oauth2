@@ -23,21 +23,26 @@ class AccessTokenRepository extends AbstractRepository implements AccessTokenRep
     /**
      * {@inheritDoc}
      */
-    public function getNewToken(ClientEntityInterface $clientEntity, array $scopes, $userIdentifier = null)
-    {
+    public function getNewToken(
+        ClientEntityInterface $clientEntity,
+        array $scopes,
+        string|null $userIdentifier = null
+    ): AccessTokenEntityInterface {
         $accessToken = new AccessTokenEntity();
         $accessToken->setClient($clientEntity);
         foreach ($scopes as $scope) {
             $accessToken->addScope($scope);
         }
-        $accessToken->setUserIdentifier($userIdentifier);
+        if (null !== $userIdentifier && $userIdentifier !== '') {
+            $accessToken->setUserIdentifier($userIdentifier);
+        }
         return $accessToken;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function persistNewAccessToken(AccessTokenEntityInterface $accessTokenEntity)
+    public function persistNewAccessToken(AccessTokenEntityInterface $accessTokenEntity): void
     {
         $columns = [
             'id',
@@ -87,7 +92,7 @@ class AccessTokenRepository extends AbstractRepository implements AccessTokenRep
     /**
      * {@inheritDoc}
      */
-    public function revokeAccessToken($tokenId)
+    public function revokeAccessToken(string $tokenId): void
     {
         $sth = $this->pdo->prepare(
             'UPDATE oauth_access_tokens SET revoked=:revoked WHERE id = :tokenId'
@@ -101,7 +106,7 @@ class AccessTokenRepository extends AbstractRepository implements AccessTokenRep
     /**
      * {@inheritDoc}
      */
-    public function isAccessTokenRevoked($tokenId)
+    public function isAccessTokenRevoked(string $tokenId): bool
     {
         $sth = $this->pdo->prepare(
             'SELECT revoked FROM oauth_access_tokens WHERE id = :tokenId'
