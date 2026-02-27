@@ -109,7 +109,7 @@ class OAuthAuthorizationMiddleware implements MiddlewareInterface
         $session = $request->getAttribute('session');
 
         // This is populated by the previous middleware:
-        /** @var AuthorizationRequest $authRequest */
+        /** @var AuthorizationRequestInterface $authRequest */
         $authRequest = $request->getAttribute(AuthorizationRequestInterface::class);
 
         // The user is authenticated:

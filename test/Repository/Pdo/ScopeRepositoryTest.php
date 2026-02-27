@@ -28,7 +28,7 @@ final class ScopeRepositoryTest extends TestCase
         $statement = $this->createMock(PDOStatement::class);
         $statement->expects(self::once())->method('bindValue')->with(':identifier', 'id');
         $statement->expects(self::once())->method('execute')->willReturn(false);
-        $statement->expects(self::never())->method('fetch');
+        $statement->expects(self::never())->method('fetchColumn');
 
         $this->pdo->expects(self::once())
             ->method('prepare')
@@ -43,7 +43,7 @@ final class ScopeRepositoryTest extends TestCase
         $statement = $this->createMock(PDOStatement::class);
         $statement->expects(self::once())->method('bindValue')->with(':identifier', 'id');
         $statement->expects(self::once())->method('execute')->willReturn(true);
-        $statement->expects(self::once())->method('fetchColumn')->willReturn([]);
+        $statement->expects(self::once())->method('fetchColumn')->willReturn(false);
 
         $this->pdo->expects(self::once())
             ->method('prepare')
