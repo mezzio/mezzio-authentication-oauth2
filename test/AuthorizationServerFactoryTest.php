@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace MezzioTest\Authentication\OAuth2;
 
 use Laminas\Diactoros\ServerRequest;
-use League\Event\ListenerInterface;
-use League\Event\ListenerProviderInterface;
+use League\Event\Listener;
+use League\Event\ListenerSubscriber;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Grant\ClientCredentialsGrant;
 use League\OAuth2\Server\Grant\PasswordGrant;
@@ -109,8 +109,8 @@ final class AuthorizationServerFactoryTest extends TestCase
     public function testInvokeWithListenerConfig(): void
     {
         $mockContainer = $this->getContainerMock();
-        $mockListener  = $this->createMock(ListenerInterface::class);
-        $mockContainer->set(ListenerInterface::class, $mockListener);
+        $mockListener  = $this->createMock(Listener::class);
+        $mockContainer->set(Listener::class, $mockListener);
 
         $config = [
             'authentication' => [
@@ -129,7 +129,7 @@ final class AuthorizationServerFactoryTest extends TestCase
                     ],
                     [
                         RequestEvent::CLIENT_AUTHENTICATION_FAILED,
-                        ListenerInterface::class,
+                        Listener::class,
                     ],
                 ],
             ],
@@ -151,8 +151,8 @@ final class AuthorizationServerFactoryTest extends TestCase
     public function testInvokeWithListenerConfigFailsIfPriorityIsNotAnInteger(): void
     {
         $mockContainer = $this->getContainerMock();
-        $mockListener  = $this->createMock(ListenerInterface::class);
-        $mockContainer->set(ListenerInterface::class, $mockListener);
+        $mockListener  = $this->createMock(Listener::class);
+        $mockContainer->set(Listener::class, $mockListener);
 
         $config = [
             'authentication' => [
@@ -165,7 +165,7 @@ final class AuthorizationServerFactoryTest extends TestCase
                 'event_listeners'     => [
                     [
                         RequestEvent::CLIENT_AUTHENTICATION_FAILED,
-                        ListenerInterface::class,
+                        Listener::class,
                         'one',
                     ],
                 ],
@@ -196,7 +196,7 @@ final class AuthorizationServerFactoryTest extends TestCase
                 'event_listeners'     => [
                     [
                         RequestEvent::CLIENT_AUTHENTICATION_FAILED,
-                        ListenerInterface::class,
+                        Listener::class,
                     ],
                 ],
             ],
@@ -214,8 +214,8 @@ final class AuthorizationServerFactoryTest extends TestCase
     public function testInvokeWithListenerProviderConfig(): void
     {
         $mockContainer = $this->getContainerMock();
-        $mockProvider  = $this->createMock(ListenerProviderInterface::class);
-        $mockContainer->set(ListenerProviderInterface::class, $mockProvider);
+        $mockProvider  = $this->createMock(ListenerSubscriber::class);
+        $mockContainer->set(ListenerSubscriber::class, $mockProvider);
 
         $config = [
             'authentication' => [
@@ -226,7 +226,7 @@ final class AuthorizationServerFactoryTest extends TestCase
                     ClientCredentialsGrant::class => ClientCredentialsGrant::class,
                 ],
                 'event_listener_providers' => [
-                    ListenerProviderInterface::class,
+                    ListenerSubscriber::class,
                 ],
             ],
         ];
@@ -253,7 +253,7 @@ final class AuthorizationServerFactoryTest extends TestCase
                     ClientCredentialsGrant::class => ClientCredentialsGrant::class,
                 ],
                 'event_listener_providers' => [
-                    ListenerProviderInterface::class,
+                    ListenerSubscriber::class,
                 ],
             ],
         ];

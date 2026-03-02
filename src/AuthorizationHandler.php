@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mezzio\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
-use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use League\OAuth2\Server\RequestTypes\AuthorizationRequestInterface;
 use Mezzio\Authentication\OAuth2\Response\CallableResponseFactoryDecorator;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -45,7 +45,7 @@ class AuthorizationHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $authRequest = $request->getAttribute(AuthorizationRequest::class);
+        $authRequest = $request->getAttribute(AuthorizationRequestInterface::class);
         return $this->server->completeAuthorizationRequest(
             $authRequest,
             $this->responseFactory->createResponse()

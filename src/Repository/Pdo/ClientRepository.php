@@ -16,14 +16,17 @@ class ClientRepository extends AbstractRepository implements ClientRepositoryInt
     /**
      * {@inheritDoc}
      */
-    public function getClientEntity($clientIdentifier): ?ClientEntityInterface
+    public function getClientEntity(string $clientIdentifier): ?ClientEntityInterface
     {
+        if ($clientIdentifier === '') {
+            return null;
+        }
+
         $clientData = $this->getClientData($clientIdentifier);
 
         if ($clientData === null || $clientData === []) {
             return null;
         }
-
         return new ClientEntity(
             $clientIdentifier,
             $clientData['name'] ?? '',
@@ -35,7 +38,7 @@ class ClientRepository extends AbstractRepository implements ClientRepositoryInt
     /**
      * {@inheritDoc}
      */
-    public function validateClient($clientIdentifier, $clientSecret, $grantType): bool
+    public function validateClient(string $clientIdentifier, ?string $clientSecret, ?string $grantType): bool
     {
         $clientData = $this->getClientData($clientIdentifier);
 

@@ -15,10 +15,10 @@ class UserEntity implements UserEntityInterface
     /**
      * Create a new user instance.
      *
-     * @param  string|int  $identifier
+     * @param non-empty-string $identifier
      * @return void
      */
-    public function __construct($identifier)
+    public function __construct(string $identifier)
     {
         $this->setIdentifier($identifier);
     }

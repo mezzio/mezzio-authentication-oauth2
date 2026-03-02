@@ -6,7 +6,7 @@ namespace MezzioTest\Authentication\OAuth2;
 
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
-use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
+use League\OAuth2\Server\RequestTypes\AuthorizationRequestInterface;
 use Mezzio\Authentication\OAuth2\AuthorizationMiddleware;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +19,7 @@ use RuntimeException;
 
 final class AuthorizationMiddlewareTest extends TestCase
 {
-    private MockObject&AuthorizationRequest $authRequest;
+    private MockObject&AuthorizationRequestInterface $authRequest;
 
     private MockObject&AuthorizationServer $authServer;
 
@@ -37,7 +37,7 @@ final class AuthorizationMiddlewareTest extends TestCase
         $this->authServer      = $this->createMock(AuthorizationServer::class);
         $this->response        = $this->createMock(ResponseInterface::class);
         $this->serverRequest   = $this->createMock(ServerRequestInterface::class);
-        $this->authRequest     = $this->createMock(AuthorizationRequest::class);
+        $this->authRequest     = $this->createMock(AuthorizationRequestInterface::class);
         $this->handler         = $this->createMock(RequestHandlerInterface::class);
         $this->responseFactory = fn(): ResponseInterface => $this->response;
     }
@@ -73,7 +73,7 @@ final class AuthorizationMiddlewareTest extends TestCase
         $newRequest = $this->createMock(ServerRequestInterface::class);
         $this->serverRequest->expects(self::once())
             ->method('withAttribute')
-            ->with(AuthorizationRequest::class, $this->authRequest)
+            ->with(AuthorizationRequestInterface::class, $this->authRequest)
             ->willReturn($newRequest);
 
         // Expect the handler to be called with the new modified request,
