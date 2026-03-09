@@ -130,11 +130,11 @@ you can extend this array to add your own custom grants.
 
 - **Since 1.3.0**
 
-_Optional_ The `event_listeners` and `event_listener_providers` arrays may be used to enable event listeners for events published by `league\oauth2-server`. See the [Authorization Server Domain Events documentation](https://oauth2.thephpleague.com/authorization-server/events/). The possible event names can be found [in `League\OAuth2\Server\RequestEvent`](https://github.com/thephpleague/oauth2-server/blob/0b0b43d43342c0909b3b32fb7a09d502c368d2ec/src/RequestEvent.php#L17-L22).
+_Optional_ The `event_listeners` and `event_listener_providers` arrays may be used to enable event listeners for events published by `league\oauth2-server`. See the [Authorization Server Domain Events documentation](https://oauth2.thephpleague.com/authorization-server/events/). The possible event names can be found [in `League\OAuth2\Server\RequestEvent`](https://github.com/thephpleague/oauth2-server/blob/948b278fc873d06f46b1be9b3478eb8e9ca4345b/src/RequestEvent.php#L20-L25).
 
 #### Event Listeners
 
-The `event_listeners` key must contain an array of arrays. Each array element must contain at least 2 elements and may include a 3rd element. These roughly correspond to the arguments passed to [`League\Event\ListenerRegistry::subscribeTo()`](https://github.com/thephpleague/event/blob/ec38ff7ea10cad7d99a79ac937fbcffb9334c210/src/ListenerRegistry.php#L9). The first element must be a string -- either the [wildcard (`*`)](https://event.thephpleague.com/2.0/listeners/wildcard/) or a [single event name](https://event.thephpleague.com/2.0/events/named/). The second element must be either a callable, a concrete instance of `League\Event\Listener`, or a string pointing to your listener service instance in the container. The third element is optional, and must be an integer if provided.
+The `event_listeners` key must contain an array of arrays. Each array element must contain at least 2 elements and may include a 3rd element. These roughly correspond to the arguments passed to [`League\Event\ListenerRegistry::subscribeTo()`](https://github.com/thephpleague/event/blob/ec38ff7ea10cad7d99a79ac937fbcffb9334c210/src/ListenerRegistry.php#L9). The first element must be a string (the named event). The second element must be either a callable, a concrete instance of `League\Event\Listener`, or a string pointing to your listener service instance in the container. The third element is optional, and must be an integer if provided.
 
 See the [documentation for callable listeners](https://event.thephpleague.com/3.0/usage/subscribing-to-events/).
 
