@@ -15,6 +15,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Log\LoggerInterface;
 use RuntimeException;
 
 final class AuthorizationMiddlewareTest extends TestCase
@@ -131,7 +132,7 @@ final class AuthorizationMiddlewareTest extends TestCase
         $body = $this->createMock(StreamInterface::class);
         $body->expects(self::once())
             ->method('write')
-            ->with(self::stringContains('oauth2 server error'));
+            ->with(self::stringContains('An internal error occurred'));
 
         $this->response
             ->expects(self::once())
@@ -150,7 +151,7 @@ final class AuthorizationMiddlewareTest extends TestCase
                 [500, '', $this->response],
             ]);
 
-        $exception = new RuntimeException('oauth2 server error');
+        $exception = new RuntimeException('An internal error occurred');
 
         $this->authServer->expects(self::once())
             ->method('validateAuthorizationRequest')
@@ -160,6 +161,43 @@ final class AuthorizationMiddlewareTest extends TestCase
         $middleware = new AuthorizationMiddleware(
             $this->authServer,
             $this->responseFactory
+        );
+
+        $response = $middleware->process(
+            $this->serverRequest,
+            $this->handler
+        );
+
+        self::assertSame($this->response, $response);
+    }
+
+    public function testAuthorizationRequestRaisingUnknownExceptionLogsError(): void
+    {
+        $exception = new RuntimeException('An internal error occurred');
+
+        $this->authServer->expects(self::once())
+            ->method('validateAuthorizationRequest')
+            ->with($this->serverRequest)
+            ->willThrowException($exception);
+
+        $logger = $this->createMock(LoggerInterface::class);
+        $logger->expects(self::once())
+            ->method('error')
+            ->with(
+                'Authorization request error',
+                ['exception' => $exception]
+            );
+
+        $body = $this->createMock(StreamInterface::class);
+        $body->method('write');
+        $this->response->method('getBody')->willReturn($body);
+        $this->response->method('withHeader')->willReturnSelf();
+        $this->response->method('withStatus')->willReturnSelf();
+
+        $middleware = new AuthorizationMiddleware(
+            $this->authServer,
+            $this->responseFactory,
+            $logger
         );
 
         $response = $middleware->process(
