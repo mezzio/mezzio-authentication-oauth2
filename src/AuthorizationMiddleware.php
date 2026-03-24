@@ -14,6 +14,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Log\LoggerInterface;
 
 use function is_callable;
 
@@ -41,10 +42,12 @@ class AuthorizationMiddleware implements MiddlewareInterface
     /** @var ResponseFactoryInterface */
     protected $responseFactory;
 
+    protected ?LoggerInterface $logger;
+
     /**
      * @param (callable():ResponseInterface)|ResponseFactoryInterface $responseFactory
      */
-    public function __construct(AuthorizationServer $server, $responseFactory)
+    public function __construct(AuthorizationServer $server, $responseFactory, ?LoggerInterface $logger = null)
     {
         $this->server = $server;
         if (is_callable($responseFactory)) {
@@ -54,6 +57,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
         }
 
         $this->responseFactory = $responseFactory;
+        $this->logger          = $logger;
     }
 
     /**
@@ -75,8 +79,9 @@ class AuthorizationMiddleware implements MiddlewareInterface
             // for example when the client id is invalid
             return $exception->generateHttpResponse($response);
         } catch (BaseException $exception) {
+            $this->logger?->error('Authorization request error', ['exception' => $exception]);
             $response = $this->responseFactory->createResponse();
-            return (new OAuthServerException($exception->getMessage(), 0, 'unknown_error', 500))
+            return (new OAuthServerException('An internal error occurred', 0, 'unknown_error', 500))
                 ->generateHttpResponse($response);
         }
     }
