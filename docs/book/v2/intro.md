@@ -128,8 +128,6 @@ you can extend this array to add your own custom grants.
 
 ### Configure Event Listeners
 
-- **Since 1.3.0**
-
 _Optional_ The `event_listeners` and `event_listener_providers` arrays may be used to enable event listeners for events published by `league\oauth2-server`. See the [Authorization Server Domain Events documentation](https://oauth2.thephpleague.com/authorization-server/events/). The possible event names can be found [in `League\OAuth2\Server\RequestEvent`](https://github.com/thephpleague/oauth2-server/blob/948b278fc873d06f46b1be9b3478eb8e9ca4345b/src/RequestEvent.php#L20-L25).
 
 #### Event Listeners
