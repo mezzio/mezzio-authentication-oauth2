@@ -5,11 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="OAuth2 (server) for Mezzio and PSR-7 applications."> 
+    <meta name="description" content="OAuth2 (server) authentication middleware for Mezzio and PSR-7 applications."> 
 
     
     
-    <meta name="docsearch:version" content="latest">
+        
+    
+    <meta name="docsearch:version" content="3.0.0,latest">
     <meta name="docsearch:language" content="en">
     <meta name="docsearch:component" content="mezzio-authentication-oauth2">
 
@@ -125,12 +127,6 @@
 
                     
                     
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../../intro/" class="subnavigation__link">Introduction</a>
-                            </li>
-                        
-                    
                 
             
 
@@ -139,86 +135,80 @@
 
                     
                     
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../../usage/" class="subnavigation__link">Usage</a>
-                            </li>
-                        
-                    
                 
             
 
                 
                 
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../intro/" class="subnavigation__link">Introduction</a>
+    </li>
 
                     
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../installation/" class="subnavigation__link">Installation</a>
+    </li>
+
                     
                         
-                            <li class="subnavigation__list-item ">
-                                <a href="../../authorization-server/" class="subnavigation__link">Authorization server</a>
-                            </li>
-                        
+    <li class="subnavigation__list-item ">
+        <a href="../../basic-usage/" class="subnavigation__link">Basic Usage</a>
+    </li>
+
                     
-                
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../authorization-server/" class="subnavigation__link">Authorization server</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../authenticated-user/" class="subnavigation__link">Authenticated user</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Grant</span>
+        <ul class="subnavigation__list">
             
-
                 
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../../authenticated-user/" class="subnavigation__link">Authenticated user</a>
-                            </li>
-                        
-                    
-                
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item">
-                                <span class="subnavigation__headline">Grant</span>
-                                <ul class="subnavigation__list">
-                                    
-                                        
     <li class="subnavigation__list-item ">
         <a href="../client_credentials/" class="subnavigation__link">Client credentials</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../password/" class="subnavigation__link">Password</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../auth_code/" class="subnavigation__link">Authorization code</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../implicit/" class="subnavigation__link">Implicit</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item subnavigation__list-item--active">
         <a href="./" class="subnavigation__link">Refresh token</a>
     </li>
 
-                                    
-                                </ul>
-                            </li>
-                        
+            
+        </ul>
+    </li>
+
                     
                 
             
@@ -268,6 +258,43 @@
             <div class="col-4 text-right">
                 
                     
+<div class="version-selector">
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            
+                v1
+            
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            
+                
+                    <a href="../../../v3/intro/" class="dropdown-item">
+                        
+                            v3 (latest)
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../../v2/intro/" class="dropdown-item">
+                        
+                            v2
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../intro/" class="dropdown-item active">
+                        
+                            v1
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
 
                     <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
                         <i class="bi bi-search"></i> Search
@@ -315,6 +342,11 @@
                     
                         
                         
+                    
+                
+                    
+                        
+                        
                             <li class="breadcrumb-item">Grant</li>
                         
                     
@@ -328,6 +360,14 @@
 
 
 
+    <div class="alert alert-danger" role="alert">
+        <h4>Caution</h4>
+        <p>
+            The documentation you are viewing is for an older version of this component.<br>
+            <a href="../../..">Switch to the latest (v3) version.</a>
+        </p>
+    </div>
+
 
 
 
@@ -336,7 +376,7 @@
         <h2 class="chapter__headline">Grant</h2>
     
 
-    <h1 id="refresh-token">Refresh token</h1>
+    <h1 id="refresh-token">Refresh Token</h1>
 <p>The OAuth2 framework provides the ability to <em>refresh</em> the access token,
 generating a new one with a new lifetime. This action can be performed using
 the <code>refresh_token</code> value, if present in the access token response.</p>
@@ -438,12 +478,6 @@ the following parameters:</p>
 
                     
                     
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../../intro/" class="subnavigation__link">Introduction</a>
-                            </li>
-                        
-                    
                 
             
 
@@ -452,86 +486,80 @@ the following parameters:</p>
 
                     
                     
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../../usage/" class="subnavigation__link">Usage</a>
-                            </li>
-                        
-                    
                 
             
 
                 
                 
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../intro/" class="subnavigation__link">Introduction</a>
+    </li>
 
                     
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../installation/" class="subnavigation__link">Installation</a>
+    </li>
+
                     
                         
-                            <li class="subnavigation__list-item ">
-                                <a href="../../authorization-server/" class="subnavigation__link">Authorization server</a>
-                            </li>
-                        
+    <li class="subnavigation__list-item ">
+        <a href="../../basic-usage/" class="subnavigation__link">Basic Usage</a>
+    </li>
+
                     
-                
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../authorization-server/" class="subnavigation__link">Authorization server</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../authenticated-user/" class="subnavigation__link">Authenticated user</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Grant</span>
+        <ul class="subnavigation__list">
             
-
                 
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../../authenticated-user/" class="subnavigation__link">Authenticated user</a>
-                            </li>
-                        
-                    
-                
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item">
-                                <span class="subnavigation__headline">Grant</span>
-                                <ul class="subnavigation__list">
-                                    
-                                        
     <li class="subnavigation__list-item ">
         <a href="../client_credentials/" class="subnavigation__link">Client credentials</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../password/" class="subnavigation__link">Password</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../auth_code/" class="subnavigation__link">Authorization code</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../implicit/" class="subnavigation__link">Implicit</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item subnavigation__list-item--active">
         <a href="./" class="subnavigation__link">Refresh token</a>
     </li>
 
-                                    
-                                </ul>
-                            </li>
-                        
+            
+        </ul>
+    </li>
+
                     
                 
             

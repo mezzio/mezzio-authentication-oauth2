@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OAuth2 (server) authentication middleware for Mezzio and PSR-7 applications."> 
+
+    
+    
+        
+    
+    <meta name="docsearch:version" content="3.0.0,latest">
+    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:component" content="mezzio-authentication-oauth2">
+
+    <link rel="canonical" href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v3/intro/">
+    <link rel="shortcut icon" href="https://docs.laminas.dev/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Introduction - mezzio-authentication-oauth2 - Laminas Docs</title>
+
+    <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
+    
+</head>
+<body id="page-top" class="mezzio" data-spy="scroll" data-target=".toc" data-offset="20">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown sub-project-selector">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a href="https://docs.mezzio.dev/" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/mezzio-logo.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>Mezzio</strong><br>
+                                        PSR-15 Middleware in Minutes
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://docs.laminas.dev/components/" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-components-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>Components</strong><br>
+                                        Components for Enterprise Applications
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/migration/">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 offset-md-4 col-sm-12">
+                                        Migration to Laminas
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/tutorials/">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 offset-md-4 col-sm-12">
+                                        Tutorials
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/mvc">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 offset-md-4 col-sm-12">
+                                        MVC <small><em>(security-only maintenance mode)</em></small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">
+                
+                
+    mezzio-authentication-oauth2
+
+            </a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Introduction</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../installation/" class="subnavigation__link">Installation</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../basic-usage/" class="subnavigation__link">Basic Usage</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../authorization-server/" class="subnavigation__link">Authorization server</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../authenticated-user/" class="subnavigation__link">Authenticated user</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Grant</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../grant/client_credentials/" class="subnavigation__link">Client credentials</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../grant/password/" class="subnavigation__link">Password</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../grant/auth_code/" class="subnavigation__link">Authorization code</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../grant/implicit/" class="subnavigation__link">Implicit</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../grant/refresh_token/" class="subnavigation__link">Refresh token</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Migration</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/v2-to-v3/" class="subnavigation__link">Migration from Version 2 to 3</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-8">
+                <h1 class="header__title">
+                    Mezzio
+
+                    
+                        <small class="header__subtitle">
+                            
+                            
+    mezzio-authentication-oauth2
+
+                        </small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-right">
+                
+                    
+<div class="version-selector">
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            
+                v3
+            
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            
+                
+                    <a href="./" class="dropdown-item active">
+                        
+                            v3 (latest)
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../v2/intro/" class="dropdown-item">
+                        
+                            v2
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../v1/intro/" class="dropdown-item">
+                        
+                            v1
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="bi bi-search"></i> Search
+                    </a>
+                    <a href="https://github.com/mezzio/mezzio-authentication-oauth2" class="header__link header__link--github" title="Go to repository of mezzio-authentication-oauth2">
+                        <i class="bi-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12 content" role="main">
+                
+                
+                    
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#generate-keys" class="toc__link nav-link">Generate Keys</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#configuration" class="toc__link nav-link">Configuration</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#oauth2-database" class="toc__link nav-link">OAuth2 Database</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#configure-oauth2-routes" class="toc__link nav-link">Configure OAuth2 Routes</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+                
+
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="https://docs.laminas.dev/">Overview</a></li>
+            <li class="breadcrumb-item"><a href="https://docs.mezzio.dev/">Mezzio</a></li>
+
+            
+                <li class="breadcrumb-item">
+                    <a href="../..">
+                        
+    mezzio-authentication-oauth2
+
+                    </a>
+                </li>
+
+                
+                    
+                        
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Introduction</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+
+    <h1 id="introduction">Introduction</h1>
+<p>This component provides <a href="https://oauth.net/2/">OAuth2</a> (server) authentication
+for <a href="https://docs.mezzio.dev/mezzio/">Mezzio</a> and
+<a href="https://www.php-fig.org/psr/psr-7/">PSR-7</a>/<a href="https://www.php-fig.org/psr/psr-15/">PSR-15</a>
+applications. It implements <code>Mezzio\Authentication\AuthenticationInterface</code>,
+and it can be used as an adapter for <a href="https://github.com/mezzio/mezzio-authentication">mezzio-authentication</a>.</p>
+<p>This library uses the <a href="https://oauth2.thephpleague.com/">league/oauth2-server</a>
+package for implementing the OAuth2 server.</p>
+<p>If you need an introduction to OAuth2, you can read the following references:</p>
+<ul>
+<li><a href="https://api-tools.getlaminas.org/documentation/auth/authentication-oauth2">OAuth2 documentation</a>
+  from the Laminas API Tools project.</li>
+<li><a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2">An Introduction to OAuth 2</a>
+  by DigitalOcean.</li>
+<li>The <a href="https://oauth.net/2/">OAuth2 specification</a> itself, via its official
+  website.</li>
+</ul>
+<h2 id="generate-keys">Generate Keys</h2>
+<p>In order to implement the OAuth2 server, we first need to configure it. The
+first step is to generate new cryptographic keys. We need to execute the script
+<code>./vendor/bin/generate-oauth2-keys</code> in order to generate these keys.</p>
+<pre class="highlight"><code class="language-bash">$ ./vendor/bin/generate-oauth2-keys</code></pre>
+<p>This script will store the keys in the application's <code>data</code> folder if found:</p>
+<pre class="highlight"><code class="language-text">Private key stored in:
+./data/oauth/private.key
+Public key stored in:
+./data/oauth/public.key
+Encryption key stored in:
+./data/oauth/encryption.key</code></pre>
+<p>The script will generate public and private keys, and an encryption key.
+These keys are used by <a href="https://oauth2.thephpleague.com/">league/oauth2-server</a>
+as security settings for the OAuth2 server infrastructure.</p>
+<h2 id="configuration">Configuration</h2>
+<p>The OAuth2 server is configured by the <code>authentication</code> configuration key in the
+PSR-11 container (e.g. <a href="https://github.com/laminas/laminas-servicemanager">laminas-servicemanager</a>).</p>
+<p>The default values are:</p>
+<pre class="highlight"><code class="language-php">use League\OAuth2\Server\Grant;
+
+return [
+    'private_key'    =&gt; __DIR__ . '/../data/oauth/private.key',
+    'public_key'     =&gt; __DIR__ . '/../data/oauth/public.key',
+    'encryption_key' =&gt; require __DIR__ . '/../data/oauth/encryption.key',
+    'access_token_expire'  =&gt; 'P1D',
+    'refresh_token_expire' =&gt; 'P1M',
+    'auth_code_expire'     =&gt; 'PT10M',
+    'pdo' =&gt; [
+        'dsn'      =&gt; '',
+        'username' =&gt; '',
+        'password' =&gt; ''
+    ],
+
+    // Set value to null to disable a grant
+    'grants' =&gt; [
+        Grant\ClientCredentialsGrant::class =&gt; Grant\ClientCredentialsGrant::class,
+        Grant\PasswordGrant::class          =&gt; Grant\PasswordGrant::class,
+        Grant\AuthCodeGrant::class          =&gt; Grant\AuthCodeGrant::class,
+        Grant\ImplicitGrant::class          =&gt; Grant\ImplicitGrant::class,
+        Grant\RefreshTokenGrant::class      =&gt; Grant\RefreshTokenGrant::class
+    ],
+];</code></pre>
+<p>The <code>private_key</code> and <code>public_key</code> values contains the paths to the previous
+generated pair of keys. The <code>encryption_key</code> contains the encryption key value
+as a string, as stored in the <code>data/oauth/encryption.key</code> file.</p>
+<p>By default both key files are checked for correct permissions (chmod 400, 440,
+600, 640 or 660 is expected, and 600 or 660 is recommended). In case the
+environment/operating system (e.g. Windows) does not support such a permissions,
+the check can be disabled:</p>
+<pre class="highlight"><code class="language-php">    // ...
+    'private_key' =&gt; [
+        'key_or_path' =&gt; __DIR__ . '/../data/oauth/private.key',
+        'key_permissions_check' =&gt; false,
+    ],
+    // ...</code></pre>
+<p>The <code>access_token_expire</code> value is the time-to-live (TTL) value of the access
+token. The time period is represented using the <a href="https://php.net/manual/class.dateinterval.php">DateInterval</a>
+format in PHP.  The default value is <code>P1D</code> (1 day).</p>
+<p>The <code>refresh_token_expire</code> value is the TTL used for the refresh token. The
+default value is 1 month.</p>
+<p>The <code>auth_code_expire</code> value is the TTL of the authentication code, used in
+the <a href="https://oauth2.thephpleague.com/authorization-server/auth-code-grant/">authorization code grant</a>
+scenario. The default value is 10 minutes.</p>
+<p>The <code>pdo</code> value is for the PDO database configuration. Here we need to insert
+the parameters to access the OAuth2 database. These parameters are the <code>dsn</code>,
+the <code>username</code>, and the <code>password</code>, if required. The SQL structure of this
+database is stored in the <a href="https://github.com/mezzio/mezzio-authentication-oauth2/blob/master/data/oauth2.sql">data/oauth2.sql</a>
+file.</p>
+<p>If you already have a PDO service configured, you can instead pass the service
+name to the <code>pdo</code> key as follows:</p>
+<pre class="highlight"><code class="language-php">return [
+    'pdo' =&gt; 'myServiceName',
+];</code></pre>
+<p>The <code>grants</code> array is for enabling/disabling grants. By default, all the supported
+grants are configured to be available. If you would like to disable any of the
+supplied grants, change the value for the grant to <code>null</code>. Additionally,
+you can extend this array to add your own custom grants.</p>
+<h3 id="configure-event-listeners">Configure Event Listeners</h3>
+<p><em>Optional</em> The <code>event_listeners</code> and <code>event_listener_providers</code> arrays may be used to enable event listeners for events published by <code>league\oauth2-server</code>. See the <a href="https://oauth2.thephpleague.com/authorization-server/events/">Authorization Server Domain Events documentation</a>. The possible event names can be found <a href="https://github.com/thephpleague/oauth2-server/blob/948b278fc873d06f46b1be9b3478eb8e9ca4345b/src/RequestEvent.php#L20-L25">in <code>League\OAuth2\Server\RequestEvent</code></a>.</p>
+<h4 id="event-listeners">Event Listeners</h4>
+<p>The <code>event_listeners</code> key must contain an array of arrays. Each array element must contain at least 2 elements and may include a 3rd element. These roughly correspond to the arguments passed to <a href="https://github.com/thephpleague/event/blob/ec38ff7ea10cad7d99a79ac937fbcffb9334c210/src/ListenerRegistry.php#L9"><code>League\Event\ListenerRegistry::subscribeTo()</code></a>. The first element must be a string (the named event). The second element must be either a callable, a concrete instance of <code>League\Event\Listener</code>, or a string pointing to your listener service instance in the container. The third element is optional, and must be an integer if provided.</p>
+<p>See the <a href="https://event.thephpleague.com/3.0/usage/subscribing-to-events/">documentation for callable listeners</a>.</p>
+<h4 id="event-listener-providers">Event Listener Providers</h4>
+<p>The <code>event_listener_providers</code> key must contain an array. Each array element must contain either a concrete instance of <code>League\Event\ListenerSubscriber</code> or a string pointing to your container service instance of a listener provider.</p>
+<p>See the <a href="https://event.thephpleague.com/3.0/extra-utilities/listener-subscriber/">documentation for listener providers</a>.</p>
+<p>Example config:</p>
+<pre class="highlight"><code class="language-php">return [    
+    'event_listeners' =&gt; [
+        // using a container service
+        [
+            \League\OAuth2\Server\RequestEvent::CLIENT_AUTHENTICATION_FAILED,
+            \My\Event\Listener\Service::class,
+        ],
+        // using a callable
+        [
+            \League\OAuth2\Server\RequestEvent::ACCESS_TOKEN_ISSUED,
+            function (\League\OAuth2\Server\RequestEvent $event) {
+                // do something
+            },
+        ],
+    ],
+    'event_listener_providers' =&gt; [
+        \My\Event\ListenerProvider\Service::class,
+    ],
+];</code></pre>
+<h2 id="oauth2-database">OAuth2 Database</h2>
+<p>You need to provide an OAuth2 database yourself, or generate a <a href="https://www.sqlite.org">SQLite</a>
+database with the following command (using <code>sqlite3</code> for GNU/Linux):</p>
+<pre class="highlight"><code class="language-bash">$ sqlite3 data/oauth2.sqlite &lt; vendor/mezzio/mezzio-authentication-oauth2/data/oauth2.sql</code></pre>
+<p>You can also create some testing values using the <code>data/oauth2_test.sql</code> file:</p>
+<pre class="highlight"><code class="language-bash">$ sqlite3 data/oauth2.sqlite &lt; vendor/mezzio/mezzio-authentication-oauth2/data/oauth2_test.sql</code></pre>
+<p>These commands will insert the following testing values:</p>
+<ul>
+<li>a client <code>client_test</code> with secret <code>test</code>, used for <a href="../grant/client_credentials/">client_credentials</a>
+  and the <a href="../grant/password/">password</a> grant type.</li>
+<li>a client <code>client_test2</code> with secret <code>test</code>, used for <a href="../grant/auth_code/">authorization code</a>
+  and <a href="../grant/implicit/">implicit</a> grant type.</li>
+<li>a user <code>user_test</code> with password <code>test</code>.</li>
+<li>a <code>test</code> scope.</li>
+</ul>
+<p>For security reason, the client <code>secret</code> and the user <code>password</code> are stored
+using the <code>bcrypt</code> algorithm as used by the <a href="https://php.net/manual/function.password-hash.php">password_hash</a>
+function.</p>
+<h2 id="configure-oauth2-routes">Configure OAuth2 Routes</h2>
+<p>As the final step, in order to use the OAuth2 server you need to configure the routes
+for the <strong>token endpoint</strong> and <strong>authorization</strong>.</p>
+<p>You can read how add the <strong>token endpoint</strong> and the <strong>authorization</strong> routes in
+the <a href="../authorization-server/">Implement an authorization server</a> section.</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../..">
+                    <small class="page-nav__label">Previous</small>
+                    <i class="bi bi-arrow-left"></i>
+                    Home
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../installation/">
+                    <small class="page-nav__label">Next</small>
+                    Installation
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                <div class="donation-banner">
+    <a href="https://getlaminas.org/support/">
+        <h2>Donate</h2>
+        <p>Support Laminas Developers Directly</p>
+        <img src="https://funding.communitybridge.org/assets/cb-f-horizontal-white.svg">
+    </a>
+</div>
+
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">
+                
+                
+    mezzio-authentication-oauth2
+
+            </a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Introduction</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../installation/" class="subnavigation__link">Installation</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../basic-usage/" class="subnavigation__link">Basic Usage</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../authorization-server/" class="subnavigation__link">Authorization server</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../authenticated-user/" class="subnavigation__link">Authenticated user</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Grant</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../grant/client_credentials/" class="subnavigation__link">Client credentials</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../grant/password/" class="subnavigation__link">Password</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../grant/auth_code/" class="subnavigation__link">Authorization code</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../grant/implicit/" class="subnavigation__link">Implicit</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../grant/refresh_token/" class="subnavigation__link">Refresh token</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Migration</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/v2-to-v3/" class="subnavigation__link">Migration from Version 2 to 3</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+        </ul>
+    </div>
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="bi bi-arrow-up-square" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h5 class="text-white">Laminas – The Linux Foundation's only PHP project</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas Components <a href="https://docs.laminas.dev/components">Enterprise-ready PHP components</a></li>
+                    <li>Maintenance Overview <a href="https://getlaminas.org/packages-maintenance-status/">Current maintenance status of Laminas &amp; Mezzio packages</a></li>
+                    <li>Laminas Integrations <a href="https://getlaminas.org/integrations/">List of packages using Laminas & Mezzio components</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+
+                    
+                    <div class="col-md-4">
+                        <h5 class="footer__headline text-white">Support</h5>
+                        <ul class="support__list">
+                            <li class="support__list-item">
+                                <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="bi-chat-text-fill"></i><span class="visually-hidden">Laminas &amp; Mezzio Forum</span></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="bi-slack"></i><span class="visually-hidden">Laminas Community Slack</span></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="bi-github"></i><span class="visually-hidden">Laminas GitHub Organisation Page</span></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://phpc.social/@getlaminas" class="support__link" title="Mastodon"><i class="bi-mastodon"></i><span class="visually-hidden">Laminas on Mastodon</span></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://getlaminas.org/blog/rss.xml" class="support__link" title="Blog feed"><i class="bi-rss"></i><span class="visually-hidden">Blog article RSS Feed</span></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed">
+                                    <i class="bi-rss-fill"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="col-md-4">
+                        <h5 class="footer__headline text-white">License</h5>
+                        <p>
+                            Code licensed under <a
+                                href="https://github.com/mezzio/mezzio-authentication-oauth2/blob/-/LICENSE.md">BSD 3-Clause</a>.
+                        </p>
+                    </div>
+
+                    
+                    <div class="col-md-4">
+                        <h5 class="footer__headline text-white">Copyright</h5>
+                        <p>
+                            <!--Built with love by the Laminas team with the help of our
+                            <a href="https://github.com/mezzio/mezzio-authentication-oauth2/graphs/contributors">contributors</a>.<br>-->
+                            &copy; 2026 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "mezzio",
+            siteName = 'mezzio-authentication-oauth2';
+    </script>
+    <script src="https://docs.laminas.dev/js/scripts.js"></script>
+    
+        <script src="../../search/main.js"></script>
+    
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in mezzio-authentication-oauth2" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

@@ -5,11 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="OAuth2 (server) for Mezzio and PSR-7 applications."> 
+    <meta name="description" content="OAuth2 (server) authentication middleware for Mezzio and PSR-7 applications."> 
 
     
     
-    <meta name="docsearch:version" content="latest">
+        
+    
+    <meta name="docsearch:version" content="3.0.0,latest">
     <meta name="docsearch:language" content="en">
     <meta name="docsearch:component" content="mezzio-authentication-oauth2">
 
@@ -125,12 +127,6 @@
 
                     
                     
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../intro/" class="subnavigation__link">Introduction</a>
-                            </li>
-                        
-                    
                 
             
 
@@ -139,86 +135,80 @@
 
                     
                     
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../usage/" class="subnavigation__link">Usage</a>
-                            </li>
-                        
-                    
                 
             
 
                 
                 
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
 
                     
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../installation/" class="subnavigation__link">Installation</a>
+    </li>
+
                     
                         
-                            <li class="subnavigation__list-item subnavigation__list-item--active">
-                                <a href="./" class="subnavigation__link">Authorization server</a>
-                            </li>
-                        
+    <li class="subnavigation__list-item ">
+        <a href="../basic-usage/" class="subnavigation__link">Basic Usage</a>
+    </li>
+
                     
-                
+                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Authorization server</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../authenticated-user/" class="subnavigation__link">Authenticated user</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Grant</span>
+        <ul class="subnavigation__list">
             
-
                 
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../authenticated-user/" class="subnavigation__link">Authenticated user</a>
-                            </li>
-                        
-                    
-                
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item">
-                                <span class="subnavigation__headline">Grant</span>
-                                <ul class="subnavigation__list">
-                                    
-                                        
     <li class="subnavigation__list-item ">
         <a href="../grant/client_credentials/" class="subnavigation__link">Client credentials</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../grant/password/" class="subnavigation__link">Password</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../grant/auth_code/" class="subnavigation__link">Authorization code</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../grant/implicit/" class="subnavigation__link">Implicit</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../grant/refresh_token/" class="subnavigation__link">Refresh token</a>
     </li>
 
-                                    
-                                </ul>
-                            </li>
-                        
+            
+        </ul>
+    </li>
+
                     
                 
             
@@ -268,6 +258,43 @@
             <div class="col-4 text-right">
                 
                     
+<div class="version-selector">
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            
+                v1
+            
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            
+                
+                    <a href="../../v3/intro/" class="dropdown-item">
+                        
+                            v3 (latest)
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../v2/intro/" class="dropdown-item">
+                        
+                            v2
+                        
+                    </a>
+                
+            
+                
+                    <a href="../intro/" class="dropdown-item active">
+                        
+                            v1
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
 
                     <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
                         <i class="bi bi-search"></i> Search
@@ -297,15 +324,15 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#add-the-token-endpoint" class="toc__link nav-link">Add the token endpoint</a>
+                        <a href="#add-the-token-endpoint" class="toc__link nav-link">Add the Token Endpoint</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#parsing-json-payloads-in-the-token-endpoint" class="toc__link nav-link">Parsing JSON payloads in the token endpoint</a>
+                        <a href="#parsing-json-payloads-in-the-token-endpoint" class="toc__link nav-link">Parsing JSON Payloads in the Token Endpoint</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#add-the-authorization-endpoint" class="toc__link nav-link">Add the authorization endpoint</a>
+                        <a href="#add-the-authorization-endpoint" class="toc__link nav-link">Add the Authorization Endpoint</a>
                     </li>
                 
             </ul>
@@ -331,6 +358,11 @@
                 </li>
 
                 
+                    
+                        
+                        
+                    
+                
 
                 <li class="breadcrumb-item active" aria-current="page">Authorization server</li>
             
@@ -340,18 +372,26 @@
 
 
 
+    <div class="alert alert-danger" role="alert">
+        <h4>Caution</h4>
+        <p>
+            The documentation you are viewing is for an older version of this component.<br>
+            <a href="../..">Switch to the latest (v3) version.</a>
+        </p>
+    </div>
+
 
 
 
     
     
 
-    <h1 id="implement-an-authorization-server">Implement an authorization server</h1>
+    <h1 id="authorization-server">Authorization Server</h1>
 <p>This library provides the basics for implementing an authorization server
 for your application.</p>
 <p>Since there are authorization flows that require user interaction,
 <strong>your application is expected to provide the middleware to handle this</strong>.</p>
-<h2 id="add-the-token-endpoint">Add the token endpoint</h2>
+<h2 id="add-the-token-endpoint">Add the Token Endpoint</h2>
 <p>Adding the token endpoint involves routing to the provided
 <code>Mezzio\Authentication\OAuth2\TokenEndpointHandler</code>.</p>
 <p>This endpoint <strong>MUST</strong> accept <code>POST</code> requests.</p>
@@ -359,7 +399,7 @@ for your application.</p>
 <pre class="highlight"><code class="language-php">use Mezzio\Authentication\OAuth2;
 
 $app-&gt;post('/oauth2/token', OAuth2\TokenEndpointHandler::class);</code></pre>
-<h2 id="parsing-json-payloads-in-the-token-endpoint">Parsing JSON payloads in the token endpoint</h2>
+<h2 id="parsing-json-payloads-in-the-token-endpoint">Parsing JSON Payloads in the Token Endpoint</h2>
 <p>To enable the token endpoint to handle the POST requests in JSON, the <a href="https://docs.mezzio.dev/mezzio/v3/features/helpers/body-parse/">Body Parsing Middleware</a> helper must be included in the application.</p>
 <p>For example:</p>
 <pre class="highlight"><code class="language-php">use Mezzio\Authentication\OAuth2;
@@ -374,7 +414,7 @@ $app-&gt;post('/oauth2/token', [
 <p>Do not pipe the body parsing middleware as generic middleware.
 This ensures that the content body is only parsed when it is actually expected.</p>
 </div>
-<h2 id="add-the-authorization-endpoint">Add the authorization endpoint</h2>
+<h2 id="add-the-authorization-endpoint">Add the Authorization Endpoint</h2>
 <p>The authorization endpoint is the URL to which the client redirects
 to obtain an access token or authorization code.</p>
 <p>This endpoint <strong>MUST</strong> accept <code>GET</code> requests and should:</p>
@@ -474,10 +514,10 @@ class OAuthAuthorizationMiddleware implements MiddlewareInterface
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../usage/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../basic-usage/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-arrow-left"></i>
-                    Usage
+                    Basic Usage
                 </a>
             
         </li>
@@ -538,12 +578,6 @@ class OAuthAuthorizationMiddleware implements MiddlewareInterface
 
                     
                     
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../intro/" class="subnavigation__link">Introduction</a>
-                            </li>
-                        
-                    
                 
             
 
@@ -552,86 +586,80 @@ class OAuthAuthorizationMiddleware implements MiddlewareInterface
 
                     
                     
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../usage/" class="subnavigation__link">Usage</a>
-                            </li>
-                        
-                    
                 
             
 
                 
                 
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
 
                     
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../installation/" class="subnavigation__link">Installation</a>
+    </li>
+
                     
                         
-                            <li class="subnavigation__list-item subnavigation__list-item--active">
-                                <a href="./" class="subnavigation__link">Authorization server</a>
-                            </li>
-                        
+    <li class="subnavigation__list-item ">
+        <a href="../basic-usage/" class="subnavigation__link">Basic Usage</a>
+    </li>
+
                     
-                
+                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Authorization server</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../authenticated-user/" class="subnavigation__link">Authenticated user</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Grant</span>
+        <ul class="subnavigation__list">
             
-
                 
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../authenticated-user/" class="subnavigation__link">Authenticated user</a>
-                            </li>
-                        
-                    
-                
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item">
-                                <span class="subnavigation__headline">Grant</span>
-                                <ul class="subnavigation__list">
-                                    
-                                        
     <li class="subnavigation__list-item ">
         <a href="../grant/client_credentials/" class="subnavigation__link">Client credentials</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../grant/password/" class="subnavigation__link">Password</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../grant/auth_code/" class="subnavigation__link">Authorization code</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../grant/implicit/" class="subnavigation__link">Implicit</a>
     </li>
 
-                                    
-                                        
+            
+                
     <li class="subnavigation__list-item ">
         <a href="../grant/refresh_token/" class="subnavigation__link">Refresh token</a>
     </li>
 
-                                    
-                                </ul>
-                            </li>
-                        
+            
+        </ul>
+    </li>
+
                     
                 
             
