@@ -96,7 +96,7 @@ the check can be disabled:
 ```
 
 The `access_token_expire` value is the time-to-live (TTL) value of the access
-token. The time period is represented using the [DateInterval](http://php.net/manual/en/class.dateinterval.php)
+token. The time period is represented using the [DateInterval](https://php.net/manual/class.dateinterval.php)
 format in PHP.  The default value is `P1D` (1 day).
 
 The `refresh_token_expire` value is the TTL used for the refresh token. The
@@ -193,7 +193,7 @@ These commands will insert the following testing values:
 - a `test` scope.
 
 For security reason, the client `secret` and the user `password` are stored
-using the `bcrypt` algorithm as used by the [password_hash](http://php.net/manual/en/function.password-hash.php)
+using the `bcrypt` algorithm as used by the [password_hash](https://php.net/manual/function.password-hash.php)
 function.
 
 ## Configure OAuth2 Routes
