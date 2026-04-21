@@ -136,3 +136,10 @@ class OAuthAuthorizationMiddleware implements MiddlewareInterface
     }
 }
 ```
+
+## Use Logging in the Middleware
+
+The middleware `Mezzio\Authentication\OAuth2\AuthorizationMiddleware` provided by this library logs all errors that occur during authorization requests.
+If a service that implements `Psr\Log\LoggerInterface` is registered in the application, the logger is automatically added to the middleware via its factory.
+
+The log entries contain the message "Authorization request error" and the entire exception.
