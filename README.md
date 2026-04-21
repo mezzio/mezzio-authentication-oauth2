@@ -19,7 +19,7 @@
 > You trust us enough to use our software. We ask that you trust us to say the truth on this. We need your help. Go out and protest this unnecessary war. Stop the bloodshed. Say "stop the war!"
 
 Laminas-mezzio-authentication-oauth2 is middleware for [Mezzio](https://github.com/mezzio/mezzio)
-and [PSR-7](http://www.php-fig.org/psr/psr-7/) applications providing an OAuth2
+and [PSR-7](https://www.php-fig.org/psr/psr-7/) applications providing an OAuth2
 server for authentication.
 
 This library uses the [league/oauth2-server](https://oauth2.thephpleague.com/)

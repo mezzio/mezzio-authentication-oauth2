@@ -1,8 +1,8 @@
-# Usage
+# Basic Usage
 
 If you successfully configured the OAuth2 server as detailed in the
-[installation](intro.md) section, you can request an access token using the
-OAuth2 server route you [defined](intro.md#configure-the-oauth2-route)
+[introduction](intro.md) section, you can request an access token using the
+OAuth2 server route you [defined](authorization-server.md)
 (e.g. `/oauth`).
 
 You can require an access token using one of the following scenarios:
@@ -13,7 +13,7 @@ You can require an access token using one of the following scenarios:
 - [implicit](grant/implicit.md);
 - [refresh token](grant/refresh_token.md).
 
-## Authenticate a middleware
+## Authenticate a Middleware
 
 This library uses the authentication abstraction of the `Mezzio\Authentication\AuthenticationMiddleware`
 class provided by [mezzio-authentication](https://github.com/mezzio/mezzio-authentication).
@@ -54,7 +54,7 @@ $app->post('/api/users', [
 ], 'api.add.user');
 ```
 
-## Providing an authorization server
+## Providing an Authorization Server
 
 See the chapter [Authorization server](authorization-server.md) for details on how
 to implement this.
