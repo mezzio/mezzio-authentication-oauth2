@@ -68,7 +68,7 @@ final class AccessTokenRepositoryTest extends TestCase
 
         $this->pdo->expects(self::once())
             ->method('prepare')
-            ->with(self::callback(function (string $arg): bool {
+            ->with(self::callback(static function (string $arg): bool {
                 self::assertStringContainsString('INSERT INTO oauth_access_tokens', $arg);
 
                 return true;
@@ -93,7 +93,7 @@ final class AccessTokenRepositoryTest extends TestCase
 
         $this->pdo->expects(self::once())
             ->method('prepare')
-            ->with(self::callback(function (string $sql): bool {
+            ->with(self::callback(static function (string $sql): bool {
                 self::assertStringContainsString('SELECT revoked FROM oauth_access_tokens', $sql);
 
                 return true;
@@ -117,7 +117,7 @@ final class AccessTokenRepositoryTest extends TestCase
 
         $this->pdo->expects(self::once())
             ->method('prepare')
-            ->with(self::callback(function (string $sql): bool {
+            ->with(self::callback(static function (string $sql): bool {
                 self::assertStringContainsString('SELECT revoked FROM oauth_access_tokens', $sql);
 
                 return true;
@@ -141,7 +141,7 @@ final class AccessTokenRepositoryTest extends TestCase
 
         $this->pdo->expects(self::once())
             ->method('prepare')
-            ->with(self::callback(function (string $sql): bool {
+            ->with(self::callback(static function (string $sql): bool {
                 self::assertStringContainsString('SELECT revoked FROM oauth_access_tokens', $sql);
 
                 return true;
@@ -165,7 +165,7 @@ final class AccessTokenRepositoryTest extends TestCase
 
         $this->pdo->expects(self::once())
             ->method('prepare')
-            ->with(self::callback(function (string $sql): bool {
+            ->with(self::callback(static function (string $sql): bool {
                 self::assertStringContainsString('SELECT revoked FROM oauth_access_tokens', $sql);
 
                 return true;
@@ -189,7 +189,7 @@ final class AccessTokenRepositoryTest extends TestCase
 
         $this->pdo->expects(self::once())
             ->method('prepare')
-            ->with(self::callback(function (string $sql): bool {
+            ->with(self::callback(static function (string $sql): bool {
                 self::assertStringContainsString('SELECT revoked FROM oauth_access_tokens', $sql);
 
                 return true;
@@ -214,7 +214,7 @@ final class AccessTokenRepositoryTest extends TestCase
 
         $this->pdo->expects(self::once())
             ->method('prepare')
-            ->with(self::callback(function (string $sql): bool {
+            ->with(self::callback(static function (string $sql): bool {
                 self::assertStringContainsString('UPDATE oauth_access_tokens SET revoked=:revoked', $sql);
 
                 return true;
