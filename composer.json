@@ -46,13 +46,13 @@
         "webmozart/assert": "^1.10 || ^2.0"
     },
     "require-dev": {
-        "boundwize/structarmed": "^0.17.12",
+        "boundwize/structarmed": "^0.21.0",
         "laminas/internal-tooling": "^1.0.0",
         "laminas/laminas-coding-standard": "^3.1",
         "laminas/laminas-diactoros": "^3.10.0",
         "laminas/laminas-servicemanager": "^4.5.1",
         "phpunit/phpunit": "^11.5.57",
-        "psalm/plugin-phpunit": "^0.19.7",
+        "psalm/plugin-phpunit": "^0.22.0",
         "vimeo/psalm": "^6.20.10"
     },
     "conflict": {
