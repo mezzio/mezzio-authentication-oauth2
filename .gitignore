@@ -8,3 +8,6 @@
 /laminas-mkdoc-theme/
 /phpunit.xml
 /vendor/
+/doc/html/
+/documentation-theme/
+.markdownlint.json
