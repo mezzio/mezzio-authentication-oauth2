@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15db451b52dbe8bebc06460a30c0947c",
+    "content-hash": "8cc6b57ccc511e36b46ea1940c05d097",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -1972,16 +1972,16 @@
         },
         {
             "name": "boundwize/structarmed",
-            "version": "0.21.22",
+            "version": "0.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/boundwize/structarmed.git",
-                "reference": "58a6f9aaa3e81488c0d31a67cc4d0860a2b1dfd8"
+                "reference": "0ca44dc575ed7b7d3720e5067c7192f0432ed6ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/boundwize/structarmed/zipball/58a6f9aaa3e81488c0d31a67cc4d0860a2b1dfd8",
-                "reference": "58a6f9aaa3e81488c0d31a67cc4d0860a2b1dfd8",
+                "url": "https://api.github.com/repos/boundwize/structarmed/zipball/0ca44dc575ed7b7d3720e5067c7192f0432ed6ab",
+                "reference": "0ca44dc575ed7b7d3720e5067c7192f0432ed6ab",
                 "shasum": ""
             },
             "require": {
@@ -2038,7 +2038,7 @@
             ],
             "support": {
                 "issues": "https://github.com/boundwize/structarmed/issues",
-                "source": "https://github.com/boundwize/structarmed/tree/0.21.22"
+                "source": "https://github.com/boundwize/structarmed/tree/0.22.1"
             },
             "funding": [
                 {
@@ -2046,8 +2046,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-15T23:49:03+00:00",
-            "published-time": "2026-11-15T23:49:31+00:00"
+            "time": "2026-11-22T08:33:41+00:00",
+            "published-time": "2026-11-22T08:34:02+00:00"
         },
         {
             "name": "brick/varexporter",
